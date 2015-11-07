@@ -18,6 +18,41 @@ body_text = """
 </xml>
 """
 
+wechat = WechatBasic(token = token， appid = addID, appsecret = appsecret)
+wechat.create_menu({
+    'button':[
+        {
+            'type': 'click',
+            'name': '今日歌曲',
+            'key': 'V1001_TODAY_MUSIC'
+        },
+        {
+            'type': 'click',
+            'name': '歌手简介',
+            'key': 'V1001_TODAY_SINGER'
+        },
+        {
+            'name': '菜单',
+            'sub_button': [
+                {
+                    'type': 'view',
+                    'name': '搜索',
+                    'url': 'http://www.soso.com/'
+                },
+                {
+                    'type': 'view',
+                    'name': '视频',
+                    'url': 'http://v.qq.com/'
+                },
+                {
+                    'type': 'click',
+                    'name': '赞一下我们',
+                    'key': 'V1001_GOOD'
+                }
+            ]
+        }
+    ]})
+
 @app.route('/', methods=['GET', 'POST'])
 def index():
     print "gxd1"
@@ -39,7 +74,6 @@ def index():
     print body_text
     print "======="
     # 实例化 wechat
-    wechat = WechatBasic(token=token)
     # 对签名进行校验
     if wechat.check_signature(signature=signature, timestamp=timestamp, nonce=nonce):
         # 对 XML 数据进行解析 (必要, 否则不可执行 response_text, response_image 等操作)
@@ -51,6 +85,8 @@ def index():
         if message.type == 'text':
             if message.content == 'wechat':
                 response = wechat.response_text(u'^_^')
+            elif message.content == u'运动数据':
+                response = wechat.resonpse_text(u'您今天的运动步数是14，今天的卡路里消耗是2000')
             elif message.content == u'新闻':
                 response = wechat.response_news([
                     {
