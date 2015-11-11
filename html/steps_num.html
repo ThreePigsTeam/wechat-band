@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <title>步数信息</title>
+
+    <link href="./css/bootstrap.css" rel="stylesheet">
+    <link href="./css/color.css" rel="stylesheet">
+    <link href="./css/round.css" rel="stylesheet">
+
+</head>
+<body>
+    <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+    <div class="container" style="padding-top:50px;width:94%">
+        <div id="title">步数情况</div>
+        <div class="row" id="line_chart" style="">
+            <div class="col-xs-12 col-sm-12" id="main" style="height:500px"></div>
+
+            <div class="col-xs-12 col-sm-12" style="padding:150px">
+                <h2>今日步数</h2>
+                <div class="round" style="text-align:center;font-family:'Microsoft YaHei UI';font-size:10em;color:white">
+                    <p id="data_today">
+                        {{ today }}
+                    </p>
+                </div>
+
+                <h2>目标步数</h2>
+                <div class="round" style="background-color:pink;text-align:center;font-family:'Microsoft YaHei UI';font-size:10em;color:white;position:relative;top:10px">
+                    <p id="data_goal">
+                        {{ goal }}
+                    </p>
+                </div>
+
+                <h2>差距步数</h2>
+                {% if (today < goal) %}
+                <div class="round" style="background-color:coral;text-align:center;font-family:'Microsoft YaHei UI';font-size:10em;color:white;position:relative;top:10px">
+                    <p id="data_diff">{{ goal-today }}</p>
+                </div>
+                {% else %}
+                <div class="round" style="background-color:lightgreen;text-align:center;font-family:'Microsoft YaHei UI';font-size:10em;color:white;position:relative;top:10px">
+                    <p id="P1">{{ today - goal }}</p>
+                </div>
+                {% elseif %}
+            </div>
+        </div>
+
+        <div class="row" id="suggestions">
+            <div class="col-xs-12 col-sm-12" style="font-family:'Microsoft YaHei UI';color:black;font-size:4em">
+                <p style="white-space:normal" id="data_suggestion">我是对当天运动信息的描述啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊</p>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- js文件引入 -->
+    <script src="./js/jquery.js"></script>
+    <script src="./js/bootstrap.js"></script>
+
+    <!-- ECharts单文件引入 -->
+    <script src="http://echarts.baidu.com/build/dist/echarts.js"></script>
+    <script type="text/javascript">
+        // 路径配置
+        require.config({
+            paths: {
+                echarts: 'http://echarts.baidu.com/build/dist'
+            }
+        });
+        
+        // 使用
+        require(
+            [
+                'echarts',
+                'echarts/chart/line' // 使用柱状图就加载bar模块，按需加载
+            ],
+            function (ec) {
+                // 基于准备好的dom，初始化echarts图表
+                var myChart = ec.init(document.getElementById('main')); 
+                
+                var option = {
+    title : {
+        text: '近一周每日步数'
+    },
+    tooltip : {
+        trigger: 'axis'
+    },
+    legend: {
+        data:['步数']
+    },
+    calculable : true,
+    xAxis : [
+        {
+            type : 'category',
+            boundaryGap : false,
+            data : ['周一','周二','周三','周四','周五','周六','周日']
+        }
+    ],
+    yAxis : [
+        {
+            type : 'value',
+            axisLabel : {
+                formatter: '{value} '
+            }
+        }
+    ],
+    grid : [
+        {
+            color : {
+                backgroundColor : '#F00',
+                borderColor : '#FF0'
+            }
+        }
+    ],
+    series : [
+        {
+            name:'当日步数',
+            type:'line',
+            data:[8000, 5000, 4000, 6500, 5000, 9000, 10000],
+            markPoint : {
+                data : [
+                    {type : 'max', name: '最大值'},
+                    {type : 'min', name: '最小值'}
+                ]
+            },
+            markLine : {
+                data : [
+                    {type : 'average', name: '平均值'}
+                ]
+            }
+        }
+    ]
+};
+        
+                // 为echarts对象加载数据 
+                myChart.setOption(option); 
+            }
+        );
+    </script>
+</body>
