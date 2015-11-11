@@ -3,9 +3,9 @@
     <meta charset="utf-8">
     <title>步数信息</title>
 
-    <link href="./css/bootstrap.css" rel="stylesheet">
-    <link href="./css/color.css" rel="stylesheet">
-    <link href="./css/round.css" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/bootstrap.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/color.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/round.css') }}" rel="stylesheet">
 
 </head>
 <body>
@@ -33,13 +33,13 @@
                 <h2>差距步数</h2>
                 {% if (today < goal) %}
                 <div class="round" style="background-color:coral;text-align:center;font-family:'Microsoft YaHei UI';font-size:10em;color:white;position:relative;top:10px">
-                    <p id="data_diff">{{ goal-today }}</p>
+                    <p id="data_diff">-{{ goal - today }}</p>
                 </div>
                 {% else %}
                 <div class="round" style="background-color:lightgreen;text-align:center;font-family:'Microsoft YaHei UI';font-size:10em;color:white;position:relative;top:10px">
-                    <p id="P1">{{ today - goal }}</p>
+                    <p id="P1">+{{ today - goal }}</p>
                 </div>
-                {% elseif %}
+                {% endif %}
             </div>
         </div>
 
@@ -113,7 +113,7 @@
         {
             name:'当日步数',
             type:'line',
-            data:[8000, 5000, 4000, 6500, 5000, 9000, 10000],
+            data: {{ data }},
             markPoint : {
                 data : [
                     {type : 'max', name: '最大值'},

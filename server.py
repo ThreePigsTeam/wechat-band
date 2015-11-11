@@ -1,16 +1,17 @@
 # -*- coding: utf-8 -*-
 
-from flask import Flask, request
+from flask import Flask, request, url_for,render_template
 from wechat_sdk import WechatBasic
 app = Flask(__name__)
 
+localAddr = "183.173.41.88"
 appID = "wx77e762983e6c2463"
 appsecret = "96b447b1f7c4dbec926af2ab474edddc"
 token = "asdfasdf"
 
 ranklist = """<xml>
-    <ToUserName><![CDATA[oqjTTvrik4KmYttRuZeePaLEpTUg]]></ToUserName>
-    <FromUserName><![CDATA[gh_a2428a2e8c12]]></FromUserName>
+    <ToUserName><![CDATA[%s]]></ToUserName>
+    <FromUserName><![CDATA[%s]]></FromUserName>
     <CreateTime>123456789</CreateTime>
     <MsgType><![CDATA[hardware]]></MsgType>
     <HardWare>
@@ -22,34 +23,8 @@ ranklist = """<xml>
 
 wechat = WechatBasic(token = token, appid = appID, appsecret = appsecret)
 
-def setTemplateIndustry():
-    print wechat.set_template_industry(3, 38)
-
-#setTemplateIndustry()
-#template_id = wechat.get_template_id("TM00015")
-#print 'template_id: ', template_id
-#wechat.send_template_message(user_id = 'oqjTTvrik4KmYttRuZeePaLEpTUg', template_id = template_id, data = {
-#                   "first": {
-#                       "value":"恭喜你购买成功！",
-#                       "color":"#173177"
-#                   },
-#                   "keynote1":{
-#                       "value":"巧克力",
-#                       "color":"#173177"
-#                   },
-#                   "keynote2": {
-#                       "value":"39.8元",
-#                       "color":"#173177"
-#                   },
-#                   "keynote3": {
-#                       "value":"2014年9月22日",
-#                       "color":"#173177"
-#                   },
-#                   "remark":{
-#                       "value":"欢迎再次购买！",
-#                       "color":"#173177"
-#                   }
-#           }, url='', topcolor='#FF0000')
+def response_rank(source, target):
+    return ranklist % (target, source)
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -109,11 +84,15 @@ def index():
         elif message.type == 'click':
             print '----------click'
             if message.key == 'STEP':
-                response = wechat.response_text(u'您今天的运动步数是14，今天的卡路里消耗是2000')
+                response = wechat.response_news([
+                    {
+                        'title': u'步数信息',
+                        'url': u'http://%s:5000%s' % (localAddr, url_for('step', openid = message.source))
+                    }])
             elif message.key == 'SLEEP':
                 response = wechat.response_text(u'您今天的睡眠时间是7h')
             elif message.key == 'RANK':
-                response = ranklist
+                response = response_rank(message.target, message.source)
                 print "-------------rank"
                 print response
                 print ranklist
@@ -134,5 +113,17 @@ def index():
 def hello():
     return 'Hello Word'
 
+@app.route('/step/<openid>')
+def step(openid):
+    print 'step.........'
+    return render_template('steps_num.html', today = 1000, goal = 100, data = [1,2,3,4,5,6,7])
+
+with app.test_request_context():
+    print url_for('index')
+    print url_for('hello')
+    print url_for('step', openid = 'gxd')
+
 if __name__ == '__main__':
     app.run(host = '0.0.0.0', debug = True)
+
+
