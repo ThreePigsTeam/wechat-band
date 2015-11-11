@@ -7,51 +7,38 @@ app = Flask(__name__)
 appID = "wx77e762983e6c2463"
 appsecret = "96b447b1f7c4dbec926af2ab474edddc"
 token = "asdfasdf"
-body_text = """
-<xml>
-<ToUserName><![CDATA[touser]]></ToUserName>
-<FromUserName><![CDATA[fromuser]]></FromUserName>
-<CreateTime>1405994593</CreateTime>
-<MsgType><![CDATA[text]]></MsgType>
-<Content><![CDATA[wechat]]></Content>
-<MsgId>6038700799783131222</MsgId>
-</xml>
-"""
 
-wechat = WechatBasic(token = token， appid = addID, appsecret = appsecret)
-wechat.create_menu({
-    'button':[
-        {
-            'type': 'click',
-            'name': '今日歌曲',
-            'key': 'V1001_TODAY_MUSIC'
-        },
-        {
-            'type': 'click',
-            'name': '歌手简介',
-            'key': 'V1001_TODAY_SINGER'
-        },
-        {
-            'name': '菜单',
-            'sub_button': [
-                {
-                    'type': 'view',
-                    'name': '搜索',
-                    'url': 'http://www.soso.com/'
-                },
-                {
-                    'type': 'view',
-                    'name': '视频',
-                    'url': 'http://v.qq.com/'
-                },
-                {
-                    'type': 'click',
-                    'name': '赞一下我们',
-                    'key': 'V1001_GOOD'
-                }
-            ]
-        }
-    ]})
+wechat = WechatBasic(token = token, appid = appID, appsecret = appsecret)
+
+def setTemplateIndustry():
+    print wechat.set_template_industry(3, 38)
+
+#setTemplateIndustry()
+#template_id = wechat.get_template_id("TM00015")
+#print 'template_id: ', template_id
+#wechat.send_template_message(user_id = 'oqjTTvrik4KmYttRuZeePaLEpTUg', template_id = template_id, data = {
+#                   "first": {
+#                       "value":"恭喜你购买成功！",
+#                       "color":"#173177"
+#                   },
+#                   "keynote1":{
+#                       "value":"巧克力",
+#                       "color":"#173177"
+#                   },
+#                   "keynote2": {
+#                       "value":"39.8元",
+#                       "color":"#173177"
+#                   },
+#                   "keynote3": {
+#                       "value":"2014年9月22日",
+#                       "color":"#173177"
+#                   },
+#                   "remark":{
+#                       "value":"欢迎再次购买！",
+#                       "color":"#173177"
+#                   }
+#           }, url='', topcolor='#FF0000')
+
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -73,7 +60,6 @@ def index():
     print "======="
     print body_text
     print "======="
-    # 实例化 wechat
     # 对签名进行校验
     if wechat.check_signature(signature=signature, timestamp=timestamp, nonce=nonce):
         # 对 XML 数据进行解析 (必要, 否则不可执行 response_text, response_image 等操作)
@@ -86,7 +72,7 @@ def index():
             if message.content == 'wechat':
                 response = wechat.response_text(u'^_^')
             elif message.content == u'运动数据':
-                response = wechat.resonpse_text(u'您今天的运动步数是14，今天的卡路里消耗是2000')
+                response = wechat.response_text(u'您今天的运动步数是14，今天的卡路里消耗是2000')
             elif message.content == u'新闻':
                 response = wechat.response_news([
                     {
@@ -108,6 +94,16 @@ def index():
                 response = wechat.response_text(u'文字')
         elif message.type == 'image':
             response = wechat.response_text(u'图片')
+        elif message.type == 'click':
+            print '===click'
+            if message.key == 'STEP':
+                response = wechat.response_text(u'您今天的运动步数是14，今天的卡路里消耗是2000')
+            elif message.key == 'SLEEP':
+                response = wechat.response_text(u'您今天的睡眠时间是7h')
+            elif message.key == 'RANK':
+                response = wechat.response_text(u'您今天的好后排名是1')
+            else:
+                response = wechat.response_text(u'wrong key.')
         else:
             response = wechat.response_text(u'未知')
 
