@@ -8,6 +8,18 @@ appID = "wx77e762983e6c2463"
 appsecret = "96b447b1f7c4dbec926af2ab474edddc"
 token = "asdfasdf"
 
+ranklist = """<xml>
+    <ToUserName><![CDATA[oqjTTvrik4KmYttRuZeePaLEpTUg]]></ToUserName>
+    <FromUserName><![CDATA[gh_a2428a2e8c12]]></FromUserName>
+    <CreateTime>123456789</CreateTime>
+    <MsgType><![CDATA[hardware]]></MsgType>
+    <HardWare>
+        <MessageView><![CDATA[myrank]]></MessageView>
+        <MessageAction><![CDATA[ranklist]]></MessageAction>
+    </HardWare>
+    <FuncFlag>0</FuncFlag>
+</xml>"""
+
 wechat = WechatBasic(token = token, appid = appID, appsecret = appsecret)
 
 def setTemplateIndustry():
@@ -95,20 +107,25 @@ def index():
         elif message.type == 'image':
             response = wechat.response_text(u'图片')
         elif message.type == 'click':
-            print '===click'
+            print '----------click'
             if message.key == 'STEP':
                 response = wechat.response_text(u'您今天的运动步数是14，今天的卡路里消耗是2000')
             elif message.key == 'SLEEP':
                 response = wechat.response_text(u'您今天的睡眠时间是7h')
             elif message.key == 'RANK':
-                response = wechat.response_text(u'您今天的好后排名是1')
+                response = ranklist
+                print "-------------rank"
+                print response
+                print ranklist
             else:
                 response = wechat.response_text(u'wrong key.')
         else:
             response = wechat.response_text(u'未知')
 
         # 现在直接将 response 变量内容直接作为 HTTP Response 响应微信服务器即可，此处为了演示返回内容，直接将响应进行输出
-        print "response: ", response
+        print "response: ========"
+        print response
+        print "========"
     print "get: "
     return response
 
