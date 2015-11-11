@@ -1,9 +1,18 @@
 # -*- coding: utf-8 -*-
 
-from flask import Flask, request, url_for,render_template
+# imports
+from contextlib import closing
+from database import Databse, User
+import sqlite3
+from flask import Flask, request, url_for, render_template, g, abort
 from wechat_sdk import WechatBasic
-app = Flask(__name__)
 
+# configurations
+DATABASE = './tmp/flaskr.db'
+DEBUG = True
+SECRET_KEY = 'development key'
+USERNAME = 'admin'
+PASSWORD = 'default'
 localAddr = "183.173.41.88"
 appID = "wx77e762983e6c2463"
 appsecret = "96b447b1f7c4dbec926af2ab474edddc"
@@ -21,11 +30,42 @@ ranklist = """<xml>
     <FuncFlag>0</FuncFlag>
 </xml>"""
 
+app = Flask(__name__)
+app.config.from_object(__name__)
 wechat = WechatBasic(token = token, appid = appID, appsecret = appsecret)
 
 def response_rank(source, target):
     return ranklist % (target, source)
 
+def connect_db():
+    print app.config['DATABASE']
+    return sqlite3.connect(app.config['DATABASE'])
+
+def init_db():
+    with closing(connect_db()) as db:
+        with app.open_resource('schema.sql', mode='r') as f:
+            db.cursor().executescript(f.read())
+        db.commit()
+
+def get_db():
+    db = getattr(g, '_database', None)
+    if db is None:
+        db = g._database = connect_to_database()
+    return db
+
+@app.before_request
+def before_request():
+    #g.db = connect_db()
+    my_db = Databse()
+    my_db.init()
+
+@app.teardown_request
+def teardown_request(exception):
+    #db = getattr(g, 'db', None)
+    #if db is not None:
+    #    db.close()
+    #g.db.close()
+    my_db.save()
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -117,11 +157,6 @@ def hello():
 def step(openid):
     print 'step.........'
     return render_template('steps_num.html', today = 1000, goal = 100, data = [1,2,3,4,5,6,7])
-
-with app.test_request_context():
-    print url_for('index')
-    print url_for('hello')
-    print url_for('step', openid = 'gxd')
 
 if __name__ == '__main__':
     app.run(host = '0.0.0.0', debug = True)
