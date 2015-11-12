@@ -17,8 +17,8 @@ def createMenu():
             },
             {
                 'type': 'click',
-                'name': '睡眠',
-                'key': 'SLEEP'
+                'name': '心率',
+                'key': 'HEART'
             },
             {
                 'type': 'click',

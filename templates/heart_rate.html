@@ -3,9 +3,9 @@
     <meta charset="utf-8">
     <title>心率信息</title>
 
-    <link href="./css/bootstrap.css" rel="stylesheet">
-    <link href="./css/color.css" rel="stylesheet">
-    <link href="./css/round.css" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/bootstrap.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/color.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/round.css') }}" rel="stylesheet">
 
 </head>
 <body>
@@ -46,9 +46,9 @@
     </div>
 
     <!-- js文件引入 -->
-    <script src="./js/jquery.js"></script>
-    <script src="./js/bootstrap.js"></script>
-    <script src="./js/data.js"></script>
+    <script src="{{ url_for('static', filename='js/jquery.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/data.js') }}"></script>
     <!-- ECharts单文件引入 -->
     <script src="http://echarts.baidu.com/build/dist/echarts.js"></script>
     <script type="text/javascript">

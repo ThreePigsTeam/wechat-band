@@ -2,7 +2,7 @@
 
 # imports
 from contextlib import closing
-from database import Databse, User
+import database
 import sqlite3
 from flask import Flask, request, url_for, render_template, g, abort
 from wechat_sdk import WechatBasic
@@ -13,7 +13,7 @@ DEBUG = True
 SECRET_KEY = 'development key'
 USERNAME = 'admin'
 PASSWORD = 'default'
-localAddr = "183.173.41.88"
+localAddr = "183.173.36.244"
 appID = "wx77e762983e6c2463"
 appsecret = "96b447b1f7c4dbec926af2ab474edddc"
 token = "asdfasdf"
@@ -56,8 +56,9 @@ def get_db():
 @app.before_request
 def before_request():
     #g.db = connect_db()
-    my_db = Databse()
-    my_db.init()
+    #my_db = Databse()
+    #my_db.init()
+    pass
 
 @app.teardown_request
 def teardown_request(exception):
@@ -65,7 +66,8 @@ def teardown_request(exception):
     #if db is not None:
     #    db.close()
     #g.db.close()
-    my_db.save()
+    #my_db.save()
+    pass
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -129,8 +131,12 @@ def index():
                         'title': u'步数信息',
                         'url': u'http://%s:5000%s' % (localAddr, url_for('step', openid = message.source))
                     }])
-            elif message.key == 'SLEEP':
-                response = wechat.response_text(u'您今天的睡眠时间是7h')
+            elif message.key == 'HEART':
+                response = wechat.response_news([
+                    {
+                        'title': u'心率信息',
+                        'url': u'http://%s:5000%s' % (localAddr, url_for('heart', openid = message.source))
+                    }])
             elif message.key == 'RANK':
                 response = response_rank(message.target, message.source)
                 print "-------------rank"
@@ -157,6 +163,11 @@ def hello():
 def step(openid):
     print 'step.........'
     return render_template('steps_num.html', today = 1000, goal = 100, data = [1,2,3,4,5,6,7])
+
+@app.route('/heart/<openid>')
+def heart(openid):
+    print 'step.........'
+    return render_template('heart_rate.html', average = 80, highest = 140, lowest = 60)
 
 if __name__ == '__main__':
     app.run(host = '0.0.0.0', debug = True)
