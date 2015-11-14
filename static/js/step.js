@@ -1,3 +1,4 @@
+function drawstep(stepsdata){
 require.config({
             paths: {
                 echarts: 'http://echarts.baidu.com/build/dist'
@@ -61,7 +62,7 @@ require.config({
         {
             name:'当日步数',
             type:'line',
-            data: {{ data }},
+            data: stepsdata,
             markPoint : {
                 data : [
                     {type : 'max', name: '最大值'},
@@ -100,3 +101,4 @@ require.config({
                 myChart.setOption(option); 
             }
         );
+};
