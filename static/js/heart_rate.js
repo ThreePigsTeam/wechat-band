@@ -1,4 +1,4 @@
-// 路径配置
+function drawheart(heart_rates){
         require.config({
             paths: {
                 echarts: 'http://echarts.baidu.com/build/dist'
@@ -77,7 +77,7 @@
                         {
                             name: '心率',
                             type: 'line',
-                            data: {{ data }},
+                            data: heart_rates,
                             markPoint: {
                                 data: [
                                     { type: 'max', name: '最大值' },
@@ -116,3 +116,4 @@
                 myChart.setOption(option);
             }
         );
+};

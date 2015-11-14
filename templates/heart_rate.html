@@ -34,9 +34,7 @@
 
                 <h2 style="font-size:2em">最低心率</h2>
                 <div class="round" style="background-color:lightgreen;text-align:center;font-family:'Microsoft YaHei UI';position:relative;top:10px">
-                    <p id="P1">
-                        {{ lowest }}
-                    </p>
+                    <p id="P1">{{ lowest }}</p>
                 </div>
             </div>
 
@@ -57,6 +55,8 @@
     <script src="{{ url_for('static', filename='js/data.js') }}"></script>
     <!-- ECharts单文件引入 -->
     <script src="http://echarts.baidu.com/build/dist/echarts.js"></script>
-    <script src="{{ url_for('static', filename='js/heart_rate.js') }}"></script>
-
+    <script src="{{ url_for('static', filename='js/heart_rate.js') }}">
+        drawheart({{ data }});
+    </script>
+    
 </body>
