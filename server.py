@@ -2,13 +2,12 @@
 
 # imports
 from contextlib import closing
-import database
 import sqlite3
 from flask import Flask, request, url_for, render_template, g, abort
 from wechat_sdk import WechatBasic
 
 # configurations
-DATABASE = './tmp/flaskr.db'
+DATABASE = './tmp/band.db'
 DEBUG = True
 SECRET_KEY = 'development key'
 USERNAME = 'admin'
@@ -47,55 +46,35 @@ def init_db():
             db.cursor().executescript(f.read())
         db.commit()
 
-def get_db():
-    db = getattr(g, '_database', None)
-    if db is None:
-        db = g._database = connect_to_database()
-    return db
-
 @app.before_request
 def before_request():
-    #g.db = connect_db()
-    #my_db = Databse()
-    #my_db.init()
-    pass
+    g.db = connect_db()
 
 @app.teardown_request
 def teardown_request(exception):
-    #db = getattr(g, 'db', None)
-    #if db is not None:
-    #    db.close()
-    #g.db.close()
-    #my_db.save()
-    pass
+    db = getattr(g, 'db', None)
+    if db is not None:
+        db.close()
+    g.db.close()
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    print "gxd1"
     echostr = request.args.get("echostr", "")
     if (echostr != ""):
-        print "echostr: ", echostr
         return echostr
 
-    print "gxd2"
     signature = request.args.get("signature")
     timestamp = request.args.get("timestamp")
     nonce = request.args.get("nonce")
     body_text = request.data
-    print "gxd3"
-    print signature
-    print timestamp
-    print nonce
-    print "======="
-    print body_text
-    print "======="
+
     # 对签名进行校验
     if wechat.check_signature(signature=signature, timestamp=timestamp, nonce=nonce):
         # 对 XML 数据进行解析 (必要, 否则不可执行 response_text, response_image 等操作)
         wechat.parse_data(body_text)
         # 获得解析结果, message 为 WechatMessage 对象 (wechat_sdk.messages中定义)
         message = wechat.get_message()
-
+        openid = message.source
         
         if message.type == 'text':
             if message.content == 'wechat':
@@ -129,13 +108,13 @@ def index():
                 response = wechat.response_news([
                     {
                         'title': u'步数信息',
-                        'url': u'http://%s:5000%s' % (localAddr, url_for('step', openid = message.source))
+                        'url': u'http://%s:5000%s' % (localAddr, url_for('step', openid = openid))
                     }])
             elif message.key == 'HEART':
                 response = wechat.response_news([
                     {
                         'title': u'心率信息',
-                        'url': u'http://%s:5000%s' % (localAddr, url_for('heart', openid = message.source))
+                        'url': u'http://%s:5000%s' % (localAddr, url_for('heart', openid = openid))
                     }])
             elif message.key == 'RANK':
                 response = response_rank(message.target, message.source)
@@ -162,7 +141,15 @@ def hello():
 @app.route('/step/<openid>')
 def step(openid):
     print 'step.........'
-    return render_template('steps_num.html', today = 1000, goal = 100, data = [1,2,3,4,5,6,7])
+    cur = g.db.execute("select total_steps from steps where openid = '%s'" % openid)
+    #print cur.fetchall()
+    steps = [row[0] for row in cur.fetchall()]
+    print 'steps: ', steps
+    data = []
+    for i in range(7):
+        data.append(steps[-i-1])
+    print "data: ", data
+    return render_template('steps_num.html', today = steps[-1], goal = 10000, data = data)
 
 @app.route('/heart/<openid>')
 def heart(openid):
