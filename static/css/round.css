@@ -1,8 +1,10 @@
 .round {
-    padding:8px; width:85%; height:200px;
+	width:65%; height:120px;
     background:skyblue; 
     -moz-border-radius: 110px;
     -webkit-border-radius: 110px;
     border-radius:110px;
+    font-size:7em;
+    color:white
     font-size:7.5em;
 }
