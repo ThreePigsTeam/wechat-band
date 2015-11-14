@@ -21,20 +21,22 @@
                 <h2 style="font-size:2em">最高心率</h2>
                 <div class="round" style="text-align:center;font-family:'Microsoft YaHei UI';">
                     <p id="data_today">
-                        150
+                        {{ highest }}
                     </p>
                 </div>
 
                 <h2 style="font-size:2em">平均心率</h2>
                 <div class="round" style="background-color:pink;text-align:center;font-family:'Microsoft YaHei UI';position:relative;top:10px">
                     <p id="data_goal">
-                        70
+                        {{ average }}
                     </p>
                 </div>
 
                 <h2 style="font-size:2em">最低心率</h2>
                 <div class="round" style="background-color:lightgreen;text-align:center;font-family:'Microsoft YaHei UI';position:relative;top:10px">
-                    <p id="P1">60</p>
+                    <p id="P1">
+                        {{ lowest }}
+                    </p>
                 </div>
             </div>
 
