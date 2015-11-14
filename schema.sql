@@ -2,11 +2,9 @@ drop table if exists wechat_band;
 create table users(
     id integer primary key autoincrement,
     openid string not null,
-    age string not null
+    goal integer not null
 );
-INSERT INTO "main"."users" VALUES (1, ' ', 20);
-INSERT INTO "main"."users" VALUES (2, ' ', 22);
-INSERT INTO "main"."users" VALUES (3, ' ', 21);
+INSERT INTO "main"."users" VALUES (1, 'oqjTTvrik4KmYttRuZeePaLEpTUg', 12345);
 
 create table steps(
     id integer primary key autoincrement,

@@ -1,10 +1,9 @@
 # -*- coding: utf-8 -*-
 
 # imports
-from contextlib import closing
-import sqlite3
-from flask import Flask, request, url_for, render_template, g, abort
+from flask import Flask, request, url_for, render_template
 from wechat_sdk import WechatBasic
+from database import *
 
 # configurations
 DATABASE = './tmp/band.db'
@@ -37,7 +36,7 @@ def response_rank(source, target):
     return ranklist % (target, source)
 
 def connect_db():
-    print app.config['DATABASE']
+    #print app.config['DATABASE']
     return sqlite3.connect(app.config['DATABASE'])
 
 def init_db():
@@ -46,16 +45,19 @@ def init_db():
             db.cursor().executescript(f.read())
         db.commit()
 
+def close_db():
+    db = getattr(g, 'db', None)
+    if db is not None:
+        db.close()
+    g.db.close()
+
 @app.before_request
 def before_request():
     g.db = connect_db()
 
 @app.teardown_request
 def teardown_request(exception):
-    db = getattr(g, 'db', None)
-    if db is not None:
-        db.close()
-    g.db.close()
+    close_db()
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -133,35 +135,20 @@ def index():
     print "get: "
     return response
 
-
-@app.route('/hello/')
-def hello():
-    return 'Hello Word'
-
 @app.route('/step/<openid>')
 def step(openid):
-    print 'step.........'
-    cur = g.db.execute("SELECT total_steps, day FROM steps WHERE openid = '%s' ORDER BY day" % openid)
-    #print cur.fetchall()
-    steps = [row[0] for row in cur.fetchall()]
-    print 'steps: ', steps
-    data = []
-    for i in range(7):
-        data.append(steps[-7 + i])
+    data = getStepsByOpenid(openid = openid)
     print "data: ", data
-    return render_template('steps_num.html', today = steps[-1], goal = 10000, data = data)
+    return render_template('steps_num.html', today = data[-1], goal = getGoalByOpenid(openid = openid), data = data)
 
 @app.route('/heart/<openid>')
 def heart(openid):
-    print 'heart.........'
-    cur = g.db.execute("SELECT total_rates, day FROM heart_rates WHERE openid = '%s' ORDER BY day" % openid)
-    #print cur.fetchall()
-    rates = [row[0] for row in cur.fetchall()]
-    print 'rates: ', rates
-    data = [int(rate) for rate in rates[-1].split(',')]
-    print 'data: ', data
-
-    return render_template('heart_rate.html', average = 80, highest = 140, lowest = 60, data = data)
+    data = getRatesByOpenid(openid = openid)
+    print "hear: ", data
+    print "ave: ", sum(data) / len(data)
+    print "max: ", max(data)
+    print "min: ", min(data)
+    return render_template('heart_rate.html', average = sum(data)/len(data), highest = max(data), lowest = min(data), data = data)
 
 if __name__ == '__main__':
     app.run(host = '0.0.0.0', debug = True)
