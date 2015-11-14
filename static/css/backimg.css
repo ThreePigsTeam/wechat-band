@@ -1,0 +1,24 @@
+.box{
+	top:50px;
+	position: relative;
+	width:700px;
+	height: 600px;
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+
+.intro-tables {
+	position: relative;
+}
+
+.intro-tables .box {
+	position: relative;
+	width: 100%;
+	margin: 20px 0;
+}
+
+h2{
+	color: white;
+	font-family: 'Microsoft Yahei';
+	font-size:2em;
+}
