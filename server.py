@@ -141,20 +141,27 @@ def hello():
 @app.route('/step/<openid>')
 def step(openid):
     print 'step.........'
-    cur = g.db.execute("select total_steps from steps where openid = '%s'" % openid)
+    cur = g.db.execute("SELECT total_steps, day FROM steps WHERE openid = '%s' ORDER BY day" % openid)
     #print cur.fetchall()
     steps = [row[0] for row in cur.fetchall()]
     print 'steps: ', steps
     data = []
     for i in range(7):
-        data.append(steps[-i-1])
+        data.append(steps[-7 + i])
     print "data: ", data
     return render_template('steps_num.html', today = steps[-1], goal = 10000, data = data)
 
 @app.route('/heart/<openid>')
 def heart(openid):
-    print 'step.........'
-    return render_template('heart_rate.html', average = 80, highest = 140, lowest = 60)
+    print 'heart.........'
+    cur = g.db.execute("SELECT total_rates, day FROM heart_rates WHERE openid = '%s' ORDER BY day" % openid)
+    #print cur.fetchall()
+    rates = [row[0] for row in cur.fetchall()]
+    print 'rates: ', rates
+    data = [int(rate) for rate in rates[-1].split(',')]
+    print 'data: ', data
+
+    return render_template('heart_rate.html', average = 80, highest = 140, lowest = 60, data = data)
 
 if __name__ == '__main__':
     app.run(host = '0.0.0.0', debug = True)
