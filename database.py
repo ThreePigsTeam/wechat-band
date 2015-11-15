@@ -37,5 +37,3 @@ def updateStepByOpenid(openid, step):
 
 def updateRateByOpenid(openid, rate):
     pass
-
-deff
