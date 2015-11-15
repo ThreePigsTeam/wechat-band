@@ -32,6 +32,9 @@ def getGoalByOpenid(openid):
     else:
         return res[0][0]
 
-def updateStepsByOpenid(openid):
+def updateStepByOpenid(openid, step):
+    pass
+
+def updateRateByOpenid(openid, rate):
     pass
 
