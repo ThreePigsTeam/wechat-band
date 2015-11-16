@@ -21,6 +21,8 @@ def getRatesByOpenid(openid):
     cur = g.db.execute("SELECT total_rates, day FROM heart_rates WHERE openid = '%s' ORDER BY day" % openid)
     #print cur.fetchall()
     rates = [row[0] for row in cur.fetchall()]
+    if len(rates) == 0:
+        return [0 for i in range(240)]
     data = [int(rate) for rate in rates[-1].split(',')]
     return data
 
@@ -37,4 +39,6 @@ def updateStepByOpenid(openid, step):
 
 def updateRateByOpenid(openid, rate):
     pass
-
+]
+def updateGoalByOpenid(openid, goal):
+    pass
