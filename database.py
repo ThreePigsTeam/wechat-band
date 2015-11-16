@@ -39,6 +39,6 @@ def updateStepByOpenid(openid, step):
 
 def updateRateByOpenid(openid, rate):
     pass
-]
+    
 def updateGoalByOpenid(openid, goal):
     pass
