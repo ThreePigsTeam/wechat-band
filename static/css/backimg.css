@@ -7,11 +7,28 @@
 	background-size: cover;
 }
 
+.box2{
+	top:50px;
+	position: relative;
+	width:700px;
+	height: 500px;
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: -60px 60px;
+	overflow: hidden;
+}
+
 .intro-tables {
 	position: relative;
 }
 
 .intro-tables .box {
+	position: relative;
+	width: 100%;
+	margin: 20px 0;
+}
+
+.intro-tables .box2 {
 	position: relative;
 	width: 100%;
 	margin: 20px 0;
