@@ -1,43 +1,13 @@
 # -*- coding: utf-8 -*-
 
-# imports
-from flask import Flask, request, url_for, render_template
+from flask import render_template, session, redirect, url_for, current_app, request
+from .. import db
+from ..models import User
+from . import main
 from wechat_sdk import WechatBasic
-from database import *
-from config import *
+from config import wechat_config
 
-app = Flask(__name__)
-app.config.from_object(__name__)
-wechat = WechatBasic(token = token, appid = appID, appsecret = appsecret)
-
-def response_rank(source, target):
-    return ranklist % (target, source)
-
-def connect_db():
-    #print app.config['DATABASE']
-    return sqlite3.connect(app.config['DATABASE'])
-
-def init_db():
-    with closing(connect_db()) as db:
-        with app.open_resource('schema.sql', mode='r') as f:
-            db.cursor().executescript(f.read())
-        db.commit()
-
-def close_db():
-    db = getattr(g, 'db', None)
-    if db is not None:
-        db.close()
-    g.db.close()
-
-@app.before_request
-def before_request():
-    g.db = connect_db()
-
-@app.teardown_request
-def teardown_request(exception):
-    close_db()
-
-@app.route('/', methods=['GET', 'POST'])
+@main.route('/', methods=['GET', 'POST'])
 def index():
     echostr = request.args.get("echostr", "")
     if (echostr != ""):
@@ -50,7 +20,7 @@ def index():
     print "body======="
     print body_text
     print "========"
-
+    wechat = WechatBasic(token = wechat_config['token'], appid = wechat_config['appid'], appsecret = wechat_config['appsecret'])
     # 对签名进行校验
     if wechat.check_signature(signature=signature, timestamp=timestamp, nonce=nonce):
         # 对 XML 数据进行解析 (必要, 否则不可执行 response_text, response_image 等操作)
@@ -72,13 +42,13 @@ def index():
                 response = wechat.response_news([
                     {
                         'title': u'步数信息',
-                        'url': u'http://%s:5000%s' % (localAddr, url_for('step', openid = openid))
+                        'url': u'http://%s:5000%s' % (wechat_config['localAddr'], url_for('main.step', openid = openid))
                     }])
             elif message.key == 'HEART':
                 response = wechat.response_news([
                     {
                         'title': u'心率信息',
-                        'url': u'http://%s:5000%s' % (localAddr, url_for('heart', openid = openid))
+                        'url': u'http://%s:5000%s' % (wechat_config['localAddr'], url_for('main.heart', openid = openid))
                     }])
             elif message.key == 'RANK':
                 response = response_rank(message.target, message.source)
@@ -98,22 +68,20 @@ def index():
         print "========"
     return response
 
-@app.route('/step/<openid>')
+@main.route('/step/<openid>')
 def step(openid):
-    data = getStepsByOpenid(openid = openid)
+    #data = getStepsByOpenid(openid = openid)
+    #print wechat_config
+    data = [1,2,3,4,5,6,7]
     print "data: ", data
-    return render_template('steps_num.html', today = data[-1], goal = getGoalByOpenid(openid = openid), data = data)
+    return render_template('steps_num.html', today = data[-1], goal = 10000, data = data)
 
-@app.route('/heart/<openid>')
+@main.route('/heart/<openid>')
 def heart(openid):
-    data = getRatesByOpenid(openid = openid)
+    #data = getRatesByOpenid(openid = openid)
+    data = []
     print "hear: ", data
     print "ave: ", sum(data) / len(data)
     print "max: ", max(data)
     print "min: ", min(data)
     return render_template('heart_rate.html', average = sum(data)/len(data), highest = max(data), lowest = min(data), data = data)
-
-if __name__ == '__main__':
-    app.run(host = '0.0.0.0', debug = True)
-
-
