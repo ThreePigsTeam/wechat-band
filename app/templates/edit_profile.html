@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <head>
     <meta charset="utf-8">
-    <title>个人信息</title>
+    <title>修改个人信息</title>
     <style>
     .ui-page {
     background: url('{{ url_for('static', filename='img/header.jpg') }}') repeat scroll 50% 50% #112233 !important;
@@ -24,28 +24,21 @@
     <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
     <div class="container" style="width:94%;">
         <div class="row intro-tables" id="line_chart">
-        <h1 class="box" style="height:auto;color:white;text-align:center;font-size:5em;font-family:'Microsoft YaHei UI';">个人信息</h1>
+        <h1 class="box" style="height:auto;color:white;text-align:center;font-size:5em;font-family:'Microsoft YaHei UI';">修改个人信息</h1>
         <div class="col-lg-11 info_form" style="margin-top:7%;color:white;text-align:center;font-size:2em;font-family:'Microsoft YaHei UI';">
             </br>
             <form action="post">
-            <label for="gender">性别：</label>
-            <fieldset data-role="controlgroup" data-type="horizontal">
-            <label for="male">男性</label>
-            <input type="radio" name="gender" id="male" value="male">
-            <label for="female">女性</label>
-            <input type="radio" name="gender" id="female" value="female">   
-            </fieldset>
             <div data-role="fieldcontain1">
             <label for="age">年龄：</label>
-            <input type="range" name="age" id="age" value="30" min="0" max="120">
+            <input type="range" name="age" id="age" min="0" max="120">
             </div>
             <div data-role="fieldcontain2">
             <label for="height">身高：(cm)</label>
-            <input type="range" name="height" id="height" value="170" min="120" max="220">
+            <input type="range" name="height" id="height" min="120" max="220">
             </div>
             <div data-role="fieldcontain3">
             <label for="weight">体重：(kg)</label>
-            <input type="range" name="weight" id="weight" value="60" min="30" step="0.5" max="180">
+            <input type="range" name="weight" id="weight" min="30" step="0.5" max="180">
             </div>
             <input type="submit" value="提交" class="btn btn-primary">
             </form>
