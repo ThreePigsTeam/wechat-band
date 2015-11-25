@@ -48,7 +48,7 @@ config = {
 }
 
 wechat_config = {
-    'localAddr' : "59.66.139.102",
+    'localAddr' : "101.5.111.106",
     'appid'     : "wx77e762983e6c2463",
     'appsecret' : "96b447b1f7c4dbec926af2ab474edddc",
     'token'     : "asdfasdf"

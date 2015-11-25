@@ -31,21 +31,76 @@ def create_menu():
     from config import wechat_config
     wechat = WechatBasic(token = wechat_config['token'], appid = wechat_config['appid'], appsecret = wechat_config['appsecret'])
     print wechat.create_menu({
-        'button':[
+        'button': [
             {
-                'type': 'click',
-                'name': '步数',
-                'key': 'STEP'
+                'name': '个人',
+                'sub_button': [
+                    {
+                        'type': 'click',
+                        'name': '设备绑定',
+                        'key' : 'SET_DEVICE'
+                    },
+                    {
+                        'type': 'click',
+                        'name': '信息维护',
+                        'key' : 'SET_INFO'
+                    },
+                    {
+                        'type': 'click',
+                        'name': '排行榜',
+                        'key' : 'GET_RANK'
+                    },
+                ]
             },
             {
-                'type': 'click',
-                'name': '心率',
-                'key': 'HEART'
+                'name': '运动',
+                'sub_button': [
+                    {
+                        'type': 'click',
+                        'name': '查看步数',
+                        'key' : 'GET_STEP'
+                    },
+                    {
+                        'type': 'click',
+                        'name': '查看运动',
+                        'key' : 'GET_SPORT'
+                    },
+                    {
+                        'type': 'click',
+                        'name': '添加运动',
+                        'key' : 'ADD_SPORT'
+                    },
+                    {
+                        'type': 'click',
+                        'name': '查看目标',
+                        'key' : 'GET_GOAL'
+                    },
+                    {
+                        'type': 'click',
+                        'name': '设定目标',
+                        'key' : 'SET_GOAL'
+                    }
+                ]
             },
             {
-                'type': 'click',
-                'name': '排行',
-                'key': 'RANK'
+                'name': '健康',
+                'sub_button': [
+                    {
+                        'type': 'click',
+                        'name': '查看睡眠',
+                        'key' : 'GET_SLEEP'
+                    },
+                    {
+                        'type': 'click',
+                        'name': '查看心率',
+                        'key' : 'GET_RATE'
+                    },
+                    {
+                        'type': 'click',
+                        'name': '添加卡路里',
+                        'key' : 'GET_CALORIE'
+                    }
+                ]
             }
         ]})
 

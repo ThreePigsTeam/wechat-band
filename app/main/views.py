@@ -41,19 +41,19 @@ def index():
             response = wechat.response_text(u'图片')
         elif message.type == 'click':
             print '----------click'
-            if message.key == 'STEP':
+            if message.key == 'GET_STEP':
                 response = wechat.response_news([
                     {
                         'title': u'步数信息',
                         'url': u'http://%s:5000%s' % (wechat_config['localAddr'], url_for('main.step', openid = openid))
                     }])
-            elif message.key == 'HEART':
+            elif message.key == 'GET_RATE':
                 response = wechat.response_news([
                     {
                         'title': u'心率信息',
                         'url': u'http://%s:5000%s' % (wechat_config['localAddr'], url_for('main.heart', openid = openid))
                     }])
-            elif message.key == 'RANK':
+            elif message.key == 'GET_RANK':
                 response = response_rank(message.target, message.source)
                 print "-------------rank"
                 print response
