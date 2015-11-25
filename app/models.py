@@ -33,6 +33,7 @@ def get_goal_by_openid(openid):
     print 'Goal == ', user.goal
     return user.goal
 
+
 def get_steps_by_openid(openid):
     data = []
     user = User.query.filter_by(openid = openid).first()
@@ -47,3 +48,4 @@ def get_steps_by_openid(openid):
             j += 1
         cdate += timedelta(days = 1)
     return data
+

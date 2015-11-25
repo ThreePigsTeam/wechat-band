@@ -1,4 +1,6 @@
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 import os
 from app import create_app, db
 from app.models import *
@@ -22,6 +24,30 @@ def test():
     import unittest
     tests = unittest.TestLoader().discover('tests')
     unittest.TextTestRunner(verbosity=2).run(tests)
+
+@manager.command
+def create_menu():
+    from wechat_sdk import WechatBasic
+    from config import wechat_config
+    wechat = WechatBasic(token = wechat_config['token'], appid = wechat_config['appid'], appsecret = wechat_config['appsecret'])
+    print wechat.create_menu({
+        'button':[
+            {
+                'type': 'click',
+                'name': '步数',
+                'key': 'STEP'
+            },
+            {
+                'type': 'click',
+                'name': '心率',
+                'key': 'HEART'
+            },
+            {
+                'type': 'click',
+                'name': '排行',
+                'key': 'RANK'
+            }
+        ]})
 
 
 if __name__ == '__main__':
