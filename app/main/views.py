@@ -2,10 +2,13 @@
 
 from flask import render_template, session, redirect, url_for, current_app, request
 from .. import db
-from ..models import User
+from ..models import *
 from . import main
 from wechat_sdk import WechatBasic
-from config import wechat_config
+from config import wechat_config, ranklist
+
+def response_rank(source, target):
+    return ranklist % (target, source)
 
 @main.route('/', methods=['GET', 'POST'])
 def index():
@@ -70,11 +73,11 @@ def index():
 
 @main.route('/step/<openid>')
 def step(openid):
-    #data = getStepsByOpenid(openid = openid)
+    data = get_steps_by_openid(openid = openid)
     #print wechat_config
-    data = [1,2,3,4,5,6,7]
+    #data = [1,2,3,4,5,6,7]
     print "data: ", data
-    return render_template('steps_num.html', today = data[-1], goal = 10000, data = data)
+    return render_template('steps_num.html', today = data[-1], goal = get_goal_by_openid(openid = openid), data = data)
 
 @main.route('/heart/<openid>')
 def heart(openid):
