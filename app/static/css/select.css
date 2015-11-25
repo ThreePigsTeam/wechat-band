@@ -1,0 +1,41 @@
+form{
+	padding: 50px 20px;
+}
+
+fieldset{
+	text-align: left;
+	border: 0;
+	height: 40px;
+}
+
+label{
+	font-size: 20px;
+	text-align: left;
+	color: #fff;
+	display: inline-block;
+}
+
+.select-sports{
+
+}
+
+/* select with custom icons */
+.ui-selectmenu-menu .ui-menu.customicons .ui-menu-item{
+    padding: 0.5em 0 0.5em 3em;
+}
+
+.ui-selectmenu-menu .ui-menu.customicons .ui-menu-item .ui-icon{
+    height: 25px;
+    width: 25px;
+    top: 0.1em;
+}
+
+/* select with CSS avatar icons */
+option.avatar{
+	background-repeat: no-repeat !important;
+    padding-left: 20px;
+}
+
+.avatar .ui-icon{
+    background-position: left top;
+}

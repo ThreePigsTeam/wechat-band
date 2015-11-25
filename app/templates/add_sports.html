@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+    <title>添加运动</title>
+
+    <link href="{{ url_for('static', filename='css/bootstrap.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/color.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/round.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/backimg.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/select.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/bootstrap-3.0.0.min.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/bootstrap-datetimepicker.min.css') }}" rel="stylesheet">
+
+    <link href="{{ url_for('static', filename='js/jquery-ui/jquery-ui.css') }}" rel="stylesheet">
+
+</head>
+<body style="background-image:url({{ url_for('static', filename='img/header.jpg') }})">
+    <div class="container" style="width:94%;">
+
+        <div class="row intro-tables" id="line_chart" style="">
+            <h1 class="box" style="height:auto;color:white;text-align:center;font-size:3em">添加运动</h1>
+
+            <div class="col-xs-12 col-sm-12" style="height:400px;top:25px;position: relative;">
+                <form action="post">
+
+                    <label for="sports">运动项目</label>
+                    <div class="select-sports">
+                        <select name="sports" id="sports" style="width:100%;float:left;">
+                            <option value="1" data-class="avatar" data-style="background-image:url({{ url_for('static', filename='img/sports/running.png') }})">跑步</option>
+                            <option value="2" data-class="avatar" data-style="background-image:url({{ url_for('static', filename='img/sports/biking.png') }})">骑车</option>
+                            <option value="3" data-class="avatar" data-style="background-image:url({{ url_for('static', filename='img/sports/swimming.png') }})">游泳</option>
+                            <option value="4" data-class="avatar" data-style="background-image:url({{ url_for('static', filename='img/sports/yoga.png') }})">瑜伽</option>
+                            <option value="5" data-class="avatar" data-style="background-image:url({{ url_for('static', filename='img/sports/basketball.png') }})">篮球</option>
+                            <option value="6" data-class="avatar" data-style="background-image:url({{ url_for('static', filename='img/sports/volley.png') }})">排球</option>
+                            <option value="7" data-class="avatar" data-style="background-image:url({{ url_for('static', filename='img/sports/badminton.png') }})">羽毛球</option>
+                            <option value="8" data-class="avatar" data-style="background-image:url({{ url_for('static', filename='img/sports/football.png') }})">足球</option>
+                            <option value="9" data-class="avatar" data-style="background-image:url({{ url_for('static', filename='img/sports/table-tennis.png') }})">乒乓球</option>
+                            <option value="10" data-class="avatar" data-style="background-image:url({{ url_for('static', filename='img/sports/baseball.png') }})">棒球</option>
+                            <option value="11" data-class="avatar" data-style="background-image:url({{ url_for('static', filename='img/sports/tennis.png') }})">网球</option>
+                            <option value="12" data-class="avatar" data-style="background-image:url({{ url_for('static', filename='img/sports/handball.png') }})">手球</option>
+                            <option value="13" data-class="avatar" data-style="background-image:url({{ url_for('static', filename='img/sports/martial-arts.png') }})">武术</option>
+                            <option value="14" data-class="avatar" data-style="background-image:url({{ url_for('static', filename='img/sports/fencing.png') }})">击剑</option>
+                            <option value="15" data-class="avatar" data-style="background-image:url({{ url_for('static', filename='img/sports/weight-lifting.png') }})">举重</option>
+                            <option value="16" data-class="avatar" data-style="background-image:url({{ url_for('static', filename='img/sports/boxing.png') }})">拳击</option>
+                            <option value="17" data-class="avatar" data-style="background-image:url({{ url_for('static', filename='img/sports/shooting.png') }})">射击</option>
+                            <option value="18" data-class="avatar" data-style="background-image:url({{ url_for('static', filename='img/sports/archery.png') }})">射箭</option>
+                            <option value="19" data-class="avatar" data-style="background-image:url({{ url_for('static', filename='img/sports/sailing.png') }})">皮划艇</option>
+                            <option value="20" data-class="avatar" data-style="background-image:url({{ url_for('static', filename='img/sports/wind-surfing.png') }})">帆船</option>
+                            <option value="21" data-class="avatar" data-style="background-image:url({{ url_for('static', filename='img/sports/smack-down.png') }})">摔跤</option>      
+                        </select>
+                    </div>
+                    <div style="height:30px"></div>
+                    <label for="input_date">运动日期</label>
+                    <div class="input-group date form_date" data-date="" data-date-format="dd MM yyyy" data-link-format="yyyy-mm-dd">
+                        <input name="date" id="input_date" class="form-control" type="text" value="" readonly style="width:100%;float:left;">
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                    </div>
+
+                    
+                    <div style="height:30px"></div>
+                    <div class="input-group">
+                        <label for="input_time">持续时间</label>
+                        <input name="time" id="input_time" class="form-control" type="number" value="0" min="0" style="width:100%;float:left;">
+                    </div>
+                    <input type="hidden" id="dtp_input3" value="" /><br/>   
+                    
+                    <div style="height:30px"></div>
+                    <div style="width:100%;">
+                        <button type="submit" class="btn btn-danger" style="width:45%;float:left">提交</button>
+                        <button type="button" onclick="reset();" class="btn btn-primary" style="width:45%;float:right">重填</button>
+                    </div>
+                 </form>
+            </div>
+    </div>
+ </div>
+    <!-- js文件引入 -->
+    <script src="{{ url_for('static', filename='js/jquery.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap-datetimepicker.js') }}" charset="UTF-8"></script>
+    <script src="{{ url_for('static', filename='js/jquery-ui/jquery-ui.js') }}"></script>
+
+    <script src="{{ url_for('static', filename='js/select.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/reset.js') }}"></script>
+</body>
