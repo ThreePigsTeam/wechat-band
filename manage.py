@@ -92,8 +92,13 @@ def create_menu():
                     },
                     {
                         'type': 'click',
-                        'name': '查看心率',
-                        'key' : 'GET_RATE'
+                        'name': '心率曲线',
+                        'key' : 'GET_RATE_CURVE'
+                    },
+                    {
+                        'type': 'click',
+                        'name': '当前心率',
+                        'key' : 'GET_RATE_NOW'
                     },
                     {
                         'type': 'click',

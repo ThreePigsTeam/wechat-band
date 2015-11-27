@@ -28,7 +28,6 @@ def index():
     if wechat.check_signature(signature=signature, timestamp=timestamp, nonce=nonce):
         # 对 XML 数据进行解析 (必要, 否则不可执行 response_text, response_image 等操作)
         wechat.parse_data(body_text)
-        # 获得解析结果, message 为 WechatMessage 对象 (wechat_sdk.messages中定义)
         message = wechat.get_message()
         openid = message.source
         
@@ -40,23 +39,26 @@ def index():
         elif message.type == 'image':
             response = wechat.response_text(u'图片')
         elif message.type == 'click':
-            print '----------click'
             if message.key == 'GET_STEP':
                 response = wechat.response_news([
                     {
                         'title': u'步数信息',
                         'url': u'http://%s:5000%s' % (wechat_config['localAddr'], url_for('main.step', openid = openid))
                     }])
-            elif message.key == 'GET_RATE':
+            elif message.key == 'GET_RATE_CURVE':
                 response = wechat.response_news([
                     {
-                        'title': u'心率信息',
-                        'url': u'http://%s:5000%s' % (wechat_config['localAddr'], url_for('main.heart', openid = openid))
+                        'title': u'心率曲线',
+                        'url': u'http://%s:5000%s' % (wechat_config['localAddr'], url_for('main.rate', openid = openid))
+                    }])
+            elif message.key == 'GET_RATE_NOW':
+                response = wechat.response_news([
+                    {
+                        'title': u'当前心率',
+                        'url': u'http://%s:5000%s' % (wechat_config['localAddr'], url_for('main.rate_now', openid = openid))
                     }])
             elif message.key == 'GET_RANK':
                 response = response_rank(message.target, message.source)
-                print "-------------rank"
-                print response
                 print ranklist
             else:
                 response = wechat.response_text(u'wrong key.')
@@ -74,17 +76,19 @@ def index():
 @main.route('/step/<openid>')
 def step(openid):
     data = get_steps_by_openid(openid = openid)
-    #print wechat_config
-    #data = [1,2,3,4,5,6,7]
     print "data: ", data
     return render_template('steps_num.html', today = data[-1], goal = get_goal_by_openid(openid = openid), data = data)
 
-@main.route('/heart/<openid>')
-def heart(openid):
-    #data = getRatesByOpenid(openid = openid)
-    data = []
-    print "hear: ", data
+@main.route('/rate/<openid>')
+def rate(openid):
+    data, average, highest, lowest = get_rates_by_openid(openid = openid)
+    print "heart: ", data
     print "ave: ", sum(data) / len(data)
     print "max: ", max(data)
     print "min: ", min(data)
-    return render_template('heart_rate.html', average = sum(data)/len(data), highest = max(data), lowest = min(data), data = data)
+    return render_template('heart_rate.html', average = average, highest = highest, lowest = lowest, data = data)
+
+@main.route('/rate_now/<openid>')
+def rate_now(openid):
+    #data = getRatesByOpenid(openid = openid)
+    return render_template('heart_rate_now.html', data = 1000)
