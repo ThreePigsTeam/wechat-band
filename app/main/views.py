@@ -10,6 +10,10 @@ from config import wechat_config, ranklist
 def response_rank(source, target):
     return ranklist % (target, source)
 
+@main.route('/hello')
+def hello():
+    return "hello, world"
+
 @main.route('/', methods=['GET', 'POST'])
 def index():
     echostr = request.args.get("echostr", "")
