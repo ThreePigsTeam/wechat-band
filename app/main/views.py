@@ -94,5 +94,5 @@ def rate(openid):
 
 @main.route('/rate_now/<openid>')
 def rate_now(openid):
-    #data = getRatesByOpenid(openid = openid)
-    return render_template('heart_rate_now.html', data = 1000)
+    data = get_rate_now_by_openid(openid = openid)
+    return render_template('heart_rate_now.html', data = data)

@@ -29,6 +29,52 @@ class Rate(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
 
 
+def add_user(openid, goal = 10000):
+    if User.query.filter_by(openid = openid).all() != []:
+        return 1
+    user = User(openid = openid, goal = goal)
+    db.session.add(user)
+    db.session.commit()
+    return 0
+
+
+def del_user(openid):
+    user = User.query.filter_by(openid = openid).first()
+    if user == None:
+        return 1
+    db.session.delete(user)
+    db.commit()
+    return 0
+
+
+def add_step(openid, data = 0):
+    user = User.query.filter_by(openid = openid).first()
+    if user == None:
+        return 1
+    step = user.steps.filter_by(date = date.today()).first()
+    if step == None:
+        step = Step(date = date.today(), total = 0, user = user)
+    step.total += data
+    db.session.add(step)
+    db.session.commit()
+    return 0
+
+
+def add_rate(openid, data = 0):
+    user = User.query.filter_by(openid = openid).first()
+    if user == None:
+        return 1
+    time = datetime.now().replace(second = 0, microsecond = 0)
+    time = time.replace(minute = time.minute - time.minute % 10)
+    rate = user.rates.filter_by(time = time).first()
+    if step == None:
+        rate = Rate(time = time, total = 0, user = user)
+    rate.total = data
+    db.session.add(rate)
+    db.session.commit()
+    return 0
+
+
 def get_goal_by_openid(openid):
     user = User.query.filter_by(openid = openid).first()
     print 'Goal == ', user.goal
