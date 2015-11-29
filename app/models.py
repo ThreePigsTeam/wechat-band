@@ -38,7 +38,17 @@ def add_user(openid, goal = 10000):
     return 0
 
 
-def del_user(openid):
+def set_user(openid, goal = 10000):
+    if add_user(openid = openid, goal = goal) == 0:
+        return 0
+    user = User.query.filter_by(openid = openid).first()
+    user.goal = goal
+    db.session.add(user)
+    db.commit()
+    return 0
+
+
+def dele_user(openid):
     user = User.query.filter_by(openid = openid).first()
     if user == None:
         return 1
@@ -77,6 +87,8 @@ def add_rate(openid, data = 0):
 
 def get_goal_by_openid(openid):
     user = User.query.filter_by(openid = openid).first()
+    if user == None:
+        return 0
     print 'Goal == ', user.goal
     return user.goal
 
@@ -84,6 +96,8 @@ def get_goal_by_openid(openid):
 def get_steps_by_openid(openid):
     data = []
     user = User.query.filter_by(openid = openid).first()
+    if user == None:
+        return [0, 0, 0, 0, 0, 0, 0]
     steps = user.steps.filter(Step.date > date.today() - timedelta(days = 7)).order_by(Step.date).all()
     cdate = date.today() - timedelta(days = 6)
     j = 0
@@ -108,6 +122,8 @@ def get_rates_by_openid(openid):
     average = 0
     count = 0
     user = User.query.filter_by(openid = openid).first()
+    if user == None:
+        return [], 0, 0, 0
     today = date.today()
     rates = user.rates.filter(Rate.time >= datetime(today.year, today.month, today.day)).order_by(Rate.time).all()
     ctime = datetime(today.year, today.month, today.day)

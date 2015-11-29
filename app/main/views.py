@@ -86,10 +86,6 @@ def step(openid):
 @main.route('/rate/<openid>')
 def rate(openid):
     data, average, highest, lowest = get_rates_by_openid(openid = openid)
-    print "heart: ", data
-    print "ave: ", sum(data) / len(data)
-    print "max: ", max(data)
-    print "min: ", min(data)
     return render_template('heart_rate.html', average = average, highest = highest, lowest = lowest, data = data)
 
 @main.route('/rate_now/<openid>')
