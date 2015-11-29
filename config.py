@@ -48,13 +48,13 @@ config = {
 }
 
 wechat_config = {
-    'localAddr' : "101.5.111.106",
-    'appid'     : "wx77e762983e6c2463",
-    'appsecret' : "96b447b1f7c4dbec926af2ab474edddc",
-    'token'     : "asdfasdf"
+    'localAddr' : '59.66.139.36',
+    'appid'     : 'wx77e762983e6c2463',
+    'appsecret' : '96b447b1f7c4dbec926af2ab474edddc',
+    'token'     : 'asdfasdf'
 }
 
-ranklist = """<xml>
+ranklist = '''<xml>
     <ToUserName><![CDATA[%s]]></ToUserName>
     <FromUserName><![CDATA[%s]]></FromUserName>
     <CreateTime>123456789</CreateTime>
@@ -64,4 +64,4 @@ ranklist = """<xml>
         <MessageAction><![CDATA[ranklist]]></MessageAction>
     </HardWare>
     <FuncFlag>0</FuncFlag>
-</xml>"""
+</xml>'''

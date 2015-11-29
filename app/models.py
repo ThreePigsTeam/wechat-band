@@ -6,6 +6,10 @@ class User(db.Model):
     __tablename__ = 'users'
     id     = db.Column(db.Integer, primary_key = True)
     openid = db.Column(db.String(40), unique = True, index = True, nullable = False)
+    sex    = db.Column(db.String(10))
+    age    = db.Column(db.Integer)
+    height = db.Column(db.Integer)
+    weight = db.Column(db.Integer)
     goal   = db.Column(db.Integer, default = 10000)
     steps  = db.relationship('Step', backref='user', lazy='dynamic')
     rates  = db.relationship('Rate', backref='user', lazy='dynamic')
@@ -29,7 +33,16 @@ class Rate(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
 
 
-def add_user(openid, goal = 10000):
+class Pet(db.Model):
+    __tablename__ = 'pets'
+    id      = db.Column(db.Integer, primary_key = True)
+    age     = db.Column(db.Integer)
+    sex     = db.Column(db.String(10))
+    hunger  = db.Column(db.Integer)
+    
+
+
+def add_user(openid, goal = 10000, sex = 'Male', age = 20, height = 170, weight = 65):
     if User.query.filter_by(openid = openid).all() != []:
         return 1
     user = User(openid = openid, goal = goal)
@@ -38,8 +51,8 @@ def add_user(openid, goal = 10000):
     return 0
 
 
-def set_user(openid, goal = 10000):
-    if add_user(openid = openid, goal = goal) == 0:
+def set_user(openid, goal = 10000, sex = 'Male', age = 20, height = 170, weight = 65):
+    if add_user(openid = openid, goal = goal, sex = sex, age = age, height = height, weight = weight) == 0:
         return 0
     user = User.query.filter_by(openid = openid).first()
     user.goal = goal
@@ -48,7 +61,7 @@ def set_user(openid, goal = 10000):
     return 0
 
 
-def dele_user(openid):
+def del_user(openid):
     user = User.query.filter_by(openid = openid).first()
     if user == None:
         return 1

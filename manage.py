@@ -102,7 +102,7 @@ def create_menu():
                     },
                     {
                         'type': 'click',
-                        'name': '添加卡路里',
+                        'name': '查看卡路里',
                         'key' : 'GET_CALORIE'
                     }
                 ]

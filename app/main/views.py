@@ -12,21 +12,21 @@ def response_rank(source, target):
 
 @main.route('/hello')
 def hello():
-    return "hello, world"
+    return 'hello, world'
 
 @main.route('/', methods=['GET', 'POST'])
 def index():
-    echostr = request.args.get("echostr", "")
-    if (echostr != ""):
+    echostr = request.args.get('echostr', '')
+    if (echostr != ''):
         return echostr
 
-    signature = request.args.get("signature")
-    timestamp = request.args.get("timestamp")
-    nonce = request.args.get("nonce")
+    signature = request.args.get('signature')
+    timestamp = request.args.get('timestamp')
+    nonce = request.args.get('nonce')
     body_text = request.data
-    print "body======="
+    print 'body======='
     print body_text
-    print "========"
+    print '========'
     wechat = WechatBasic(token = wechat_config['token'], appid = wechat_config['appid'], appsecret = wechat_config['appsecret'])
     # 对签名进行校验
     if wechat.check_signature(signature=signature, timestamp=timestamp, nonce=nonce):
@@ -64,23 +64,35 @@ def index():
             elif message.key == 'GET_RANK':
                 response = response_rank(message.target, message.source)
                 print ranklist
+            elif message.key == 'SET_INFO':
+                response = wechat.response_news([
+                    {
+                        'title': u'信息维护',
+                        'url': u'http://%s:5000%s' % (wechat_config['localAddr'], url_for('main.register', openid = openid))
+                    }])
+            elif message.key == 'ADD_SPORT':
+                response = wechat.response_news([
+                    {
+                        'title': u'添加运动',
+                        'url': u'http://%s:5000%s' % (wechat_config['localAddr'], url_for('main.add_sport', openid = openid))
+                    }])
             else:
-                response = wechat.response_text(u'wrong key.')
+                response = wechat.response_text(u'抱歉，这个功能还在开发中0 0')
         elif message.type == 'subscribe':
             response = wechat.response_text(u'雷吼！')
         else:
             response = wechat.response_text(u'未知')
 
         # 现在直接将 response 变量内容直接作为 HTTP Response 响应微信服务器即可
-        print "response: ========"
+        print 'response: ========'
         print response
-        print "========"
+        print '========'
     return response
 
 @main.route('/step/<openid>')
 def step(openid):
     data = get_steps_by_openid(openid = openid)
-    print "data: ", data
+    print 'data: ', data
     return render_template('steps_num.html', today = data[-1], goal = get_goal_by_openid(openid = openid), data = data)
 
 @main.route('/rate/<openid>')
@@ -93,7 +105,21 @@ def rate_now(openid):
     data = get_rate_now_by_openid(openid = openid)
     return render_template('heart_rate_now.html', data = data)
 
-@main.route('/register/<openid>')
+@main.route('/register/<openid>', methods=['GET', 'POST'])
 def register(openid):
-    return render_template('register.html')
+    print '=========='
+    print 'method = ', request.method
+    print 'age = ', request.args.get('age')
+
+    if request.method == 'GET':
+        return render_template('register.html')
+    print 'age: ', request.args.get('age')
+    return '0'
+
+@main.route('/add_sport/<openid>', methods=['GET', 'POST'])
+def add_sport(openid):
+    print '=========='
+    print 'method = ', request.method
+    return render_template('add_sports.html')
+
 
