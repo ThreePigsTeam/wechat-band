@@ -1,7 +1,10 @@
+# -*- coding: utf-8 -*-
+
 from . import db
 from datetime import *
 
 
+# 用户表
 class User(db.Model):
     __tablename__ = 'users'
     id     = db.Column(db.Integer, primary_key = True)
@@ -20,6 +23,7 @@ class User(db.Model):
         return '<User %r>' % self.openid
 
 
+# 步数表
 class Step(db.Model):
     __tablename__ = 'steps'
     id      = db.Column(db.Integer, primary_key = True)
@@ -28,6 +32,7 @@ class Step(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
 
 
+# 心率表
 class Rate(db.Model):
     __tablename__ = 'rates'
     id      = db.Column(db.Integer, primary_key = True)
@@ -36,6 +41,7 @@ class Rate(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
 
 
+# 运动表
 class Sport(db.Model):
     __tablename__ = 'sports'
     id      = db.Column(db.Integer, primary_key = True)
@@ -44,6 +50,7 @@ class Sport(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
 
 
+# 睡眠表
 class Sleep(db.Model):
     __tablename__ = 'sleeps'
     id         = db.Column(db.Integer, primary_key = True)
@@ -51,17 +58,26 @@ class Sleep(db.Model):
     stop_time  = db.Column(db.DateTime, default = datetime.now())
     user_id    = db.Column(db.Integer, db.ForeignKey('users.id'))
 
-
+# 用户宠物表
 class Pet(db.Model):
     __tablename__ = 'pets'
     id      = db.Column(db.Integer, primary_key = True)
+    name    = db.Column(db.String(200), default = 'cute', nullable = False)
     age     = db.Column(db.Integer, default = 0, nullable = False)
     sex     = db.Column(db.String(10), default = 'male', nullable = False)
     hunger  = db.Column(db.Integer, default = 0, nullable = False)
     health  = db.Column(db.Integer, default = 100, nullable = False)
     status  = db.Column(db.String(20), default = 'fit', nullable = False)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    pet_id  = db.Column(db.Integer, db.ForeignKey('original_pets.id'))
     
+
+# 宠物原型表
+class OriginalPet(db.Model):
+    __tablename__ = 'original_pets'
+    id      = db.Column(db.Integer, primary_key = True)
+    name    = db.Column(db.String(50), nullable = False)
+    pets    = db.relationship('Pet', backref='original_pet', lazy='dynamic')
 
 # User
 
@@ -182,8 +198,30 @@ def add_sport(openid, time = datetime.now(), total = 0):
     pass
 
 
-def get_sport(openid):
+def get_sports(openid):
     pass
+
+
+def get_sports_after(openid, time = datetime.now()):
+    pass
+
+
+# Sleep
+
+def add_sleep(openid, start_time = datetime.now(), stop_time = datetime.now()):
+    pass
+
+
+def get_sleeps(openid):
+    pass
+
+
+def get_sleeps_after(openid, time = datetime.now()):
+    pass
+
+
+# Pet
+def add_pet(openid, )
 
 
 # Goal
