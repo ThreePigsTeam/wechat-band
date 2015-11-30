@@ -182,6 +182,10 @@ def add_sport(openid, time = datetime.now(), total = 0):
     pass
 
 
+def get_sport(openid):
+    pass
+
+
 # Goal
 
 def get_goal_by_openid(openid):
