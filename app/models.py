@@ -13,6 +13,9 @@ class User(db.Model):
     goal   = db.Column(db.Integer, default = 10000)
     steps  = db.relationship('Step', backref='user', lazy='dynamic')
     rates  = db.relationship('Rate', backref='user', lazy='dynamic')
+    sports = db.relationship('Sport', backref='user', lazy='dynamic')
+    sleeps = db.relationship('Sleep', backref='user', lazy='dynamic')
+    pets   = db.relationship('Pet', backref='user', lazy='dynamic')
     def __repr__(self):
         return '<User %r>' % self.openid
 
@@ -33,14 +36,34 @@ class Rate(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
 
 
+class Sport(db.Model):
+    __tablename__ = 'sports'
+    id      = db.Column(db.Integer, primary_key = True)
+    time    = db.Column(db.DateTime, default = datetime.now())
+    total   = db.Column(db.Integer, default = 0, nullable = False)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+
+
+class Sleep(db.Model):
+    __tablename__ = 'sleeps'
+    id         = db.Column(db.Integer, primary_key = True)
+    start_time = db.Column(db.DateTime, default = datetime.now())
+    stop_time  = db.Column(db.DateTime, default = datetime.now())
+    user_id    = db.Column(db.Integer, db.ForeignKey('users.id'))
+
+
 class Pet(db.Model):
     __tablename__ = 'pets'
     id      = db.Column(db.Integer, primary_key = True)
-    age     = db.Column(db.Integer)
-    sex     = db.Column(db.String(10))
-    hunger  = db.Column(db.Integer)
+    age     = db.Column(db.Integer, default = 0, nullable = False)
+    sex     = db.Column(db.String(10), default = 'male', nullable = False)
+    hunger  = db.Column(db.Integer, default = 0, nullable = False)
+    health  = db.Column(db.Integer, default = 100, nullable = False)
+    status  = db.Column(db.String(20), default = 'fit', nullable = False)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     
 
+# User
 
 def add_user(openid, goal = 10000, sex = 'Male', age = 20, height = 170, weight = 65):
     if User.query.filter_by(openid = openid).all() != []:
@@ -70,6 +93,8 @@ def del_user(openid):
     return 0
 
 
+# Step
+
 def add_step(openid, data = 0):
     user = User.query.filter_by(openid = openid).first()
     if user == None:
@@ -81,29 +106,6 @@ def add_step(openid, data = 0):
     db.session.add(step)
     db.session.commit()
     return 0
-
-
-def add_rate(openid, data = 0):
-    user = User.query.filter_by(openid = openid).first()
-    if user == None:
-        return 1
-    time = datetime.now().replace(second = 0, microsecond = 0)
-    time = time.replace(minute = time.minute - time.minute % 10)
-    rate = user.rates.filter_by(time = time).first()
-    if step == None:
-        rate = Rate(time = time, total = 0, user = user)
-    rate.total = data
-    db.session.add(rate)
-    db.session.commit()
-    return 0
-
-
-def get_goal_by_openid(openid):
-    user = User.query.filter_by(openid = openid).first()
-    if user == None:
-        return 0
-    print 'Goal == ', user.goal
-    return user.goal
 
 
 def get_steps_by_openid(openid):
@@ -124,8 +126,21 @@ def get_steps_by_openid(openid):
     return data
 
 
-def get_rate_now_by_openid(openid):
-    return 89
+# Rate
+
+def add_rate(openid, data = 0):
+    user = User.query.filter_by(openid = openid).first()
+    if user == None:
+        return 1
+    time = datetime.now().replace(second = 0, microsecond = 0)
+    time = time.replace(minute = time.minute - time.minute % 10)
+    rate = user.rates.filter_by(time = time).first()
+    if step == None:
+        rate = Rate(time = time, total = 0, user = user)
+    rate.total = data
+    db.session.add(rate)
+    db.session.commit()
+    return 0
 
 
 def get_rates_by_openid(openid):
@@ -155,6 +170,31 @@ def get_rates_by_openid(openid):
     if count > 0 :
         average /= count
     return data, average, highest, lowest
+
+
+def get_rate_now_by_openid(openid):
+    return 89
+
+
+# Sport
+
+def add_sport(openid, time = datetime.now(), total = 0):
+    pass
+
+
+# Goal
+
+def get_goal_by_openid(openid):
+    user = User.query.filter_by(openid = openid).first()
+    if user == None:
+        return 0
+    print 'Goal == ', user.goal
+    return user.goal
+
+
+
+
+
 
 
 

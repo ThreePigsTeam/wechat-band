@@ -7,12 +7,15 @@ from . import main
 from wechat_sdk import WechatBasic
 from config import wechat_config, ranklist
 
+
 def response_rank(source, target):
     return ranklist % (target, source)
+
 
 @main.route('/hello')
 def hello():
     return 'hello, world'
+
 
 @main.route('/', methods=['GET', 'POST'])
 def index():
@@ -89,37 +92,47 @@ def index():
         print '========'
     return response
 
+
 @main.route('/step/<openid>')
 def step(openid):
     data = get_steps_by_openid(openid = openid)
     print 'data: ', data
     return render_template('steps_num.html', today = data[-1], goal = get_goal_by_openid(openid = openid), data = data)
 
+
 @main.route('/rate/<openid>')
 def rate(openid):
     data, average, highest, lowest = get_rates_by_openid(openid = openid)
     return render_template('heart_rate.html', average = average, highest = highest, lowest = lowest, data = data)
+
 
 @main.route('/rate_now/<openid>')
 def rate_now(openid):
     data = get_rate_now_by_openid(openid = openid)
     return render_template('heart_rate_now.html', data = data)
 
+
 @main.route('/register/<openid>', methods=['GET', 'POST'])
 def register(openid):
-    print '=========='
-    print 'method = ', request.method
-    print 'age = ', request.from.get('age')
-
     if request.method == 'GET':
         return render_template('register.html')
-    print 'age: ', request.args.get('age')
-    return '0'
+    else:
+        sex = request.form.get('sex')
+        age = request.form.get('age')
+        height = request.form.get('height')
+        weight = request.form.get('weight')
+        if validate_register(sex = sex, age = age, height = height, weight = weight):
+            set_user(openid = openid, sex = sex, age = age, height = height, weight = weight)
+            return 'success!'
+        else:
+            return render_template('register.html')
+
 
 @main.route('/add_sport/<openid>', methods=['GET', 'POST'])
 def add_sport(openid):
-    print '=========='
-    print 'method = ', request.method
-    return render_template('add_sports.html')
+    if request.method == 'GET':
+        return render_template('add_sports.html')
+    else:
+        
 
 
