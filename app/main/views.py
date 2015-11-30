@@ -109,7 +109,7 @@ def rate_now(openid):
 def register(openid):
     print '=========='
     print 'method = ', request.method
-    print 'age = ', request.args.get('age')
+    print 'age = ', request.from.get('age')
 
     if request.method == 'GET':
         return render_template('register.html')
