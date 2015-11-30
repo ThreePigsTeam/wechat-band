@@ -78,6 +78,9 @@ class OriginalPet(db.Model):
     id      = db.Column(db.Integer, primary_key = True)
     name    = db.Column(db.String(50), nullable = False)
     pets    = db.relationship('Pet', backref='original_pet', lazy='dynamic')
+    price   = db.Column(db.Integer, default = 100000)
+    amount  = db.Column(db.Integer, default = 100)
+
 
 # User
 
@@ -221,7 +224,42 @@ def get_sleeps_after(openid, time = datetime.now()):
 
 
 # Pet
-def add_pet(openid, )
+
+def add_pet(openid, original_pet_id = 1, name = 'cute', age = 0, sex = 'male', hunger = 0, health = 100, status = 'fit'):
+    original_pet = OriginalPet.query.filter_by(id = original_pet_id).first()
+    if original_pet == None:
+        return 1
+
+    user = User.query.filter_by(openid = openid).first()
+    if user == None:
+        return 2
+
+    if user.pets.filter_by(id = original_pet_id).first() != None:
+        return 3
+
+    pet = Pet(user = user, original_pet = original_pet, name = name, age = age, sex = sex, hunger = hunger, health = health, status = status)
+    db.session.add(pet)
+    db.session.commit()
+    return 0
+
+
+def add_original_pet(name, price = 100000, amount = 100):
+    original_pet = OriginalPet(name = name, price = price, amount = amount)
+    db.session.add(original_pet)
+    db.session.commit()
+
+
+def get_original_pets():
+    original_pets = OriginalPet.query.all()
+    return original_pets
+
+
+def get_pets_by_openid(openid):
+    user = User.query.filter_by(openid = openid).first()
+    if user == None:
+        return []
+
+    return user.pets.all()
 
 
 # Goal
