@@ -112,6 +112,9 @@ def rate_now(openid):
     return render_template('heart_rate_now.html', data = data)
 
 
+def validate_register(sex, age, height, weight):
+    return True
+
 @main.route('/register/<openid>', methods=['GET', 'POST'])
 def register(openid):
     if request.method == 'GET':
@@ -123,6 +126,7 @@ def register(openid):
         weight = request.form.get('weight')
         if validate_register(sex = sex, age = age, height = height, weight = weight):
             set_user(openid = openid, sex = sex, age = age, height = height, weight = weight)
+            print '==================success'
             return 'success!'
         else:
             return render_template('register.html')
@@ -133,6 +137,6 @@ def add_sport(openid):
     if request.method == 'GET':
         return render_template('add_sports.html')
     else:
-        
+        pass
 
 

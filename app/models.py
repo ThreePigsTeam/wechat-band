@@ -80,6 +80,7 @@ class OriginalPet(db.Model):
     pets    = db.relationship('Pet', backref='original_pet', lazy='dynamic')
     price   = db.Column(db.Integer, default = 100000)
     amount  = db.Column(db.Integer, default = 100)
+    #nature  = db.Column(db.)
 
 
 # User
