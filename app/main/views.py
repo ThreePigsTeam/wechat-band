@@ -47,20 +47,17 @@ def index():
             response = wechat.response_text(u'图片')
         elif message.type == 'click':
             if message.key == 'GET_STEP':
-                response = wechat.response_news([
-                    {
+                response = wechat.response_news([{
                         'title': u'步数信息',
                         'url': u'http://%s:5000%s' % (wechat_config['localAddr'], url_for('main.step', openid = openid))
                     }])
             elif message.key == 'GET_RATE_CURVE':
-                response = wechat.response_news([
-                    {
+                response = wechat.response_news([{
                         'title': u'心率曲线',
                         'url': u'http://%s:5000%s' % (wechat_config['localAddr'], url_for('main.rate', openid = openid))
                     }])
             elif message.key == 'GET_RATE_NOW':
-                response = wechat.response_news([
-                    {
+                response = wechat.response_news([{
                         'title': u'当前心率',
                         'url': u'http://%s:5000%s' % (wechat_config['localAddr'], url_for('main.rate_now', openid = openid))
                     }])
@@ -68,16 +65,19 @@ def index():
                 response = response_rank(message.target, message.source)
                 print ranklist
             elif message.key == 'SET_INFO':
-                response = wechat.response_news([
-                    {
+                response = wechat.response_news([{
                         'title': u'信息维护',
                         'url': u'http://%s:5000%s' % (wechat_config['localAddr'], url_for('main.register', openid = openid))
                     }])
             elif message.key == 'ADD_SPORT':
-                response = wechat.response_news([
-                    {
+                response = wechat.response_news([{
                         'title': u'添加运动',
                         'url': u'http://%s:5000%s' % (wechat_config['localAddr'], url_for('main.add_sport', openid = openid))
+                    }])
+            elif message.key == 'PET_SYS':
+                response = wechat.response_news([{
+                        'title': u'宠物系统',
+                        'url': u'http://%s:5000%s' % (wechat_config['localAddr'], url_for('main.pet_welcome', openid = openid))
                     }])
             else:
                 response = wechat.response_text(u'抱歉，这个功能还在开发中0 0')
@@ -132,7 +132,7 @@ def register(openid):
             return render_template('register.html')
 
 
-@main.route('/add_sport/<openid>', methods=['GET', 'POST'])
+@main.route('/add_sport/<openid>', methods = ['GET', 'POST'])
 def add_sport(openid):
     if request.method == 'GET':
         return render_template('add_sports.html')
@@ -140,4 +140,8 @@ def add_sport(openid):
         time = request.form.get('date')
         return ''
 
+
+@main.route('pet_welcome/<openid>')
+def pet_welcome(openid):
+    return 'welcome to the pet system'
 

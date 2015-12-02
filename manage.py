@@ -50,6 +50,11 @@ def create_menu():
                         'name': '排行榜',
                         'key' : 'GET_RANK'
                     },
+                    {
+                        'type': 'click',
+                        'name': '宠物系统',
+                        'key' : 'PET_SYS'
+                    }
                 ]
             },
             {
