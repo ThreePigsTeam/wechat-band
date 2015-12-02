@@ -4,10 +4,10 @@
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
     <title>宠物列表</title>
 
-    <link href="./css/bootstrap.css" rel="stylesheet">
-    <link href="./css/pet-style.css" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/bootstrap.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/pet-style.css') }}" rel="stylesheet">
 </head>
-<body style="background-image:url(./img/header.jpg)">
+<body style="background-image:url({{ url_for('static', filename='img/header.jpg') }})">
     <div class="container" style="width:94%;">
         <div class="row intro-tables" id="line_chart" style="">
             <h1 class="box" style="height:auto;color:white;text-align:center;font-size:3em">宠物列表</h1>
@@ -90,6 +90,6 @@
     </div>
 
     <!-- js文件引入 -->
-    <script src="./js/jquery.js"></script>
-    <script src="./js/bootstrap.js"></script>
+    <script src="{{ url_for('static', filename='js/jquery.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.js') }}"></script>
 </body>

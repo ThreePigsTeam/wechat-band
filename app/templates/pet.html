@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+    <title>宠物</title>
+
+    <link href="{{ url_for('static', filename='css/bootstrap.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/color.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/round.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/backimg.css') }}" rel="stylesheet">
+</head>
+<body style="background-image:url({{ url_for('static', filename='img/header.jpg') }})">
+    <div class="container" style="width:94%;">
+
+        <div class="row" style="font-family:'Microsoft YaHei UI';text-align:center;color:white">
+            <h1>获得宠物</h1>
+            <p style="padding:5%;font-size:1.5em">您每日步数大于10000步时，将获得一次免费开精灵球的机会，否则您需要消耗20000步来购买精灵球，开精灵球随机获得精灵。</p>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-offset-2 col-xs-8 col-sm-offset-2 col-sm-8">
+                <img src="{{ url_for('static', filename='img/pet/ball/pokeball.gif') }}" class="img-responsive">
+            </div>
+
+            <div class="col-xs-offset-2 col-xs-8 col-sm-offset-2 col-sm-8">
+                <form>
+                    <button class="btn-block btn-lg btn-default" type="submit" style="font-family:'Microsoft YaHei UI';font-size:2em">免费</button>
+                    <input name="open" type="hidden" value="true">
+                </form>
+            </div>
+        </div>
+
+    </div>
+    <!-- js文件引入 -->
+    <script src="{{ url_for('static', filename='js/jquery.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.js') }}"></script>
+</body>
