@@ -127,7 +127,7 @@ def register(openid):
         if validate_register(sex = sex, age = age, height = height, weight = weight):
             set_user(openid = openid, sex = sex, age = age, height = height, weight = weight)
             print '==================success'
-            return 'success!'
+            return render_template('register.html')
         else:
             return render_template('register.html')
 
