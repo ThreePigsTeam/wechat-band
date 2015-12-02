@@ -120,7 +120,7 @@ def register(openid):
     if request.method == 'GET':
         return render_template('register.html')
     else:
-        sex = request.form.get('sex')
+        sex = request.form.get('gender')
         age = request.form.get('age')
         height = request.form.get('height')
         weight = request.form.get('weight')
@@ -137,6 +137,6 @@ def add_sport(openid):
     if request.method == 'GET':
         return render_template('add_sports.html')
     else:
-        pass
+        return 'success'
 
 

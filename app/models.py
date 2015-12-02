@@ -85,7 +85,7 @@ class OriginalPet(db.Model):
 
 # User
 
-def add_user(openid, goal = 10000, sex = 'Male', age = 20, height = 170, weight = 65):
+def add_user(openid, goal = 10000, sex = 'male', age = 20, height = 170, weight = 65):
     if User.query.filter_by(openid = openid).all() != []:
         return 1
     user = User(openid = openid, goal = goal, sex = sex, age = age, height = height, weight = weight)
@@ -94,7 +94,7 @@ def add_user(openid, goal = 10000, sex = 'Male', age = 20, height = 170, weight 
     return 0
 
 
-def set_user(openid, goal = 10000, sex = 'Male', age = 20, height = 170, weight = 65):
+def set_user(openid, goal = 10000, sex = 'male', age = 20, height = 170, weight = 65):
     if add_user(openid = openid, goal = goal, sex = sex, age = age, height = height, weight = weight) == 0:
         return 0
     user = User.query.filter_by(openid = openid).first()
@@ -103,6 +103,13 @@ def set_user(openid, goal = 10000, sex = 'Male', age = 20, height = 170, weight 
     user.age = age
     user.height = height
     user.weight = weight
+    print '----------set_user------------'
+    print sex
+    print user.sex
+    print user.age
+    print user.height
+    print user.weight
+    print '------------------------------'
     db.session.add(user)
     db.session.commit()
     return 0
