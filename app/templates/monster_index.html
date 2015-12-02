@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <title>口袋怪兽图鉴</title>
+    <style>
+    .ui-page {
+    background: url('.img/header.png') repeat scroll 50% 50% #112233 !important;
+    color: #aabbcc !important;
+    }
+    </style>
+    <link href="./css/bootstrap.css" rel="stylesheet">
+    <link href="./css/monster_index.css" rel="stylesheet">
+    <link href="./css/color.css" rel="stylesheet">
+    <link href="./css/round.css" rel="stylesheet">
+    <link rel="stylesheet" href="./css/font-awesome.min.css">
+    <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+
+</head>
+<body style="background-image:url(./img/header.jpg)">
+    <div class="container" style="width:94%;">
+        <h1 class="box" style="height:auto;color:white;text-align:center;font-size:3em">口袋怪兽图鉴</h1>
+        <div id="BackToTop"><b>^</b></div>
+        <div id="Close"><b>X</b></div>
+        <div id="zoom">
+            <div class="popup"></div>
+            <div class="show">
+                <img class="big" src="img/fetch_picture/001.png" height="85%"/>
+            </div>
+            <div class="detail-container">
+                
+            </div>
+        </div>
+         <ul class="pic-column" id="ul1">
+            <!--Original-->
+            <li class="pic-grid">
+                <h5 style="margin-top:0.5px;margin-bottom:0px;color:red;text-align:left;font-weight:bold;">#001</h5>
+                <div class="info"></div>
+                <img src="img/fetch_picture/001.png" alt="Pic1">
+            </li>
+            <li class="pic-grid">
+                <h5 style="margin-top:0.5px;margin-bottom:0px;color:red;text-align:left;font-weight:bold;">#003</h5>
+                <div class="info"></div>
+                <img src="img/fetch_picture/003.png" alt="Pic3">
+            </li>
+            <li class="pic-grid">
+                <h5 style="margin-top:0.5px;margin-bottom:0px;color:red;text-align:left;font-weight:bold;">#005</h5>
+                <div class="info"></div>
+                <img src="img/fetch_picture/005.png" alt="Pic5">
+            </li>
+            <!--added-->
+        </ul>
+        <ul class="pic-column" id="ul2">
+        <!--Original-->
+            <li class="pic-grid">
+                <h5 style="margin-top:0.5px;margin-bottom:0px;color:red;text-align:left;font-weight:bold;">#002</h5>
+                <div class="info"></div>
+                <img src="img/fetch_picture/002.png" alt="Pic2">
+
+            </li>
+            <li class="pic-grid">
+                <h5 style="margin-top:0.5px;margin-bottom:0px;color:red;text-align:left;font-weight:bold;">#004</h5>
+                <div class="info"></div>
+                <img src="img/fetch_picture/004.png" alt="Pic4">
+            </li>
+            <li class="pic-grid">
+                <h5 style="margin-top:0.5px;margin-bottom:0px;color:red;text-align:left;font-weight:bold;">#006</h5>
+                <div class="info"></div>
+                <img src="img/fetch_picture/006.png" alt="Pic6">
+            </li>
+        <!--added-->
+        </ul>
+    </div>
+
+    <!-- js文件引入 -->
+    <script src="./js/jquery.js"></script>
+    <script src="./js/monster_index.js"></script>
+
+
+</body>
