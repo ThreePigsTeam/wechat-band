@@ -26,7 +26,7 @@
         <h1 class="box" style="height:auto;color:white;text-align:center;font-size:3em;font-family:'Microsoft YaHei UI';">个人信息</h1>
         <div class="col-lg-11 info_form" style="margin-top:7%;color:white;text-align:center;font-size:2em;font-family:'Microsoft YaHei UI';">
             </br>
-            <form method="post" data-ajax="false" action="demo_form.asp">
+            <form method="post" data-ajax="false>
             <label for="gender">性别：</label>
             <fieldset data-role="controlgroup" data-type="horizontal">
             <label for="male">男性</label>
@@ -57,6 +57,10 @@
     <script>
         $(document).bind('mobileinit',function(){
             $.mobile.pushStateEnabled = false;
+        });
+        $(document).bind("mobileinit", function() {
+                       //disable ajax nav
+                       $.mobile.ajaxEnabled=false
         });
     </script>
     <script src="{{ url_for('static', filename='js/jquery.mobile-1.4.5.min.js') }}"></script>
