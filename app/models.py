@@ -94,6 +94,7 @@ class OriginalPet(db.Model):
     price      = db.Column(db.Integer, default = 100000)
     amount     = db.Column(db.Integer, default = 100)
     basic_cost = db.Column(db.Integer, default = 2000)
+    pet_stages = db.relationship('PetStage', backref='original_pet', lazy='dynamic')
     #natures    = db.relationship('Nature', secondary = originalpet_nature, backref = 'original_pets', lazy = 'dynamic')
 
 
@@ -103,6 +104,16 @@ class Nature(db.Model):
     id            = db.Column(db.Integer, primary_key = True)
     name          = db.Column(db.String(30), nullable = False)
     original_pets = db.relationship('OriginalPet', secondary = originalpet_nature, backref = 'natures', lazy = 'dynamic')
+
+
+# 进化阶段
+class PetStage(db.Model):
+    __tablename__ = 'pet_stages'
+    id              = db.Column(db.Integer, primary_key = True)
+    name            = db.Column(db.String(30))
+    original_pet_id = db.Column(db.Integer, db.ForeignKey('original_pets.id'))
+    level_require   = db.Column(db.Integer, default = 1)
+
 
 
 # User
@@ -295,14 +306,21 @@ def get_original_pets():
 
 
 def get_natures():
-    pass
+    natures = Nature.query.all()
+    return [nature.name for nature in natures]
 
 
 
 def get_original_pets_by_nature(nature = None):
     if nature == None:
         return []
-    return []
+
+    nature_name = nature
+    nature = Nature.query.filter_by(name = nature_name).first()
+    if nature == None:
+        return []
+
+    return nature.original_pets.all()
 
 
 def get_pets_by_openid(openid):
