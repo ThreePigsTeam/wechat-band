@@ -47,6 +47,7 @@ class Sport(db.Model):
     id      = db.Column(db.Integer, primary_key = True)
     time    = db.Column(db.DateTime, default = datetime.now())
     total   = db.Column(db.Integer, default = 0, nullable = False)
+    kind    = db.Column(db.Integer, nullable = False)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
 
 
@@ -57,6 +58,7 @@ class Sleep(db.Model):
     start_time = db.Column(db.DateTime, default = datetime.now())
     stop_time  = db.Column(db.DateTime, default = datetime.now())
     user_id    = db.Column(db.Integer, db.ForeignKey('users.id'))
+
 
 # 用户宠物表
 class Pet(db.Model):
@@ -70,7 +72,7 @@ class Pet(db.Model):
     status  = db.Column(db.String(20), default = 'fit', nullable = False)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     pet_id  = db.Column(db.Integer, db.ForeignKey('original_pets.id'))
-    
+
 
 # 宠物原型表
 class OriginalPet(db.Model):

@@ -137,6 +137,7 @@ def add_sport(openid):
     if request.method == 'GET':
         return render_template('add_sports.html')
     else:
-        return 'success'
+        time = request.form.get('date')
+        total = 
 
 
