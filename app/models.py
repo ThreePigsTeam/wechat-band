@@ -4,6 +4,14 @@ from . import db
 from datetime import *
 
 
+originalpet_nature = db.Table('originalpet_nature',
+                              db.Column('original_pet_id',
+                                        db.Integer,
+                                        db.ForeignKey('original_pets.id')),
+                              db.Column('nature_id',
+                                        db.Integer,
+                                        db.ForeignKey('natures.id')))
+
 # 用户表
 class User(db.Model):
     __tablename__ = 'users'
@@ -65,6 +73,9 @@ class Pet(db.Model):
     __tablename__ = 'pets'
     id      = db.Column(db.Integer, primary_key = True)
     name    = db.Column(db.String(200), default = 'cute', nullable = False)
+    exp     = db.Column(db.Integer, default = 0)
+    level   = db.Column(db.Integer, default = 0)
+    basic_cost = db.Column(db.Integer, default = 2000)
     age     = db.Column(db.Integer, default = 0, nullable = False)
     sex     = db.Column(db.String(10), default = 'male', nullable = False)
     hunger  = db.Column(db.Integer, default = 0, nullable = False)
@@ -77,12 +88,21 @@ class Pet(db.Model):
 # 宠物原型表
 class OriginalPet(db.Model):
     __tablename__ = 'original_pets'
-    id      = db.Column(db.Integer, primary_key = True)
-    name    = db.Column(db.String(50), nullable = False)
-    pets    = db.relationship('Pet', backref='original_pet', lazy='dynamic')
-    price   = db.Column(db.Integer, default = 100000)
-    amount  = db.Column(db.Integer, default = 100)
-    #nature  = db.Column(db.)
+    id         = db.Column(db.Integer, primary_key = True)
+    name       = db.Column(db.String(50), nullable = False)
+    pets       = db.relationship('Pet', backref='original_pet', lazy='dynamic')
+    price      = db.Column(db.Integer, default = 100000)
+    amount     = db.Column(db.Integer, default = 100)
+    basic_cost = db.Column(db.Integer, default = 2000)
+    #natures    = db.relationship('Nature', secondary = originalpet_nature, backref = 'original_pets', lazy = 'dynamic')
+
+
+# 宠物属性表
+class Nature(db.Model):
+    __tablename__ = 'natures'
+    id            = db.Column(db.Integer, primary_key = True)
+    name          = db.Column(db.String(30), nullable = False)
+    original_pets = db.relationship('OriginalPet', secondary = originalpet_nature, backref = 'natures', lazy = 'dynamic')
 
 
 # User
@@ -257,15 +277,32 @@ def add_pet(openid, original_pet_id = 1, name = 'cute', age = 0, sex = 'male', h
     return 0
 
 
-def add_original_pet(name, price = 100000, amount = 100):
-    original_pet = OriginalPet(name = name, price = price, amount = amount)
+def add_original_pet(name, price = 100000, amount = 100, basic_cost = 2000, natures = []):
+    original_pet = OriginalPet(name = name, price = price, amount = amount, basic_cost = basic_cost)
     db.session.add(original_pet)
+
+    for nature_name in natures:
+        nature = Nature.query.filter_by(name = nature_name).first()
+        if nature != None:
+            nature.original_pets.append(original_pet)
+
     db.session.commit()
 
 
 def get_original_pets():
     original_pets = OriginalPet.query.all()
     return original_pets
+
+
+def get_natures():
+    pass
+
+
+
+def get_original_pets_by_nature(nature = None):
+    if nature == None:
+        return []
+    return []
 
 
 def get_pets_by_openid(openid):

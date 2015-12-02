@@ -138,6 +138,6 @@ def add_sport(openid):
         return render_template('add_sports.html')
     else:
         time = request.form.get('date')
-        total = 
+        return ''
 
 
