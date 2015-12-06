@@ -117,6 +117,12 @@ class PetStage(db.Model):
     picture         = db.Column(db.String(100))
 
 
+class Level(db.Model):
+    __tablename__ = 'levels'
+    id      = db.Column(db.Integer, primary_key = True)
+    exp     = db.Column(db.Integer)
+
+
 
 # User
 
