@@ -316,10 +316,20 @@ def add_pet_stage(name, original_pet, level_require = 10, picture = '', natures 
 
     for nature_name in natures:
         nature = Nature.query.filter_by(name = nature_name).first()
-        if nature != None:
-            nature.pet_stages.append(pet_stage)
+        if nature == None:
+            add_nature(name = nature_name)
+            nature = Nature.query.filter_by(name = nature_name).first()
+        nature.pet_stages.append(pet_stage)
 
     db.session.commit()
+
+
+def add_nature(name):
+    nature = Nature.query.filter_by(name = name).first()
+    if nature == None:
+        nature = Nature(name = name)
+        db.session.add(nature)
+        db.session.commit()
 
 
 def get_original_pets():

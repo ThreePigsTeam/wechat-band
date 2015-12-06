@@ -13,7 +13,7 @@ migrate = Migrate(app, db)
 
 
 def make_shell_context():
-    return dict(app = app, db = db, User = User, Step = Step, Rate = Rate, Sport = Sport, Sleep = Sleep, Pet = Pet, OriginalPet = OriginalPet, Nature = Nature)
+    return dict(app = app, db = db, User = User, Step = Step, Rate = Rate, Sport = Sport, Sleep = Sleep, Pet = Pet, OriginalPet = OriginalPet, Nature = Nature, PetStage = PetStage)
 manager.add_command("shell", Shell(make_context=make_shell_context))
 manager.add_command('db', MigrateCommand)
 
@@ -27,14 +27,18 @@ def test():
 
 
 @manager.command
-def insert_original_pets():
+def insert_pet_info():
     f = open('pokemon_info.txt', 'r')
     index = 0
     for line in f.readlines():
         index += 1
         info = line.strip().split(' ')
         if info[0] == '0':
-            original_pet = OriginalPet(name = info[1])
+            add_original_pet(name = info[1], picture = '%.3d.png' % index)
+            original_pet = OriginalPet.query.filter_by(name = info[1]).first()
+            level_require = 0
+        add_pet_stage(name = info[1], natures = info[2:], original_pet = original_pet, picture = '%.3d.png' % index, level_require = level_require)
+        level_require += 10
 
 
 @manager.command
