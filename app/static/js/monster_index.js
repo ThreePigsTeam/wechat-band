@@ -63,15 +63,15 @@ function AddPhotoGrid(elem)
     number.style ="margin-top:0.5px;margin-bottom:0px;color:red;text-align:right;font-weight:bold;";
     var photo = document.createElement("img");
     if(order < 10){
-    photo.src = "url({{ url_for('static', filename='img/monster/00" + order +".png') }}";
+    photo.src = "url({{ url_for('static', filename='img/pets/00" + order +".png') }}";
     photo.alt = "pic"+ order;
     }
     else if(order < 100){
-    photo.src = "url({{ url_for('static', filename='img/monster/0" + order +".png') }}";
+    photo.src = "url({{ url_for('static', filename='img/pets/0" + order +".png') }}";
     photo.alt = "pic"+ order;
     }
     else{
-        photo.src = "url({{ url_for('static', filename='img/monster/" + order +".png') }}";
+        photo.src = "url({{ url_for('static', filename='img/pets/" + order +".png') }}";
         photo.alt = "pic"+ order;
     }
     var info = document.createElement("info");
