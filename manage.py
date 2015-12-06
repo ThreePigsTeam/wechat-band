@@ -25,6 +25,18 @@ def test():
     tests = unittest.TestLoader().discover('tests')
     unittest.TextTestRunner(verbosity=2).run(tests)
 
+
+@manager.command
+def insert_original_pets():
+    f = open('pokemon_info.txt', 'r')
+    index = 0
+    for line in f.readlines():
+        index += 1
+        info = line.strip().split(' ')
+        if info[0] == '0':
+            original_pet = OriginalPet(name = info[1])
+
+
 @manager.command
 def create_menu():
     from wechat_sdk import WechatBasic

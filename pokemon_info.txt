@@ -1,0 +1,26 @@
+0 Bulbasaur Grass Poison
+1 Ivysaur Grass Poison
+1 Venusaur Grass Poison
+0 Charmander Fire
+1 Charmeleon Fire
+1 Charizard Fire Flying
+0 Squirtle Water
+1 Wartortle Water
+1 Blastoise Water
+0 Caterpie Bug
+1 Metapod Bug
+1 Butterfree Bug Flying
+0 Weedle Bug Poison
+1 Kakuna Bug Poison
+1 Beedrill Bug Poison
+0 Pidgey Normal Flying
+1 Pidgeotto Normal Flying
+1 Pidgeot Normal Flying
+0 Rattata Normal
+1 Raticate Normal
+0 Spearow Normal Flying
+1 Fearow Normal Flying
+0 Ekans Poison
+1 Arbok Poison
+0 Pikachu Electric
+1 Raichu Electric
