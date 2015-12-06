@@ -4,10 +4,10 @@ from . import db
 from datetime import *
 
 
-originalpet_nature = db.Table('originalpet_nature',
-                              db.Column('original_pet_id',
+petstage_nature = db.Table('petstage_nature',
+                              db.Column('pet_stage_id',
                                         db.Integer,
-                                        db.ForeignKey('original_pets.id')),
+                                        db.ForeignKey('pet_stages.id')),
                               db.Column('nature_id',
                                         db.Integer,
                                         db.ForeignKey('natures.id')))
@@ -93,6 +93,7 @@ class OriginalPet(db.Model):
     pets       = db.relationship('Pet', backref='original_pet', lazy='dynamic')
     price      = db.Column(db.Integer, default = 100000)
     amount     = db.Column(db.Integer, default = 100)
+    picture    = db.Column(db.String(100))
     basic_cost = db.Column(db.Integer, default = 2000)
     pet_stages = db.relationship('PetStage', backref='original_pet', lazy='dynamic')
     #natures    = db.relationship('Nature', secondary = originalpet_nature, backref = 'original_pets', lazy = 'dynamic')
@@ -103,7 +104,7 @@ class Nature(db.Model):
     __tablename__ = 'natures'
     id            = db.Column(db.Integer, primary_key = True)
     name          = db.Column(db.String(30), nullable = False)
-    original_pets = db.relationship('OriginalPet', secondary = originalpet_nature, backref = 'natures', lazy = 'dynamic')
+    pet_stages    = db.relationship('PetStage', secondary = petstage_nature, backref = 'natures', lazy = 'dynamic')
 
 
 # 进化阶段
@@ -113,6 +114,7 @@ class PetStage(db.Model):
     name            = db.Column(db.String(30))
     original_pet_id = db.Column(db.Integer, db.ForeignKey('original_pets.id'))
     level_require   = db.Column(db.Integer, default = 1)
+    picture         = db.Column(db.String(100))
 
 
 
@@ -288,14 +290,34 @@ def add_pet(openid, original_pet_id = 1, name = 'cute', age = 0, sex = 'male', h
     return 0
 
 
-def add_original_pet(name, price = 100000, amount = 100, basic_cost = 2000, natures = []):
-    original_pet = OriginalPet(name = name, price = price, amount = amount, basic_cost = basic_cost)
+def add_original_pet(name, price = 100000, amount = 100, basic_cost = 2000, picture = ''):
+    original_pet = OriginalPet.query.filter_by(name = name).first()
+    if original_pet == None:
+        original_pet = OriginalPet(name = name, price = price, amount = amount, basic_cost = basic_cost, picture = picture)
+    else:
+        original_pet.price = price
+        original_pet.amount = amount
+        original_pet.basic_cost = basic_cost
+        original_pet.picture = picture
+
     db.session.add(original_pet)
+    db.session.commit()
+
+
+def add_pet_stage(name, original_pet, level_require = 10, picture = '', natures = []):
+    pet_stage = PetStage.query.filter_by(name = name).first()
+    if pet_stage == None:
+        pet_stage = PetStage(name = name, original_pet = original_pet, level_require = level_require, picture = picture)
+    else:
+        pet_stage.original_pet = original_pet
+        pet_stage.level_require = level_require
+        pet_stage.picture = picture
+    db.session.add(pet_stage)
 
     for nature_name in natures:
         nature = Nature.query.filter_by(name = nature_name).first()
         if nature != None:
-            nature.original_pets.append(original_pet)
+            nature.pet_stages.append(pet_stage)
 
     db.session.commit()
 
