@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+    <title>当前携带宠物信息</title>
+
+    <link href="{{ url_for('static', filename='css/bootstrap.css') }}" rel="stylesheet">
+</head>
+<body style="background-image:url({{ url_for('static', filename='img/header.jpg') }})">
+    <div class="container" style="">
+
+        <div class="row" style="font-family:'Microsoft YaHei UI';text-align:center;color:white">
+            <h2>当前携带宠物</h2>
+        </div>
+        <div style="height:10px"></div>
+        <div class="row">
+            <div class="col-xs-offset-1 col-xs-10 col-sm-offset-1 col-sm-10" style="background-color:gray;border-radius:10px 10px">
+                <img src="{{ url_for ('static', filename='img/pet/pets') + picture }}" class="img-responsive">
+            </div>
+        </div>
+
+        <div class="row" style="padding:3%">
+            <div class="col-xs-6 col-sm-6" style="font-family:'Microsoft YaHei UI';font-size:1.2em;color:white;text-align:left;padding:3%">
+                <p>名字：{{ name }}</p>
+                <p>性别：{{ sex }}</p>
+                <p>属性：{{ for nature in natures }}
+                    {{ nature + ' ' }}
+                    {{ endfor }}
+                </p>
+            </div>
+
+            <div class="col-xs-6 col-sm-6" style="font-family:'Microsoft YaHei UI';font-size:1.2em;color:white;text-align:left;padding:3%">
+                <p>等级：{{ level }}</p>
+                <p>日消耗：{{ basic_cost }}</p>
+            </div>
+
+            <div class="col-xs-offset-1 col-xs-10 col-sm-offset-1 col-sm-10" style="font-family:'Microsoft YaHei UI';font-size:1.2em;color:white;text-align:left;">
+                <label for="pro">经验：</label>
+                <div id="pro" class="progress">
+                    <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 90%;">
+                        <span>{{ cur_exp }}/{{ req_exp }}</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xs-offset-3 col-xs-6 col-sm-offset-3 col-sm-6">
+                <a class="btn btn-default btn-lg btn-block" href="{{ url_for('templates', filename='my_pet_list.html') }}">更换携带宠物</a>
+            </div>
+
+        </div>
+
+        <div class="row" style="padding:5%">
+            <div class="col-xs-12 col-sm-12" style="background-color:gray;color:white;font-family:'Microsoft YaHei UI';font-size:1.2em;border-radius:10px 10px">
+                <h3>进化路线</h3>
+                <h4>{{ name1 }}</h4>
+                <img class="img-responsive" src="{{ url_for ('static', filename='img/pet/pets') + picture1 }}">
+                <h4>{{ name2 }}</h4>
+                <img class="img-responsive" src="{{ url_for ('static', filename='img/pet/pets') + picture2 }}">
+                <h4>{{ name3 }}</h4>
+                <img class="img-responsive" src="{{ url_for ('static', filename='img/pet/pets') + picture3 }}">
+            </div>
+        </div>
+
+    </div>
+    <!-- js文件引入 -->
+    <script src="{{ url_for('static', filename='js/jquery.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/BackToTop.js') }}"></script>
+    <script>
+        var t = new TOP();
+        t.init("{{ url_for ('static', filename='img/top.png') }}");
+    </script>
+</body>
