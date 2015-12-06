@@ -48,7 +48,7 @@ $(function(){
     });
  });
 
-var maxPics = 700;
+var maxPics = 718;
 var pics = 6;
 
 //載入圖片格
@@ -103,3 +103,9 @@ function InsertPhotoGrid()
 }
 
 
+
+function showDetail()
+{
+    var detailData = ("<p><h2>宝贝名称："+{{monster.name}}+"</h2><p>属性："+{{monster.type}}+"</p>");
+    $(".detail-container").append(detailData);   
+}
