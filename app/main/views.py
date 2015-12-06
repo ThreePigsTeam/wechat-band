@@ -12,6 +12,10 @@ def response_rank(source, target):
     return ranklist % (target, source)
 
 
+def validate_register(sex, age, height, weight):
+    return True
+
+
 @main.route('/hello')
 def hello():
     return 'hello, world'
@@ -112,8 +116,6 @@ def rate_now(openid):
     return render_template('heart_rate_now.html', data = data)
 
 
-def validate_register(sex, age, height, weight):
-    return True
 
 @main.route('/register/<openid>', methods=['GET', 'POST'])
 def register(openid):
@@ -141,7 +143,7 @@ def add_sport(openid):
         return ''
 
 
-@main.route('pet_welcome/<openid>')
+@main.route('/pet_welcome/<openid>')
 def pet_welcome(openid):
     return 'welcome to the pet system'
 
