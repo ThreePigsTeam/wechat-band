@@ -2,9 +2,9 @@ window.onscroll = function(){
     var ScrT = document.body.scrollTop;
     var CliH = document.body.clientHeight;
     var ScrH = document.body.scrollHeight;
-    if(ScrT >=ScrH - CliH - 1000)
+    AddPhotoGrid("ul1");
+    while(ScrT >=ScrH - CliH)
     {
-        AddPhotoGrid("ul1");
         InsertPhotoGrid();
     }
 }
@@ -93,7 +93,7 @@ function InsertPhotoGrid()
     }
             for(i = 0 ; i < 2 ; i++)
             {
-            while(ulgrids[i].clientHeight < containerHeight )
+            if(ulgrids[i].clientHeight < containerHeight )
             {
                 if(pics >= maxPics)
                     return;
