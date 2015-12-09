@@ -149,8 +149,10 @@ def pet_welcome(openid):
 
 @main.route('/my_pet_list/<openid>')
 def my_pet_list(openid):
-    return render_template('my_pet_list.html', openid = openid, have_pet = False)
+    print '=========my_pet_list==========='
 
+    return render_template('my_pet_list.html', openid = openid, have_pet = False)
+    print '==============================='
 
 @main.route('/my_pet_info/<openid>/<petid>')
 def my_pet_info(openid, petid):
