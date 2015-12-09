@@ -81,7 +81,7 @@ def index():
             elif message.key == 'PET_SYS':
                 response = wechat.response_news([{
                         'title': u'宠物系统',
-                        'url': u'http://%s:5000%s' % (wechat_config['localAddr'], url_for('main.pet_welcome', openid = openid))
+                        'url': u'http://%s:5000%s' % (wechat_config['localAddr'], url_for('main.pet_welcome', openid = 'gxd'))
                     }])
             else:
                 response = wechat.response_text(u'抱歉，这个功能还在开发中0 0')
@@ -144,7 +144,7 @@ def add_sport(openid):
 
 @main.route('/pet_welcome/<openid>')
 def pet_welcome(openid):
-    return redirect(url_for('main.my_pet_list', openid = openid))
+    return redirect(url_for('main.my_pet_info', openid = openid, petid = 1))
 
 
 @main.route('/my_pet_list/<openid>')
@@ -155,7 +155,10 @@ def my_pet_list(openid):
 @main.route('/my_pet_info/<openid>/<petid>')
 def my_pet_info(openid, petid):
     pet = get_pet_by_openid_and_petid(openid = openid, petid = petid)
-    pet_stages = [{'name' : stage.name, 'picutre' : stage.picture} for stage in pet.original_pet.pet_stages.all()]
+    print '==============pet============='
+    print pet
+    print '=============================='
+    pet_stages = [{'name' : stage.name, 'picture' : stage.picture} for stage in pet.original_pet.pet_stages.all()]
     return render_template('my_pet_info.html', pet_stages = pet_stages,
                                                 pet = {
                                                     'picture' : pet_stages[pet.stage]['picture'],
@@ -164,7 +167,7 @@ def my_pet_info(openid, petid):
                                                     'natures' : [nature.name for nature in pet.original_pet.pet_stages.all()[pet.stage].natures],
                                                     'level' : pet.level,
                                                     'basic_cost' : pet.basic_cost,
-                                                    'cur_exp' : pet_exp,
+                                                    'cur_exp' : pet.exp,
                                                     'req_exp' : 10000,
                                                     'cur_take' : False
                                                 })
