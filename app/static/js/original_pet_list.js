@@ -77,7 +77,7 @@ function AddPhotoGrid(elem)
     number.innerHTML = "#0" + order;
     }
     else{
-        photo.src = "url({{ url_for('static', filename='img/pets/" + order +".png') }}";
+        photo.src = "{{ url_for('static', filename='img/pets/" + order +".png') }}";
         photo.alt = "pic"+ order;
         number.innerHTML = "#" + order;
     }
