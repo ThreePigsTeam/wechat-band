@@ -164,7 +164,7 @@ def original_pet_info(openid, pet_id):
 
 @main.route('/get_pet/<openid>')
 def get_pet(openid):
-    return render_template('get_pet.html', pet = {name : 'pika', sex : 'male', natures : ['fire', 'ele'], level : 0, basic_cost : 0})
+    return render_template('get_pet.html', pet = {picture : '1.png', name : 'pika', sex : 'male', natures : ['fire', 'ele'], level : 0, basic_cost : 0})
 
 
 
