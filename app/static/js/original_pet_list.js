@@ -67,12 +67,12 @@ function AddPhotoGrid(elem)
     inp.setAttribute("value", num);
     var photo = document.createElement("img");
     if(order < 10){
-    photo.src = "url({{ url_for('static', filename='img/pets/00" + order +".png') }}";
+    photo.src = "{{ url_for('static', filename='img/pets/00" + order +".png') }}";
     photo.alt = "pic"+ order;
     number.innerHTML = "#00" + order;
     }
     else if(order < 100){
-    photo.src = "url({{ url_for('static', filename='img/pets/0" + order +".png') }}";
+    photo.src = "{{ url_for('static', filename='img/pets/0" + order +".png') }}";
     photo.alt = "pic"+ order;
     number.innerHTML = "#0" + order;
     }
