@@ -38,7 +38,7 @@ a:hover, a:active{
 .imgholder{
 	max-width: 100%;
 	max-height: 100%;
-	margin: 1px 0 1px 0;
+	margin: 5px 0 5px 0;
 	overflow: hidden;
 	display: block;
 	background: #E8E8E8;
