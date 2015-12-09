@@ -144,5 +144,12 @@ def add_sport(openid):
 
 @main.route('/pet_welcome/<openid>')
 def pet_welcome(openid):
-    return 'welcome to the pet system'
+    return redirect(url_for('my_pet_list'))
+
+
+@main.route('/my_pet_list/<openid>')
+def my_pet_list(openid):
+    return render_template('my_pet_list.html')
+
+
 
