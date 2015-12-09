@@ -148,13 +148,23 @@ def my_pet_list(openid):
 
 
 @main.route('/my_pet_info/<openid>/<pet_id>')
-def my_pet_info(openid):
+def my_pet_info(openid, pet_id):
     return render_template('my_pet_info.html')
+
+
+@main.route('/original_pet_list/<openid>')
+def original_pet_list(openid):
+    return render_template('original_pet_list.html')
+
+
+@main.route('/original_pet_info/<openid>/<pet_id>')
+def original_pet_info(openid, pet_id):
+    return render_template('original_pet_info.html')
 
 
 @main.route('/get_pet/<openid>')
 def get_pet(openid):
-    return render_template('get_pet.html')
+    return render_template('get_pet.html', pet = {name : 'pika', sex : 'male', natures : ['fire', 'ele'], level : 0, basic_cost : 0})
 
 
 
