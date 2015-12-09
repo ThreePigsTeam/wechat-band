@@ -61,6 +61,10 @@ function AddPhotoGrid(elem)
     li.setAttribute("class","pic-grid");
     li.setAttribute("id", "pet"+num);
     var number = document.createElement("h5");
+    var inp =document.createElement("input");
+    inp.setAttribute("type","hidden");
+    inp.setAttribute("name","original_pet_id");
+    inp.setAttribute("value", num);
     var photo = document.createElement("img");
     if(order < 10){
     photo.src = "url({{ url_for('static', filename='img/pets/00" + order +".png') }}";
@@ -77,14 +81,16 @@ function AddPhotoGrid(elem)
         photo.alt = "pic"+ order;
         number.innerHTML = "#" + order;
     }
-    var info = document.createElement("info");
+    li.appendChild(number);
     li.appendChild(photo);
-    li.appendChild(info);
+    li.appendChild(inp);
     document.getElementById(elem).appendChild(li);
 }
 
 function showDetail()
 {
-    var detailData = ("<p><h2>宝贝名称："+{{monster.name}}+"</h2><p>属性："+{{monster.type}}+"</p>");
+    var detailData = ("<p><h2>宝贝名称："+{{ pet['name'] }}+"</h2><p>属性："+ {% for nature in pet['natures'] %}
+                    {{ nature + ' ' }}
+                    {% endfor %}+"</p><h2>日消耗：" +{{ pet['basic_cost'] }}+"</p>");
     $(".detail-container").append(detailData);   
 }
