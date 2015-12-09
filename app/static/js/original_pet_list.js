@@ -89,6 +89,6 @@ function AddPhotoGrid(elem)
 
 function showDetail()
 {
-    var detailData = ("<p><h2>宝贝名称："+{{monster.name}}+"</h2><p>属性："+{{monster.type}}+"</p>");
+    var detailData = ("<p><h2>宝贝名称："+{{pet.name}}+"</h2><p>属性："+{{pet.type}}+"</p>");
     $(".detail-container").append(detailData);   
 }
