@@ -85,7 +85,6 @@
                 <h5>#002</h5>
                 <div class="info"></div>
                 <img src="{{ url_for('static', filename='img/pets/002.png') }}" alt="Pic2">
-
             </li>
             <li class="pic-grid" id="pet4">
                 <h5>#004</h5>
@@ -103,8 +102,6 @@
     </div>
 
     <!-- js文件引入 -->
-    <script src="./js/jquery.js"></script>
-    <script src="./js/original_pet_list.js"></script>
-
-
+    <script type="text/javascript" src="{{ url_for('static', filename='js/jquery.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/original_pet_list.js') }}"></script>
 </body>
