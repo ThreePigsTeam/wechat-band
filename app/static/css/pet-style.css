@@ -17,11 +17,12 @@ a:hover, a:active{
 }
 
 .grid{
-	margin-left: 30px;
+	margin: 1px 10px;
+	padding: 0;
 	overflow: hidden;
 	display: block;
 	background: #fff;
-	border: 5px solid;
+	border: 1px solid;
 	border-color: #fff;
 	float: left;
 	box-shadow: 0 1px 3px rgba(34,25,25,0.4);
@@ -37,7 +38,7 @@ a:hover, a:active{
 .imgholder{
 	max-width: 100%;
 	max-height: 100%;
-	margin: 15px 0 15px 0;
+	margin: 1px 0 1px 0;
 	overflow: hidden;
 	display: block;
 	background: #E8E8E8;
@@ -67,4 +68,8 @@ a:hover, a:active{
 	-webkit-transform: scale(1, 1);
 	-o-transform: scale(1, 1);
 	opacity: 0.9;
+}
+
+.grid p{
+	font-size: 12px;
 }
