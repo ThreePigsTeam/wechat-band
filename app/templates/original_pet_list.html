@@ -2,12 +2,6 @@
 <head>
     <meta charset="utf-8">
     <title>口袋怪兽图鉴</title>
-    <style>
-    .ui-page {
-    background: url('.img/header.png') repeat scroll 50% 50% #112233 !important;
-    color: #aabbcc !important;
-    }
-    </style>
     <link href="{{ url_for('static', filename='css/bootstrap.css') }}" rel="stylesheet">
     <link href="{{ url_for('static', filename='css/original_pet_list.css') }}" rel="stylesheet">
     <link href="{{ url_for('static', filename='css/color.css') }}" rel="stylesheet">
@@ -16,9 +10,9 @@
     <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
 
 </head>
-<body style="background-image:url({{ url_for('static', filename='img/header.jpg') }})">
+<body style="background-image:{{ url_for('static', filename='img/header.jpg') }})">
 
-    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation" style="background-image:url({{ url_for('static', filename='img/header.jpg') }})">
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation" style="background-image:{{ url_for('static', filename='img/header.jpg') }})">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" 
                 data-target="#navbar-collapse">
@@ -51,7 +45,7 @@
         <div id="zoom">
             <div class="popup"></div>
             <div class="show">
-                <img class="big" src="url({{ url_for('static', filename='img/pets/001.png') }}" height="85%"/>
+                <img class="big" src="{{ url_for('static', filename='img/pets/001.png') }}" height="85%"/>
             </div>
             <div class="detail-container">
                 
