@@ -59,6 +59,7 @@ function AddPhotoGrid(elem)
     var order = ++pics;
     var li = document.createElement("li");
     li.setAttribute("class","pic-grid");
+    li.setAttribute("id", "pet"+num);
     var number = document.createElement("h5");
     var photo = document.createElement("img");
     if(order < 10){
