@@ -52,6 +52,7 @@ body{
     z-index:888;
 }
 
+
 .pic-grid{
     position:relative;
     background: #f2f2f2;
@@ -70,7 +71,14 @@ body{
     width: 100%;
 }
 
-
+.pic-grid h5
+{
+    margin-top:0.5px;
+    margin-bottom:0px;
+    color:red;
+    text-align:left;
+    font-weight:bold;
+}
 
 
 .popup

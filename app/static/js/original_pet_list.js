@@ -2,7 +2,7 @@ window.onscroll = function(){
     var ScrT = document.body.scrollTop;
     var CliH = document.body.clientHeight;
     var ScrH = document.body.scrollHeight;
-    if(ScrT >=ScrH - CliH)
+    if(ScrT >= ScrH - CliH)
     {
         AddPhotoGrid("ul1");
         AddPhotoGrid("ul2");
@@ -59,20 +59,23 @@ function AddPhotoGrid(elem)
     var order = ++pics;
     var li = document.createElement("li");
     li.setAttribute("class","pic-grid");
+    li.setAttribute("id", "pet"+num);
     var number = document.createElement("h5");
-    number.style ="margin-top:0.5px;margin-bottom:0px;color:red;text-align:right;font-weight:bold;";
     var photo = document.createElement("img");
     if(order < 10){
     photo.src = "url({{ url_for('static', filename='img/pets/00" + order +".png') }}";
     photo.alt = "pic"+ order;
+    number.innerHTML = "#00" + order;
     }
     else if(order < 100){
     photo.src = "url({{ url_for('static', filename='img/pets/0" + order +".png') }}";
     photo.alt = "pic"+ order;
+    number.innerHTML = "#0" + order;
     }
     else{
         photo.src = "url({{ url_for('static', filename='img/pets/" + order +".png') }}";
         photo.alt = "pic"+ order;
+        number.innerHTML = "#" + order;
     }
     var info = document.createElement("info");
     li.appendChild(photo);

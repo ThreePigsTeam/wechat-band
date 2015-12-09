@@ -9,7 +9,7 @@
     }
     </style>
     <link href="{{ url_for('static', filename='css/bootstrap.css') }}" rel="stylesheet">
-    <link href="{{ url_for('static', filename='css/monster_index.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/original_pet_list.css') }}" rel="stylesheet">
     <link href="{{ url_for('static', filename='css/color.css') }}" rel="stylesheet">
     <link href="{{ url_for('static', filename='css/round.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/font-awesome.min.css') }}">
@@ -17,6 +17,33 @@
 
 </head>
 <body style="background-image:url({{ url_for('static', filename='img/header.jpg') }})">
+
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation" style="background-image:url({{ url_for('static', filename='img/header.jpg') }})">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" 
+                data-target="#navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#" style="font-family:'Microsoft YaHei UI';font-size:2.5em">狗带</a>
+        </div>
+        <div class="collapse navbar-collapse" id="navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li>
+                    <a href="{{ url_for('main.get_pet', openid = openid) }}" style="font-family:'Microsoft YaHei UI';font-size:2em">开宠物球</a>
+                </li>
+                <li>
+                    <a href="{{ url_for('main.original_pet_list', openid = openid) }}" style="font-family:'Microsoft YaHei UI';font-size:2em">宠物图鉴</a>
+                </li>
+                <li>
+                    <a href="{{ url_for('main.my_pet_list', openid = openid) }}" style="font-family:'Microsoft YaHei UI';font-size:2em">我的宠物</a>
+                </li>
+
+            </ul>
+        </div>
+    </nav>
+
     <div class="container" style="width:94%;">
         <h1 class="box" style="height:auto;color:white;text-align:center;font-size:3em">口袋怪兽图鉴</h1>
         <div id="BackToTop"><b>^</b></div>
@@ -32,24 +59,18 @@
         </div>
          <ul class="pic-column" id="ul1">
             <!--Original-->
-            <li class="pic-grid">
-                <div class="order">                
-                    <h5 style="margin-top:0.5px;margin-bottom:0px;color:red;text-align:left;font-weight:bold;">#001</h5>
-                </div>
+            <li class="pic-grid" id="pet1">
+                <h5>#001</h5>
                 <div class="info"></div>
                 <img src="url({{ url_for('static', filename='img/pets/001.png') }}" alt="Pic1">
             </li>
-            <li class="pic-grid">
-                <div class="order">                
-                    <h5 style="margin-top:0.5px;margin-bottom:0px;color:red;text-align:left;font-weight:bold;">#001</h5>
-                </div>
+            <li class="pic-grid" id="pet3">
+                <h5>#003</h5>
                 <div class="info"></div>
                 <img src="url({{ url_for('static', filename='img/pets/003.png') }}" alt="Pic3">
             </li>
-            <li class="pic-grid">
-                <div class="order">                
-                    <h5 style="margin-top:0.5px;margin-bottom:0px;color:red;text-align:left;font-weight:bold;">#001</h5>
-                </div>
+            <li class="pic-grid" id="pet5">
+                <h5>#005</h5>
                 <div class="info"></div>
                 <img src="url({{ url_for('static', filename='img/pets/005.png') }}" alt="Pic5">
             </li>
@@ -57,25 +78,19 @@
         </ul>
         <ul class="pic-column" id="ul2">
         <!--Original-->
-            <li class="pic-grid">
-                <div class="order">                
-                    <h5 style="margin-top:0.5px;margin-bottom:0px;color:red;text-align:left;font-weight:bold;">#001</h5>
-                </div>
+            <li class="pic-grid" id="pet4">
+                <h5>#002</h5>
                 <div class="info"></div>
                 <img src="url({{ url_for('static', filename='img/pets/002.png') }}" alt="Pic2">
 
             </li>
-            <li class="pic-grid">
-                <div class="order">                
-                    <h5 style="margin-top:0.5px;margin-bottom:0px;color:red;text-align:left;font-weight:bold;">#001</h5>
-                </div>
+            <li class="pic-grid" id="pet4">
+                <h5>#004</h5>
                 <div class="info"></div>
                 <img src="url({{ url_for('static', filename='img/pets/004.png') }}" alt="Pic4">
             </li>
-            <li class="pic-grid">
-                <div class="order">                
-                    <h5 style="margin-top:0.5px;margin-bottom:0px;color:red;text-align:left;font-weight:bold;">#001</h5>
-                </div>
+            <li class="pic-grid" id="pet6">               
+                <h5>#006</h5>
                 <div class="info"></div>
                 <img src="url({{ url_for('static', filename='img/pets/006.png') }}" alt="Pic6">
             </li>
