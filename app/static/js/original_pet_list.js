@@ -89,6 +89,8 @@ function AddPhotoGrid(elem)
 
 function showDetail()
 {
-    var detailData = ("<p><h2>宝贝名称："+{{pet.name}}+"</h2><p>属性："+{{pet.type}}+"</p>");
+    var detailData = ("<p><h2>宝贝名称："+{{ pet['name'] }}+"</h2><p>属性："+ {% for nature in pet['natures'] %}
+                    {{ nature + ' ' }}
+                    {% endfor %}+"</p><h2>日消耗：" +{{ pet['basic_cost'] }}+"</p>");
     $(".detail-container").append(detailData);   
 }
