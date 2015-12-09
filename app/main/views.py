@@ -149,7 +149,7 @@ def pet_welcome(openid):
 
 @main.route('/my_pet_list/<openid>')
 def my_pet_list(openid):
-    return render_template('my_pet_list.html')
+    return render_template('my_pet_list.html', openid = openid, have_pet = False)
 
 
 @main.route('/my_pet_info/<openid>/<petid>')
@@ -159,7 +159,7 @@ def my_pet_info(openid, petid):
     print pet
     print '=============================='
     pet_stages = [{'name' : stage.name, 'picture' : stage.picture} for stage in pet.original_pet.pet_stages.all()]
-    return render_template('my_pet_info.html', pet_stages = pet_stages,
+    return render_template('my_pet_info.html', openid = openid, pet_stages = pet_stages,
                                                 pet = {
                                                     'picture' : pet_stages[pet.stage]['picture'],
                                                     'name' : pet.name,
@@ -175,17 +175,17 @@ def my_pet_info(openid, petid):
 
 @main.route('/original_pet_list/<openid>')
 def original_pet_list(openid):
-    return render_template('original_pet_list.html')
+    return render_template('original_pet_list.html', openid = openid)
 
 
 @main.route('/original_pet_info/<openid>/<petid>')
 def original_pet_info(openid, petid):
-    return render_template('original_pet_info.html')
+    return render_template('original_pet_info.html', openid = openid)
 
 
 @main.route('/get_pet/<openid>')
 def get_pet(openid):
-    return render_template('get_pet.html')
+    return render_template('get_pet.html', openid = openid, free_flag = True)
 
 
 
