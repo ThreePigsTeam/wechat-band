@@ -2,10 +2,10 @@ window.onscroll = function(){
     var ScrT = document.body.scrollTop;
     var CliH = document.body.clientHeight;
     var ScrH = document.body.scrollHeight;
-    AddPhotoGrid("ul1");
-    while(ScrT >=ScrH - CliH)
+    if(ScrT >=ScrH - CliH)
     {
-        InsertPhotoGrid();
+        AddPhotoGrid("ul1");
+        AddPhotoGrid("ul2");
     }
 }
 
@@ -79,30 +79,6 @@ function AddPhotoGrid(elem)
     li.appendChild(info);
     document.getElementById(elem).appendChild(li);
 }
-
-//將圖片格插入Column中
-function InsertPhotoGrid()
-{
-    var ulgrids= new Array();
-    var containerHeight = 0;
-    for(i = 0 ; i < 2 ; i++)
-    {
-        ulgrids[i] = document.getElementById("ul" + (i + 1));
-        if(ulgrids[i].clientHeight > containerHeight)
-            containerHeight = ulgrids[i].clientHeight;
-    }
-            for(i = 0 ; i < 2 ; i++)
-            {
-            if(ulgrids[i].clientHeight < containerHeight )
-            {
-                if(pics >= maxPics)
-                    return;
-                AddPhotoGrid("ul"+ (i + 1));
-                }
-            }
-}
-
-
 
 function showDetail()
 {
