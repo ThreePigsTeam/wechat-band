@@ -10,9 +10,9 @@
     <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
 
 </head>
-<body style="background-image:{{ url_for('static', filename='img/header.jpg') }})">
+<body style="background-image:url({{ url_for('static', filename='img/header.jpg') }})">
 
-    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation" style="background-image:{{ url_for('static', filename='img/header.jpg') }})">
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation" style="background-image:url({{ url_for('static', filename='img/header.jpg') }})">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" 
                 data-target="#navbar-collapse">
