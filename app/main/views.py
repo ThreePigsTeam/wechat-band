@@ -153,6 +153,7 @@ def my_pet_list(openid):
     return render_template('my_pet_list.html', openid = openid, have_pet = True, pet_list = [{'picture' : '001.png', 'name' : 'pika'}, {'picture' : '001.png', 'name' : 'pika'}, {'picture' : '001.png', 'name' : 'pika'}, {'picture' : '001.png', 'name' : 'pika'}, {'picture' : '001.png', 'name' : 'pika'}, {'picture' : '001.png', 'name' : 'pika'}, {'picture' : '001.png', 'name' : 'pika'}, {'picture' : '001.png', 'name' : 'pika'}, {'picture' : '001.png', 'name' : 'pika'}])
     print '==============================='
 
+
 @main.route('/my_pet_info/<openid>/<petid>')
 def my_pet_info(openid, petid):
     pet = get_pet_by_openid_and_petid(openid = openid, petid = petid)
