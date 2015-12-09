@@ -81,7 +81,7 @@ def index():
             elif message.key == 'PET_SYS':
                 response = wechat.response_news([{
                         'title': u'宠物系统',
-                        'url': u'http://%s:5000%s' % (wechat_config['localAddr'], url_for('main.my_pet_list', openid = openid))
+                        'url': u'http://%s:5000%s' % (wechat_config['localAddr'], url_for('main.pet_welcome', openid = openid))
                     }])
             else:
                 response = wechat.response_text(u'抱歉，这个功能还在开发中0 0')
@@ -142,34 +142,31 @@ def add_sport(openid):
         return ''
 
 
+@main.route('/pet_welcome/<openid>')
+def pet_welcome(openid):
+    return redirect(url_for('main.my_pet_list', openid = openid))
+
+
 @main.route('/my_pet_list/<openid>')
 def my_pet_list(openid):
     return render_template('my_pet_list.html')
 
 
-@main.route('/my_pet_info/<openid>/<pet_id>')
-def my_pet_info(openid, pet_id):
-
-    return render_template('my_pet_info.html', pet_stages = [
-                                                {
-                                                    'name' : 'pika',
-                                                    'picture' : '001.png'
-                                                },
-                                                {
-                                                    'name' : 'pikaka',
-                                                    'picture' : '002.png'
-                                                }
-                                                ],
+@main.route('/my_pet_info/<openid>/<petid>')
+def my_pet_info(openid, petid):
+    pet = get_pet_by_openid_and_petid(openid = openid, petid = petid)
+    pet_stages = [{'name' : stage.name, 'picutre' : stage.picture} for stage in pet.original_pet.pet_stages.all()]
+    return render_template('my_pet_info.html', pet_stages = pet_stages,
                                                 pet = {
-                                                'picture' : '001.png',
-                                                'name' : 'pika',
-                                                'sex' : 'male',
-                                                'natures' : ['fire', 'ele'],
-                                                'level' : 0,
-                                                'basic_cost' : 0,
-                                                'cur_exp' : 0,
-                                                'req_exp' : 100,
-                                                'cur_take' : False
+                                                    'picture' : pet_stages[pet.stage]['picture'],
+                                                    'name' : pet.name,
+                                                    'sex' : pet.sex,
+                                                    'natures' : [nature.name for nature in pet.original_pet.pet_stages.all()[pet.stage].natures],
+                                                    'level' : pet.level,
+                                                    'basic_cost' : pet.basic_cost,
+                                                    'cur_exp' : pet_exp,
+                                                    'req_exp' : 10000,
+                                                    'cur_take' : False
                                                 })
 
 
@@ -178,8 +175,8 @@ def original_pet_list(openid):
     return render_template('original_pet_list.html')
 
 
-@main.route('/original_pet_info/<openid>/<pet_id>')
-def original_pet_info(openid, pet_id):
+@main.route('/original_pet_info/<openid>/<petid>')
+def original_pet_info(openid, petid):
     return render_template('original_pet_info.html')
 
 

@@ -83,6 +83,7 @@ class Pet(db.Model):
     status  = db.Column(db.String(20), default = 'fit', nullable = False)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     pet_id  = db.Column(db.Integer, db.ForeignKey('original_pets.id'))
+    stage   = db.Column(db.Integer, default = 0)
 
 
 # 宠物原型表
@@ -360,6 +361,13 @@ def get_pets_by_openid(openid):
         return []
 
     return user.pets.all()
+
+
+def get_pet_by_openid_and_petid(openid, petid):
+    user = User.query.filter_by(openid = openid).first()
+    if user == None:
+        return None
+    return user.pets.filter_by(id = petid).first()
 
 
 def get_exp_by_lv(lv):
