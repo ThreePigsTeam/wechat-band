@@ -91,6 +91,7 @@ function showDetail()
 {
     var detailData = ("<p><h2>宝贝名称："+{{ pet['name'] }}+"</h2><p>属性："+ {% for nature in pet['natures'] %}
                     {{ nature + ' ' }}
-                    {% endfor %}+"</p><h2>日消耗：" +{{ pet['basic_cost'] }}+"</p>");
+                    {% endfor %}+"</p><h2>日消耗：" +{{ pet['basic_cost'] }}+"</p><p><h2>进化路线："+
+                    {% for pet in pet_stages %}+"<h4>"{{ pet['name'] }}+"</h4>"+"<img class='img-responsive' src='" + {{ url_for ('static', filename='img/pets/') + pet['picture'] }}+"'>"+{% endfor %} +"</p>");
     $(".detail-container").append(detailData);   
 }
