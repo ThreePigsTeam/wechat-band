@@ -7,7 +7,7 @@
     <link href="{{ url_for('static', filename='css/bootstrap.css') }}" rel="stylesheet">
     <link href="{{ url_for('static', filename='css/pet-style.css') }}" rel="stylesheet">
 </head>
-<body style="background-image:url(./img/header.jpg)">
+<body style="background-image:url({{ url_for('static', filename='img/header.jpg') }}">
     <div class="container" style="width:94%;">
         <div class="row intro-tables" id="line_chart" style="">
             <h1 class="box" style="height:auto;color:white;text-align:center;font-size:3em">宠物列表</h1>
