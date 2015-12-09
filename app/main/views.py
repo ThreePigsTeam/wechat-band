@@ -147,4 +147,15 @@ def my_pet_list(openid):
     return render_template('my_pet_list.html')
 
 
+@main.route('/my_pet_info/<openid>/<pet_id>')
+def my_pet_info(openid):
+    return render_template('my_pet_info.html')
+
+
+@main.route('/get_pet/<openid>')
+def get_pet(openid):
+    return render_template('get_pet.html')
+
+
+
 
