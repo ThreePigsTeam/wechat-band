@@ -116,7 +116,6 @@ def rate_now(openid):
     return render_template('heart_rate_now.html', data = data)
 
 
-
 @main.route('/register/<openid>', methods=['GET', 'POST'])
 def register(openid):
     if request.method == 'GET':

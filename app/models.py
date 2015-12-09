@@ -117,6 +117,7 @@ class PetStage(db.Model):
     picture         = db.Column(db.String(100))
 
 
+# 等级经验对照表
 class Level(db.Model):
     __tablename__ = 'levels'
     id      = db.Column(db.Integer, primary_key = True)
@@ -144,13 +145,6 @@ def set_user(openid, goal = 10000, sex = 'male', age = 20, height = 170, weight 
     user.age = age
     user.height = height
     user.weight = weight
-    print '----------set_user------------'
-    print sex
-    print user.sex
-    print user.age
-    print user.height
-    print user.weight
-    print '------------------------------'
     db.session.add(user)
     db.session.commit()
     return 0
@@ -348,7 +342,6 @@ def get_natures():
     return [nature.name for nature in natures]
 
 
-
 def get_original_pets_by_nature(nature = None):
     if nature == None:
         return []
@@ -369,6 +362,13 @@ def get_pets_by_openid(openid):
     return user.pets.all()
 
 
+def get_exp_by_lv(lv):
+    level = Level.query.filter_by(id = lv).first()
+    if level == None:
+        return None
+    return level.exp
+
+
 # Goal
 
 def get_goal_by_openid(openid):
@@ -377,8 +377,6 @@ def get_goal_by_openid(openid):
         return 0
     print 'Goal == ', user.goal
     return user.goal
-
-
 
 
 
