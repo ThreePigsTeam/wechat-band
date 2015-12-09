@@ -10,7 +10,7 @@
     <div class="container" style="">
 
         <div class="row" style="font-family:'Microsoft YaHei UI';text-align:center;color:white">
-            <h2>当前携带宠物</h2>
+            <h2>宠物信息</h2>
         </div>
         <div style="height:10px"></div>
         <div class="row">
@@ -44,7 +44,15 @@
             </div>
 
             <div class="col-xs-offset-3 col-xs-6 col-sm-offset-3 col-sm-6">
+                {{ if cur_take }}
                 <a class="btn btn-default btn-lg btn-block" href="{{ url_for('templates', filename='my_pet_list.html') }}">更换携带宠物</a>
+                {{ else }}
+                <form>
+                    <input type="hidden" value="{{ pet_id }}"/>
+                    <input type="hidden" value="true" />
+                    <button type="submit" class="btn btn-default btn-lg btn-block">携带</button>
+                </form>
+                {{ endif }}
             </div>
 
         </div>
