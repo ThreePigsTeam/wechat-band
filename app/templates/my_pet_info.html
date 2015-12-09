@@ -25,7 +25,7 @@
                 <p>性别：{{ pet['sex'] }}</p>
                 <p>属性：{% for nature in pet['natures'] %}
                     {{ nature + ' ' }}
-                    {{ endfor }}
+                    {% endfor %}
                 </p>
             </div>
 
@@ -46,12 +46,12 @@
             <div class="col-xs-offset-3 col-xs-6 col-sm-offset-3 col-sm-6">
                 {% if pet['cur_take'] %}
                 <a class="btn btn-default btn-lg btn-block" href="{{ url_for('templates', filename='my_pet_list.html') }}">更换携带宠物</a>
-                {{ else }}
+                {% else %}
                 <form>
                     <input type="hidden" name="pet_id" value="{{ pet['id'] }}"/>
                     <button type="submit" class="btn btn-default btn-lg btn-block">携带</button>
-                </form>
-                {{ endif }}
+                </form> 
+                {% endif %}
             </div>
 
         </div>
