@@ -149,7 +149,28 @@ def my_pet_list(openid):
 
 @main.route('/my_pet_info/<openid>/<pet_id>')
 def my_pet_info(openid, pet_id):
-    return render_template('my_pet_info.html')
+
+    return render_template('my_pet_info.html', pet_stages = [
+                                                {
+                                                    'name' : 'pika',
+                                                    'picture' : '001.png'
+                                                },
+                                                {
+                                                    'name' : 'pikaka',
+                                                    'picture' : '002.png'
+                                                }
+                                                ],
+                                                pet = {
+                                                'picture' : '001.png',
+                                                'name' : 'pika',
+                                                'sex' : 'male',
+                                                'natures' : ['fire', 'ele'],
+                                                'level' : 0,
+                                                'basic_cost' : 0,
+                                                'cur_exp' : 0,
+                                                'req_exp' : 100,
+                                                'cur_take' : False
+                                                })
 
 
 @main.route('/original_pet_list/<openid>')
@@ -164,19 +185,7 @@ def original_pet_info(openid, pet_id):
 
 @main.route('/get_pet/<openid>')
 def get_pet(openid):
-    return render_template('get_pet.html', name1 = 'pika', name2 = 'pikaka', name3 = 'pikakaka', picture1 = '1.png', picture2 = '2.png', picture3 = '3.png',
-                                            pet = {
-                                                'picture' : '1.png',
-                                                'name' : 'pika',
-                                                'sex' : 'male',
-                                                'natures' : ['fire', 'ele'],
-                                                'level' : 0,
-                                                'basic_cost' : 0,
-                                                'picture' : '1.png',
-                                                'cur_exp' : 0,
-                                                'req_exp' : 100,
-                                                'cur_take' : False
-                                                })
+    return render_template('get_pet.html')
 
 
 
