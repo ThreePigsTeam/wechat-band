@@ -64,7 +64,7 @@ function AddPhotoGrid(elem)
     var inp =document.createElement("input");
     inp.setAttribute("type","hidden");
     inp.setAttribute("name","original_pet_id");
-    inp.setAttribute("value", num);
+    inp.setAttribute("value", order);
     var photo = document.createElement("img");
     if(order < 10){
     photo.src = "{{ url_for('static', filename='img/pets/00" + order +".png') }}";
