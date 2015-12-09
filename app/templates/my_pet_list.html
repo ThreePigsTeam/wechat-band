@@ -4,8 +4,8 @@
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
     <title>宠物列表</title>
 
-    <link href="./css/bootstrap.css" rel="stylesheet">
-    <link href="./css/pet-style.css" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/bootstrap.css') }}" rel="stylesheet">
+    <link href=".{{ url_for('static', filename='css/pet-style.css') }}" rel="stylesheet">
 </head>
 <body style="background-image:url(./img/header.jpg)">
     <div class="container" style="width:94%;">
@@ -33,8 +33,8 @@
     </div>
 
     <!-- js文件引入 -->
-    <script src="./js/jquery.min.js"></script>
-    <script src="./js/blocksit.min.js"></script>
+    <script src="{{ url_for('static', filename='js/jquery.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/blocksit.min.js') }}"></script>
     <script>
         $(document).ready(function(){
             //blocksit define
