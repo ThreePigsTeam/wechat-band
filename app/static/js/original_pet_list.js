@@ -48,6 +48,9 @@ $(function(){
     });
  });
 
+var maxPics = 718;
+var pics = 6;
+
 //載入圖片格
 function AddPhotoGrid(elem,u)
 {
