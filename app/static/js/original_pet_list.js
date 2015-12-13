@@ -84,7 +84,7 @@ function AddPhotoGrid(elem,u)
     document.getElementById(elem).appendChild(li);
 }
 
-function showDetail(pet, image_url)
+function showDetail(pet, pet_stages, image_url)
 {
     var detail_name = ("<p><h2>宝贝名称："+ pet['name'] +"</h2>");
     int n = 0;
