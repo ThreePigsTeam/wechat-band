@@ -56,7 +56,7 @@ function AddPhotoGrid(elem,u)
 {
     if(pics >= maxPics)
         return;
-    order = ++pics;
+    var order = ++pics;
     var li = document.createElement("li");
     li.setAttribute("class","pic-grid");
     li.setAttribute("id", "pet"+order);
