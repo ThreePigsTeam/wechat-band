@@ -45,7 +45,6 @@ body{
     width:48%;
     margin-left:1%;
     margin-right:1%;
-
 }
 
 .pic-grid.pic{
@@ -63,7 +62,6 @@ body{
     display:block;
     cursor:pointer;
     border-radius: 1%;
-
 }
 
 .pic-grid img
