@@ -87,7 +87,7 @@ function AddPhotoGrid(elem,u)
 function showDetail(pet, pet_stages, image_url)
 {
     var detail_name = ("<p><h2>宝贝名称："+ pet['name'] +"</h2>");
-    int n = 0;
+    var n = 0;
     var detail_nature = ("<p><h2>属性： ");
     for(n = 0 ; n < pet['natures'] ; n++)
         detail_nature += (pet['nature'] + ' ');
