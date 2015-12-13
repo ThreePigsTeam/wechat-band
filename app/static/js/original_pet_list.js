@@ -1,4 +1,4 @@
-window.onscroll = function(u){
+window.onscroll = function(){
     var ScrT = document.body.scrollTop;
     var CliH = document.body.clientHeight;
     var ScrH = document.body.scrollHeight;
@@ -52,7 +52,7 @@ var maxPics = 718;
 var pics = 6;
 
 //載入圖片格
-function AddPhotoGrid(elem,u)
+function AddPhotoGrid(elem)
 {
     if(pics >= maxPics)
         return;
