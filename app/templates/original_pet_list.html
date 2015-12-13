@@ -97,9 +97,11 @@
 
     <!-- js文件引入 -->
     <script type="text/javascript" src="{{ url_for('static', filename='js/jquery.js') }}"></script>
+    <script type="text/javascript">
+    var u = "{{ url_for('static', filename='img/pets/') }}";
+    </script>
     <script type="text/javascript" src="{{ url_for('static', filename='js/original_pet_list.js') }}"></script>
     <script type="text/javascript">
-        var u = "{{ url_for('static', filename='img/pets/') }}";
         var image_url = "{{ url_for('static', filename='img/pets/') }}";
         showdetail({{data, image_url}});
     </script>
