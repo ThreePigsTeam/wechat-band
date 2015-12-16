@@ -177,7 +177,7 @@ def my_pet_info(openid, petid):
                                                 })
 
 
-@main.route('/original_pet_list/<openid>')
+@main.route('/original_pet_list/<openid>', methods = ['GET', 'POST'])
 def original_pet_list(openid):
     return render_template('original_pet_list.html', openid = openid)
 
@@ -189,7 +189,10 @@ def original_pet_info(openid, petid):
 
 @main.route('/get_pet/<openid>', methods = ['GET', 'POST'])
 def get_pet(openid):
-    return render_template('get_pet.html', openid = openid, free_flag = True)
+    if request.method == 'POST':
+        originalid, petid = try_get_pet(openid = openid)
+        return redirect(url_for('main.got_pet', openid = openid, originalid = originalid, petid = petid))
+    return render_template('get_pet.html', openid = openid, free_flag = True, today = 0, total = 1000)
 
 
 
