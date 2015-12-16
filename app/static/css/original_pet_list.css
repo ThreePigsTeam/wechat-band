@@ -64,7 +64,7 @@ body{
     border-radius: 1%;
 }
 
-.pic-grid img
+.pic-grid input[type="image"]
 {
     width: 100%;
 }
