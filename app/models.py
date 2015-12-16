@@ -359,8 +359,10 @@ def get_pets_by_openid(openid):
     user = User.query.filter_by(openid = openid).first()
     if user == None:
         return []
-
-    return user.pets.all()
+    pets = user.pets.all()
+    return [{'picture' : pet.original_pet.pet_stages.all()[pet.stage].picture,
+             'name': pet.original_pet.pet_stages.all()[pet.stage].name,
+             'level': pet.level} for pet in pets]
 
 
 def get_pet_by_openid_and_petid(openid, petid):

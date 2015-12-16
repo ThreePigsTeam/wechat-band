@@ -144,13 +144,14 @@ def add_sport(openid):
 
 @main.route('/pet_welcome/<openid>')
 def pet_welcome(openid):
-    return redirect(url_for('main.my_pet_info', openid = openid, petid = 1))
+    return redirect(url_for('main.my_pet_list', openid = openid))
 
 
 @main.route('/my_pet_list/<openid>')
 def my_pet_list(openid):
     print '=========my_pet_list==========='
-    return render_template('my_pet_list.html', openid = openid, have_pet = True, pet_list = [{'picture' : '001.png', 'name' : 'pika'}, {'picture' : '001.png', 'name' : 'pika'}, {'picture' : '001.png', 'name' : 'pika'}, {'picture' : '001.png', 'name' : 'pika'}, {'picture' : '001.png', 'name' : 'pika'}, {'picture' : '001.png', 'name' : 'pika'}, {'picture' : '001.png', 'name' : 'pika'}, {'picture' : '001.png', 'name' : 'pika'}, {'picture' : '001.png', 'name' : 'pika'}])
+    pet_list = get_pets_by_openid(openid = openid)
+    return render_template('my_pet_list.html', openid = openid, have_pet = (pet_list != []), pet_list = pet_list)
     print '==============================='
 
 
