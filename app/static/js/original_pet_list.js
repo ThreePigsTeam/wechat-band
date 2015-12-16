@@ -88,9 +88,11 @@ function AddPhotoGrid(elem)
         photo.alt = "Submit";
         number.innerHTML = "#" + order;
     }
+    var info = document.createElement("info");
     li.appendChild(number);
     li.appendChild(inp);
     li.appendChild(photo);
+    li.appendChild(info);
     fo.appendChild(li);
     document.getElementById(elem).appendChild(fo);
 }
