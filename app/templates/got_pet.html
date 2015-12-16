@@ -40,31 +40,25 @@
     <div class="container" style="width:94%;position:relative;top:50px">
 
         <div class="row" style="font-family:'Microsoft YaHei UI';text-align:center;color:white">
-            <h1>获得宠物</h1>
-            <p style="padding:5%;font-size:1.5em">您每日步数大于10000步时，将获得一次免费开精灵球的机会，否则您需要消耗20000步来购买精灵球，开精灵球随机获得精灵。</p>
+            {% if already_have %}
+            <h1>很遗憾，您已经拥有</h1>
+            <p style="padding:5%;font-size:2.8em">{{ name }}</p>
+            {% else %}
+            <h1>恭喜您获得</h1>
+            <p style="padding:5%;font-size:2.8em">{{ name }}</p>
+            {% endif %}
         </div>
 
         <div class="row">
             <div class="col-xs-offset-2 col-xs-8 col-sm-offset-2 col-sm-8">
-                <img src="{{ url_for('static', filename='img/pet/ball/pokeball.gif') }}" class="img-responsive">
+                <img src="{{ url_for('static', filename='img/pets/'+pet_id) }}" href="{{ url_for('main.my_pet_info', openid = openid, pet_id) }}" class="img-responsive">
+                <p style="color:white;padding:5%;font-size:1.5em">点击图片查看详情</p>
             </div>
 
             <div class="col-xs-offset-2 col-xs-8 col-sm-offset-2 col-sm-8">
-                <form method="post">
-                    {% if free_flag %}
-                    <button class="btn-block btn-lg btn-default" type="submit" style="font-family:'Microsoft YaHei UI';font-size:2em">免费</button>
-                    {% else %}
-                    <button class="btn-block btn-lg btn-default" type="submit" style="font-family:'Microsoft YaHei UI';font-size:1.5em">20000步/个</button>
-                    {% endif %}
-                    <input name="open" type="hidden" value="true">
-                </form>
+                <a class="btn-block btn-lg btn-default" style="font-family:'Microsoft YaHei UI';font-size:2em" href="{{ url_for('main.get_pet', openid = openid) }}">再开一个</a>
             </div>
         </div>
-        
-        <div class="row" style="top:-50px;font-family:'Microsoft YaHei UI';font-size:2em;text-align:right;color:white">
-            {{ today }}/{{ total }}
-        </div>
-
     </div>
     <!-- js文件引入 -->
     <script src="{{ url_for('static', filename='js/jquery.js') }}"></script>

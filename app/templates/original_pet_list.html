@@ -106,8 +106,11 @@
     <script type="text/javascript">
     var u = "{{ url_for('static', filename='img/pets/') }}";
     var image_url = "{{ url_for('static', filename='img/pets/') }}";
-    var pet ="{{pet}}";
-    var pet_stages = "{{pet_stages}}";
+    var pet ={{pet}};
+    var pet_stages = {{pet_stages}};
+    </script>
+    <script>
+        alert("本页面图片较多，建议在Wi-Fi环境下浏览以获取最佳显示效果！");
     </script>
     <script type="text/javascript" src="{{ url_for('static', filename='js/original_pet_list.js') }}"></script>
     
