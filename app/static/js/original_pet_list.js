@@ -1,8 +1,8 @@
 window.onscroll = function(){
-    var ScrT = document.body.scrollTop;
-    var CliH = document.body.clientHeight;
-    var ScrH = document.body.scrollHeight;
-    if(ScrT >= ScrH - CliH)
+    var allHeight = document.documentElement.scrollHeight || document.body.scrollHeight;//body的高度 
+    var hideHeight = document.body.scrollTop || document.documentElement.scrollTop;//卷上去的高度 
+    var screenHeight = document.documentElement.clientHeight;//浏览器可见高度
+    if(hideHeight+screenHeight>=allHeight-40)
     {
         AddPhotoGrid("ul1",u);
         AddPhotoGrid("ul2",u);
