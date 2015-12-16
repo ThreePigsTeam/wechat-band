@@ -21,7 +21,7 @@ window.onscroll = function(){
         $(".popup").hide();
         $(".detail-container").hide();
     })
-    $(document).on('click','.pic-grid input[type="image"]',function()
+    $(document).on('click','.pic-grid :image',function()
     {   
         bigImg='';
         $(".popup").show();
@@ -74,7 +74,7 @@ function AddPhotoGrid(elem)
     }
     else if(order < 100){
     photo.src = u +"0"+ order +".png";
-        photo.alt = "Submit";
+    photo.alt = "Submit";
     number.innerHTML = "#0" + order;
     }
     else{
