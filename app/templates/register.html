@@ -62,7 +62,9 @@
                        //disable ajax nav
                        $.mobile.ajaxEnabled=false
         });
-        $()
+        $("#sub-button").click(function(){
+            alert("储存成功！");
+        })
     </script>
     <script src="{{ url_for('static', filename='js/jquery.mobile-1.4.5.min.js') }}"></script>
 </body>
