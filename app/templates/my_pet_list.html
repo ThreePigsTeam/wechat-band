@@ -17,7 +17,7 @@
                 {% for pet in pet_list %}
                 <div class="grid col-xs-6 col-sm-6">
                     <div class="imgholder">
-                        <a href="">
+                        <a href="{{ url_for('main.my_pet_info', openid = openid) }}" style="font-family:'Microsoft YaHei UI';font-size:2em">
                             <img class="img-responsive" src="{{ url_for ('static', filename='img/pets/') + pet['picture'] }}" />
                         </a>
                     </div>
