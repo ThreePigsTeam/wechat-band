@@ -179,12 +179,19 @@ def my_pet_info(openid, petid):
 
 @main.route('/original_pet_list/<openid>', methods = ['GET', 'POST'])
 def original_pet_list(openid):
-    return render_template('original_pet_list.html', openid = openid)
+    print '=================ORIGINAL==============='
+    print request.method
+    print '===================================='
+    if request.method == 'POST':
+        print '============ORIGINAL:'
+        print request.form.get('original_pet_id')
+        print '======================='
+    return render_template('original_pet_list.html', openid = openid, pet = {'name' : 'cute'})
 
 
 @main.route('/original_pet_info/<openid>/<petid>')
 def original_pet_info(openid, petid):
-    return render_template('original_pet_info.html', openid = openid, )
+    return render_template('original_pet_info.html', openid = openid)
 
 
 @main.route('/get_pet/<openid>', methods = ['GET', 'POST'])
