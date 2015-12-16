@@ -53,42 +53,48 @@
         </div>
         <iframe width="0" height="0" name="actionframe"></iframe>
         <form id="zoom-detail" role="form" method="post" action="" target="actionframe">
-        <input type="hidden" name="form_type" value="original_pet_list">
+        <input type="hidden" name="form_type" value="00original_pet_list">
          <ul class="pic-column" id="ul1">
             <!--Original-->
             <li class="pic-grid" id="pet1">
                 <h5>#001</h5>
                 <div class="info"></div>
-                <input type="image" src="{{ url_for('static', filename='img/pets/001.png') }}" alt="Pic1">
+                <input type="hidden" name="original_pet_id" value="1">
+                <input type="image" src="{{ url_for('static', filename='img/pets/001.png') }}" alt="Submit">
             </li>
             <li class="pic-grid" id="pet3">
                 <h5>#003</h5>
                 <div class="info"></div>
-                <input type="image" src="{{ url_for('static', filename='img/pets/003.png') }}" alt="Pic3">
+                <input type="hidden" name="original_pet_id" value="3">
+                <input type="image" src="{{ url_for('static', filename='img/pets/003.png') }}" alt="Submit">
             </li>
             <li class="pic-grid" id="pet5">
                 <h5>#005</h5>
                 <div class="info"></div>
-                <input type="image" src="{{ url_for('static', filename='img/pets/005.png') }}" alt="Pic5">
+                <input type="hidden" name="original_pet_id" value="5">
+                <input type="image" src="{{ url_for('static', filename='img/pets/005.png') }}" alt="Submit">
             </li>
             <!--added-->
         </ul>
         <ul class="pic-column" id="ul2">
         <!--Original-->
-            <li class="pic-grid" id="pet4">
+            <li class="pic-grid" id="pet2">
                 <h5>#002</h5>
                 <div class="info"></div>
-                <input type="image" src="{{ url_for('static', filename='img/pets/002.png') }}" alt="Pic2">
+                <input type="hidden" name="original_pet_id" value="2">
+                <input type="image" src="{{ url_for('static', filename='img/pets/002.png') }}" alt="Submit">
             </li>
             <li class="pic-grid" id="pet4">
                 <h5>#004</h5>
                 <div class="info"></div>
-                <input type="image" src="{{ url_for('static', filename='img/pets/004.png') }}" alt="Pic4">
+                <input type="hidden" name="original_pet_id" value="4">
+                <input type="image" src="{{ url_for('static', filename='img/pets/004.png') }}" alt="Submit">
             </li>
-            <li class="pic-grid" id="pet6">               
+            <li class="pic-grid" id="pet6">
                 <h5>#006</h5>
                 <div class="info"></div>
-                <input type="image" src="{{ url_for('static', filename='img/pets/006.png') }}" alt="Pic6">
+                <input type="hidden" name="original_pet_id" value="6">
+                <input type="image" src="{{ url_for('static', filename='img/pets/006.png') }}" alt="Submit">
             </li>
         <!--added-->
         </ul>

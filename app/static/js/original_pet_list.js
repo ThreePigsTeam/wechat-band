@@ -69,22 +69,22 @@ function AddPhotoGrid(elem)
     photo.setAttribute("type","image");
     if(order < 10){
     photo.src = u +"00"+ order +".png";
-    photo.alt = "pic"+ order;
+    photo.alt = "Submit";
     number.innerHTML = "#00" + order;
     }
     else if(order < 100){
     photo.src = u +"0"+ order +".png";
-    photo.alt = "pic"+ order;
+        photo.alt = "Submit";
     number.innerHTML = "#0" + order;
     }
     else{
         photo.src = u + order +".png";
-        photo.alt = "pic"+ order;
+        photo.alt = "Submit";
         number.innerHTML = "#" + order;
     }
     li.appendChild(number);
-    li.appendChild(photo);
     li.appendChild(inp);
+    li.appendChild(photo);
     document.getElementById(elem).appendChild(li);
 }
 
