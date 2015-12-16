@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
-from . import db
+from .. import db
+from . import *
 
 
 # 用户表

@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 
-from . import db
+from .. import db
+from . import *
+from User import *
 import random
 
 
