@@ -2,6 +2,7 @@
 
 from . import db
 from datetime import *
+import random
 
 
 petstage_nature = db.Table('petstage_nature',
@@ -282,7 +283,7 @@ def add_pet(openid, original_pet_id = 1, name = 'cute', age = 0, sex = 'male', h
     if user == None:
         return 2
 
-    if user.pets.filter_by(id = original_pet_id).first() != None:
+    if user.pets.filter_by(original_pet = original_pet).first() != None:
         return 3
 
     pet = Pet(user = user, original_pet = original_pet, name = name, age = age, sex = sex, hunger = hunger, health = health, status = status)
@@ -379,6 +380,19 @@ def get_exp_by_lv(lv):
     if level == None:
         return None
     return level.exp
+
+
+def try_get_pet(openid):
+    user = User.query.filter_by(openid = openid).first()
+    if user == None:
+        return -1, -1
+
+    original_pet = random.choice(OriginalPet.query.all())
+    if user.pets.filter_by(original_pet = original_pet).first() != None:
+        return original_pet.id, -1
+
+    add_pet(openid = openid, original_pet_id = original_pet.id)
+    return original_pet.id, user.pets.all()[-1].id
 
 
 # Goal

@@ -191,8 +191,24 @@ def original_pet_info(openid, petid):
 def get_pet(openid):
     if request.method == 'POST':
         originalid, petid = try_get_pet(openid = openid)
+        print '===============try======================================'
+        print originalid, ' ', petid
+        print '====================================================='
         return redirect(url_for('main.got_pet', openid = openid, originalid = originalid, petid = petid))
     return render_template('get_pet.html', openid = openid, free_flag = True, today = 0, total = 1000)
+
+
+@main.route('/got_pet/<openid>/<originalid>/<petid>', methods = ['GET', 'POST'])
+def got_pet(openid, originalid, petid):
+    if int(petid) > 0:
+        print '===========got==============='
+        print petid > 0
+        print '==========================='
+        return redirect(url_for('main.my_pet_info', openid = openid, petid = petid))
+    else:
+        return "sorry..."
+
+
 
 
 
