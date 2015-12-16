@@ -184,7 +184,7 @@ def original_pet_list(openid):
 
 @main.route('/original_pet_info/<openid>/<petid>')
 def original_pet_info(openid, petid):
-    return render_template('original_pet_info.html', openid = openid)
+    return render_template('original_pet_info.html', openid = openid, )
 
 
 @main.route('/get_pet/<openid>', methods = ['GET', 'POST'])
