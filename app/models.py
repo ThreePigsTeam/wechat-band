@@ -360,9 +360,11 @@ def get_pets_by_openid(openid):
     if user == None:
         return []
     pets = user.pets.all()
-    return [{'picture' : pet.original_pet.pet_stages.all()[pet.stage].picture,
+    return [{'id' : pet.id,
+             'picture' : pet.original_pet.pet_stages.all()[pet.stage].picture,
              'name': pet.original_pet.pet_stages.all()[pet.stage].name,
-             'level': pet.level} for pet in pets]
+             'level': pet.level}
+              for pet in pets]
 
 
 def get_pet_by_openid_and_petid(openid, petid):

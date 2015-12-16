@@ -155,15 +155,16 @@ def my_pet_list(openid):
     print '==============================='
 
 
-@main.route('/my_pet_info/<openid>/<petid>')
+@main.route('/my_pet_info/<openid>/<petid>', methods = ['GET', 'POST'])
 def my_pet_info(openid, petid):
     pet = get_pet_by_openid_and_petid(openid = openid, petid = petid)
-    print '==============pet============='
-    print pet
-    print '=============================='
+    if request.method == 'POST':
+        print '=============change cur_take'
+        print pet.id
     pet_stages = [{'name' : stage.name, 'picture' : stage.picture} for stage in pet.original_pet.pet_stages.all()]
     return render_template('my_pet_info.html', openid = openid, pet_stages = pet_stages,
                                                 pet = {
+                                                    'id' : pet.id,
                                                     'picture' : pet_stages[pet.stage]['picture'],
                                                     'name' : pet.name,
                                                     'sex' : pet.sex,
@@ -172,7 +173,7 @@ def my_pet_info(openid, petid):
                                                     'basic_cost' : pet.basic_cost,
                                                     'cur_exp' : pet.exp,
                                                     'req_exp' : 10000,
-                                                    'cur_take' : False
+                                                    'cur_take' : True
                                                 })
 
 
@@ -186,7 +187,7 @@ def original_pet_info(openid, petid):
     return render_template('original_pet_info.html', openid = openid)
 
 
-@main.route('/get_pet/<openid>')
+@main.route('/get_pet/<openid>', methods = ['GET', 'POST'])
 def get_pet(openid):
     return render_template('get_pet.html', openid = openid, free_flag = True)
 
