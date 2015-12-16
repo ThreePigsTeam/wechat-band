@@ -186,7 +186,7 @@ def original_pet_list(openid):
         print '============ORIGINAL:'
         print request.form.get('original_pet_id')
         print '======================='
-    return render_template('original_pet_list.html', openid = openid, pet = {'name' : 'cute'})
+    return render_template('original_pet_list.html', openid = openid, pet = 'ci', pet_stages = 'ddd')
 
 
 @main.route('/original_pet_info/<openid>/<petid>')
