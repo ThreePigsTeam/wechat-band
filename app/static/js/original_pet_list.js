@@ -57,6 +57,12 @@ function AddPhotoGrid(elem)
     if(pics >= maxPics)
         return;
     var order = ++pics;
+    var fo = document.createElement("form");
+    fo.setAttribute("id","zoom-detail");
+    fo.setAttribute("role","form");
+    fo.setAttribute("method","POST");
+    fo.setAttribute("action","");
+    fo.setAttribute("target","actionframe");
     var li = document.createElement("li");
     li.setAttribute("class","pic-grid");
     li.setAttribute("id", "pet"+order);
@@ -82,10 +88,11 @@ function AddPhotoGrid(elem)
         photo.alt = "Submit";
         number.innerHTML = "#" + order;
     }
-    li.appendChild(number);
-    li.appendChild(inp);
-    li.appendChild(photo);
-    document.getElementById(elem).appendChild(li);
+    fo.appendChild(li);
+    fo.appendChild(number);
+    fo.appendChild(inp);
+    fo.appendChild(photo);
+    document.getElementById(elem).appendChild(fo);
 }
 
 function showDetail(pet, pet_stages, image_url)
