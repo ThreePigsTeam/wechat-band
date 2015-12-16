@@ -21,7 +21,7 @@ window.onscroll = function(){
         $(".popup").hide();
         $(".detail-container").hide();
     })
-    $(document).on('click','.pic-grid img',function()
+    $(document).on('click','.pic-grid input[type="image"]',function()
     {   
         bigImg='';
         $(".popup").show();
