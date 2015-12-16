@@ -42,16 +42,16 @@
         <div class="row" style="font-family:'Microsoft YaHei UI';text-align:center;color:white">
             {% if already_have %}
             <h1>很遗憾，您已经拥有</h1>
-            <p style="padding:5%;font-size:2.8em">{{ name }}</p>
+            <p style="padding:5%;font-size:2.8em">{{ pet['name'] }}</p>
             {% else %}
             <h1>恭喜您获得</h1>
-            <p style="padding:5%;font-size:2.8em">{{ name }}</p>
+            <p style="padding:5%;font-size:2.8em">{{ pet['name'] }}</p>
             {% endif %}
         </div>
 
         <div class="row">
             <div class="col-xs-offset-2 col-xs-8 col-sm-offset-2 col-sm-8">
-                <img src="{{ url_for('static', filename='img/pets/'+pet_id) }}" href="{{ url_for('main.my_pet_info', openid = openid, pet_id) }}" class="img-responsive">
+                <img src="{{ url_for('static', filename='img/pets/'+pet['picture']) }}" href="{{ url_for('main.my_pet_info', openid = openid, petid = pet['id']) }}" class="img-responsive">
                 <p style="color:white;padding:5%;font-size:1.5em">点击图片查看详情</p>
             </div>
 

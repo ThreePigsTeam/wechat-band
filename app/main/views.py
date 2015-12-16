@@ -204,9 +204,25 @@ def got_pet(openid, originalid, petid):
         print '===========got==============='
         print petid > 0
         print '==========================='
-        return redirect(url_for('main.my_pet_info', openid = openid, petid = petid))
+        pet = get_pet_by_openid_and_petid(openid = openid, petid = petid)
+        pet_stages = [{'name' : stage.name, 'picture' : stage.picture} for stage in pet.original_pet.pet_stages.all()]
+        return render_template('got_pet.html', already_have = False, openid = openid,
+                                                pet = {
+                                                    'id' : pet.id,
+                                                    'picture' : pet_stages[pet.stage]['picture'],
+                                                    'name' : pet.name,
+                                                })
     else:
-        return "sorry..."
+        original_pet = OriginalPet.query.filter_by(id = originalid).first()
+        user = User.query.filter_by(openid = openid).first()
+        pet = user.pets.filter_by(original_pet = original_pet).first()
+        pet_stages = [{'name' : stage.name, 'picture' : stage.picture} for stage in pet.original_pet.pet_stages.all()]
+        return render_template('got_pet.html', already_have = True, openid = openid,
+                                                pet = {
+                                                    'id' : pet.id,
+                                                    'picture' : pet_stages[pet.stage]['picture'],
+                                                    'name' : pet.name,
+                                                })
 
 
 
