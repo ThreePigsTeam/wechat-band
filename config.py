@@ -48,7 +48,11 @@ config = {
 }
 
 wechat_config = {
+<<<<<<< HEAD
     'localAddr' : 'softeng2.zjzs.levy.at',
+=======
+    'localAddr' : '101.5.106.200',
+>>>>>>> sqlalchemy
     'appid'     : 'wx77e762983e6c2463',
     'appsecret' : '96b447b1f7c4dbec926af2ab474edddc',
     'token'     : 'asdfasdf'
