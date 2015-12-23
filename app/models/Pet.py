@@ -191,6 +191,7 @@ def try_get_pet(openid):
     if user == None:
         return -1, -1
 
+    
     original_pet = random.choice(OriginalPet.query.all())
     if user.pets.filter_by(original_pet = original_pet).first() != None:
         return original_pet.id, -1
