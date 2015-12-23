@@ -57,44 +57,31 @@ function AddPhotoGrid(elem)
     if(pics >= maxPics)
         return;
     var order = ++pics;
-    var fo = document.createElement("form");
-    fo.setAttribute("id","zoom-detail");
-    fo.setAttribute("role","form");
-    fo.setAttribute("method","POST");
-    fo.setAttribute("action","");
-    fo.setAttribute("target","actionframe");
     var li = document.createElement("li");
     li.setAttribute("class","pic-grid");
     li.setAttribute("id", "pet"+order);
     var number = document.createElement("h5");
-    var inp =document.createElement("input");
-    inp.setAttribute("type","hidden");
-    inp.setAttribute("name","original_pet_id");
-    inp.setAttribute("value", order);
-    var photo = document.createElement("input");
-    photo.setAttribute("type","image");
+    var photo = document.createElement("img");
     if(order < 10){
     photo.src = u +"00"+ order +".png";
-    photo.alt = "Submit";
+    photo.alt = "00" + order;
     number.innerHTML = "#00" + order;
     }
     else if(order < 100){
     photo.src = u +"0"+ order +".png";
-    photo.alt = "Submit";
+    photo.alt = "0" + order;
     number.innerHTML = "#0" + order;
     }
     else{
         photo.src = u + order +".png";
-        photo.alt = "Submit";
+        photo.alt = order;
         number.innerHTML = "#" + order;
     }
     var info = document.createElement("info");
     li.appendChild(number);
-    li.appendChild(inp);
     li.appendChild(photo);
     li.appendChild(info);
-    fo.appendChild(li);
-    document.getElementById(elem).appendChild(fo);
+    document.getElementById(elem).appendChild(li);
 }
 
 function showDetail()
