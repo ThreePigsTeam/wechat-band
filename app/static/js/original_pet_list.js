@@ -106,12 +106,8 @@ function showDetail(pet, pet_stages, image_url)
         detail_nature += (pet['nature'] + ' ');
     detail_nature += "</h2>"
     var detail_cost = ("<p><h2>日消耗："+ pet['basic_cost'] +"</h2>");
-    var detail_stages = ("<p><h2>进化路线： ");
-    for(n = 0 ; n < pet['pet_stages']; n++)
-        detail_stages += "<h4>" +  pet['name'] + "</h4>"+"<img class='img-responsive' src='" +image_url+ pet['picture'] +">";
 
     $(".detail-container").append(detail_name);
     $(".detail-container").append(detail_nature);
     $(".detail-container").append(detail_cost);
-    $(".detail-container").append(detail_stages);
 }

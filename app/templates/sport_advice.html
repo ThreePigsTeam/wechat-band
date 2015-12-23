@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;" name="viewport" />
+    <title>运动建议</title>
+
+    <link href="{{ url_for('static', filename='css/bootstrap.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/color.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/round.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/backimg.css') }}" rel="stylesheet">
+</head>
+<body style="background-color:{{ url_for('static', filename='img/header.jpg') }}">
+    <div class="container" style="width:94%;">
+        <div class="row intro-tables" id="line_chart" style="">
+            <h1 class="box" style="height:auto;color:white;text-align:center;font-size:3em">运动建议</h1>
+
+            <div class="col-xs-12 col-sm-12 box2" id="rate" style="color:white;text-align:center;font-family:'Microsoft YaHei UI';font-size:10em">
+                <canvas id="loading" style="top:100px;width:500px;padding-left:30%;display:block;"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <!-- js文件引入 -->
+    <script src="{{ url_for('static', filename='js/jquery.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/draw.js') }}"></script>
+    <script type="text/javascript">
+        new loading2({ "id": "loading" });
+        setTimeout("clearcanvas('loading')", 800);
+        setTimeout("$('#rate').html('{{ data }}')", 850);
+    </script>
+</body>

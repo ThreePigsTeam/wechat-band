@@ -117,11 +117,13 @@
     <script type="text/javascript">
     var u = "{{ url_for('static', filename='img/pets/') }}";
     var image_url = "{{ url_for('static', filename='img/pets/') }}";
-    $(document).on('click','.pic-grid :image',function()
-    {
-        var pet ={{pet}};
-        var pet_stages = {{pet_stages}};
+    var pet;
+    $(document).on('click','.pic-grid :image',function(){
+          $.get("{{ url_for('original_pet_list') }}",function(){
+                pet ={{pet}};
+          })
     });
+
     
     </script>
 
