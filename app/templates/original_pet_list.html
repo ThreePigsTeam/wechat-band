@@ -27,82 +27,70 @@
                 
             </div>
         </div>
-        <iframe width="0" height="0" name="actionframe" style="display:none"></iframe>
          <ul class="pic-column" id="ul1">
             <!--Original-->
-            <form id="zoom-detail" role="form" method="POST" action="" target="actionframe">
-            <li class="pic-grid" id="pet1">
+            <li class="pic-grid" id="1">
                 <h5>#001</h5>
                 <div class="info"></div>
-                <input type="hidden" name="original_pet_id" value="1">
-                <input type="image" src="{{ url_for('static', filename='img/pets/001.png') }}" alt="Submit">
+                <img src="{{ url_for('static', filename='img/pets/001.png') }}" alt="1">
             </li>
-        </form>
-        <form id="zoom-detail" role="form" method="POST" action="" target="actionframe">
-            <li class="pic-grid" id="pet3">
+            <li class="pic-grid" id="3">
                 <h5>#003</h5>
                 <div class="info"></div>
-                <input type="hidden" name="original_pet_id" value="3">
-                <input type="image" src="{{ url_for('static', filename='img/pets/003.png') }}" alt="Submit">
+                <img src="{{ url_for('static', filename='img/pets/003.png') }}" alt="3">
             </li>
-        </form>
-        <form id="zoom-detail" role="form" method="POST" action="" target="actionframe">
-        </form>
-        <form id="zoom-detail" role="form" method="POST" action="" target="actionframe">
-            <li class="pic-grid" id="pet5">
+            <li class="pic-grid" id="5">
                 <h5>#005</h5>
                 <div class="info"></div>
-                <input type="hidden" name="original_pet_id" value="5">
-                <input type="image" src="{{ url_for('static', filename='img/pets/005.png') }}" alt="Submit">
+                <img src="{{ url_for('static', filename='img/pets/005.png') }}" alt="5">
             </li>
-        </form>
             <!--added-->
         </ul>
         <ul class="pic-column" id="ul2">
         <!--Original-->
-        <form id="zoom-detail" role="form" method="POST" action="" target="actionframe">
-            <li class="pic-grid" id="pet2">
+            <li class="pic-grid" id="2">
                 <h5>#002</h5>
                 <div class="info"></div>
-                <input type="hidden" name="original_pet_id" value="2">
-                <input type="image" src="{{ url_for('static', filename='img/pets/002.png') }}" alt="Submit">
+                <img src="{{ url_for('static', filename='img/pets/002.png') }}" alt="2">
             </li>
-        </form>
-        <form id="zoom-detail" role="form" method="POST" action="" target="actionframe">
-            <li class="pic-grid" id="pet4">
+            <li class="pic-grid" id="4">
                 <h5>#004</h5>
                 <div class="info"></div>
-                <input type="hidden" name="original_pet_id" value="4">
-                <input type="image" src="{{ url_for('static', filename='img/pets/004.png') }}" alt="Submit">
+                <img src="{{ url_for('static', filename='img/pets/004.png') }}" alt="4">
             </li>
-        </form>
-        <form id="zoom-detail" role="form" method="POST" action="" target="actionframe">
-            <li class="pic-grid" id="pet6">
+            <li class="pic-grid" id="6">
                 <h5>#006</h5>
                 <div class="info"></div>
-                <input type="hidden" name="original_pet_id" value="6">
-                <input type="image" src="{{ url_for('static', filename='img/pets/006.png') }}" alt="Submit">
+                <img src="{{ url_for('static', filename='img/pets/006.png') }}" alt="6">
             </li>
-        </form>
         <!--added-->
         </ul>
     </div>
 
     <!-- js文件引入 -->
     <script type="text/javascript" src="{{ url_for('static', filename='js/jquery.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.js') }}"></script>
     <script type="text/javascript">
     var u = "{{ url_for('static', filename='img/pets/') }}";
     var image_url = "{{ url_for('static', filename='img/pets/') }}";
     var selected_pet = $("#original_pet_id")[0].value;
     var pet;
-    $(document).on('click','.pic-grid :image',function(){
-          $.getJSON("{{ url_for('main.original_pet_list', openid = openid) }}",function(p){
-                pet = p;
-          }
+    $(function() {
+        $(document).on('click','.pic-grid',function(){      
+            $.getJSON("{{ url_for('main.original_pet_list')}}", {
+            original_pet_id: $('.pic-grid').id,
+            }, function(data) {
+                p = data;
+        });
+        return false;
+        });
     });
+    
     var Detail1 = new showDetail();
     </script>
 
     <script type="text/javascript" src="{{ url_for('static', filename='js/original_pet_list.js') }}"></script>
-    
+
 </body>
+
+
