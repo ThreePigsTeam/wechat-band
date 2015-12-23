@@ -34,10 +34,10 @@ def insert_pet_info():
         index += 1
         info = line.strip().split(' ')
         if info[0] == '0':
-            add_original_pet(name = info[1], picture = '%.3d.png' % index)
+            add_original_pet(name = info[1], picture = '%.3d.png' % index, amount = info[-1])
             original_pet = OriginalPet.query.filter_by(name = info[1]).first()
             level_require = 0
-        add_pet_stage(name = info[1], natures = info[2:], original_pet = original_pet, picture = '%.3d.png' % index, level_require = level_require)
+        add_pet_stage(name = info[1], natures = info[2:len(info)-1], original_pet = original_pet, picture = '%.3d.png' % index, level_require = level_require)
         level_require += 10
 
 

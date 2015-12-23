@@ -191,10 +191,16 @@ def try_get_pet(openid):
     if user == None:
         return -1, -1
 
-    
-    original_pet = random.choice(OriginalPet.query.all())
+    while True:
+        original_pet = random.choice(OriginalPet.query.all())
+        if original_pet.amount > 0:
+            break
+
     if user.pets.filter_by(original_pet = original_pet).first() != None:
         return original_pet.id, -1
 
+    original_pet.amount = original_pet.amount - 1
+    db.session.add(original_pet)
+    db.session.commit()
     add_pet(openid = openid, original_pet_id = original_pet.id, name = original_pet.name)
     return original_pet.id, user.pets.all()[-1].id
