@@ -81,7 +81,7 @@ def index():
             elif message.key == 'PET_SYS':
                 response = wechat.response_news([{
                         'title': u'宠物系统',
-                        'url': u'http://%s:5000%s' % (wechat_config['localAddr'], url_for('main.pet_welcome', openid = 'gxd'))
+                        'url': u'http://%s:5000%s' % (wechat_config['localAddr'], url_for('main.pet_welcome', openid = openid))
                     }])
             else:
                 response = wechat.response_text(u'抱歉，这个功能还在开发中0 0')
