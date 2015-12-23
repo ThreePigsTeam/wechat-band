@@ -79,10 +79,13 @@ def index():
                         'url': u'http://%s%s' % (wechat_config['localAddr'], url_for('main.add_sport', openid = openid))
                     }])
             elif message.key == 'PET_SYS':
-                response = wechat.response_news([{
-                        'title': u'宠物系统',
-                        'url': u'http://%s%s' % (wechat_config['localAddr'], url_for('main.pet_welcome', openid = openid))
-                    }])
+                if exsit_user(message.source):
+                    response = wechat.response_news([{
+                            'title': u'宠物系统',
+                            'url': u'http://%s%s' % (wechat_config['localAddr'], url_for('main.pet_welcome', openid = openid))
+                        }])
+                else:
+                    response = wechat.response_text(u'请先维护个人信息（点击“个人”-“信息维护”）')
             else:
                 response = wechat.response_text(u'抱歉，这个功能还在开发中0 0')
         elif message.type == 'subscribe':
