@@ -190,6 +190,8 @@ def try_get_pet(openid):
     user = User.query.filter_by(openid = openid).first()
     if user == None:
         return -1, -1
+    user.free_flag = False
+    db.session.add(user)
 
     while True:
         original_pet = random.choice(OriginalPet.query.all())
