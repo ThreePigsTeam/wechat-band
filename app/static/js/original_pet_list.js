@@ -97,7 +97,7 @@ function AddPhotoGrid(elem)
     document.getElementById(elem).appendChild(fo);
 }
 
-function showDetail(pet, pet_stages, image_url)
+function showDetail(pet)
 {
     var detail_name = ("<p><h2>宝贝名称："+ pet['name'] +"</h2>");
     var n = 0;
@@ -106,8 +106,6 @@ function showDetail(pet, pet_stages, image_url)
         detail_nature += (pet['nature'] + ' ');
     detail_nature += "</h2>"
     var detail_cost = ("<p><h2>日消耗："+ pet['basic_cost'] +"</h2>");
-
-    $(".detail-container").append(detail_name);
-    $(".detail-container").append(detail_nature);
-    $(".detail-container").append(detail_cost);
+    var detail_text = detail_name + detail_nature + detail_cost;
+    $(".detail-container").text(detail_text);
 }
