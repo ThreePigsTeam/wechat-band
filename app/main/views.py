@@ -44,51 +44,51 @@ def index():
         
         if message.type == 'text':
             if message.content == 'wechat':
-                response = wechat.response_text(u'^_^')
+                response = wechat.response_text('^_^')
             else:
-                response = wechat.response_text(u'文字')
+                response = wechat.response_text('文字')
         elif message.type == 'image':
-            response = wechat.response_text(u'图片')
+            response = wechat.response_text('图片')
         elif message.type == 'click':
             if message.key == 'GET_STEP':
                 response = wechat.response_news([{
-                        'title': u'步数信息',
-                        'url': u'http://%s%s' % (wechat_config['localAddr'], url_for('main.step', openid = openid))
+                        'title': '步数信息',
+                        'url': 'http://%s%s' % (wechat_config['localAddr'], url_for('main.step', openid = openid))
                     }])
             elif message.key == 'GET_RATE_CURVE':
                 response = wechat.response_news([{
-                        'title': u'心率曲线',
-                        'url': u'http://%s%s' % (wechat_config['localAddr'], url_for('main.rate', openid = openid))
+                        'title': '心率曲线',
+                        'url': 'http://%s%s' % (wechat_config['localAddr'], url_for('main.rate', openid = openid))
                     }])
             elif message.key == 'GET_RATE_NOW':
                 response = wechat.response_news([{
-                        'title': u'当前心率',
-                        'url': u'http://%s%s' % (wechat_config['localAddr'], url_for('main.rate_now', openid = openid))
+                        'title': '当前心率',
+                        'url': 'http://%s%s' % (wechat_config['localAddr'], url_for('main.rate_now', openid = openid))
                     }])
             elif message.key == 'GET_RANK':
                 response = response_rank(message.target, message.source)
                 print ranklist
             elif message.key == 'SET_INFO':
                 response = wechat.response_news([{
-                        'title': u'信息维护',
-                        'url': u'http://%s%s' % (wechat_config['localAddr'], url_for('main.register', openid = openid))
+                        'title': '信息维护',
+                        'url': 'http://%s%s' % (wechat_config['localAddr'], url_for('main.register', openid = openid))
                     }])
             elif message.key == 'ADD_SPORT':
                 response = wechat.response_news([{
-                        'title': u'添加运动',
-                        'url': u'http://%s%s' % (wechat_config['localAddr'], url_for('main.add_sport', openid = openid))
+                        'title': '添加运动',
+                        'url': 'http://%s%s' % (wechat_config['localAddr'], url_for('main.add_sport', openid = openid))
                     }])
             elif message.key == 'PET_SYS':
                 response = wechat.response_news([{
-                        'title': u'宠物系统',
-                        'url': u'http://%s%s' % (wechat_config['localAddr'], url_for('main.pet_welcome', openid = 'gxd'))
+                        'title': '宠物系统',
+                        'url': 'http://%s%s' % (wechat_config['localAddr'], url_for('main.pet_welcome', openid = 'gxd'))
                     }])
             else:
-                response = wechat.response_text(u'抱歉，这个功能还在开发中0 0')
+                response = wechat.response_text('抱歉，这个功能还在开发中0 0')
         elif message.type == 'subscribe':
-            response = wechat.response_text(u'雷吼！')
+            response = wechat.response_text('雷吼！')
         else:
-            response = wechat.response_text(u'未知')
+            response = wechat.response_text('未知')
 
         # 现在直接将 response 变量内容直接作为 HTTP Response 响应微信服务器即可
         print 'response: ========'
