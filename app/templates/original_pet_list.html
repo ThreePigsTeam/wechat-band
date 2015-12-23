@@ -77,7 +77,7 @@
     var pet;
     $(function() {
         $(document).on('click','.pic-grid',function(){      
-            $.getJSON("{{ url_for('_')}}", {
+            $.getJSON("{{ url_for('main._get_pet_info')}}", {
             original_pet_id: $('.pic-grid').attr('id'),
             }, function(data) {
                 p = data.pet;
