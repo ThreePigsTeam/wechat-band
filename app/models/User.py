@@ -25,6 +25,10 @@ class User(db.Model):
 
 # User
 
+def exsit_user(openid):
+    return User.query.filter_by(openid = openid).first() != None
+
+
 def add_user(openid, goal = 10000, sex = 'male', age = 20, height = 170, weight = 65):
     if User.query.filter_by(openid = openid).all() != []:
         return 1

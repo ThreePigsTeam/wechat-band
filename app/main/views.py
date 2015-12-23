@@ -196,6 +196,8 @@ def original_pet_info(openid, petid):
 
 @main.route('/get_pet/<openid>', methods = ['GET', 'POST'])
 def get_pet(openid):
+    if not exsit_user(openid = openid):
+        return render_template('404.html'), 404
     if request.method == 'POST':
         originalid, petid = try_get_pet(openid = openid)
         print '===============try======================================'
