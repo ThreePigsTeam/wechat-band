@@ -77,8 +77,8 @@
     var pet;
     $(function() {
         $(document).on('click','.pic-grid',function(){      
-            $.getJSON("{{ url_for('main._get_pet_info')}}", {
-            pet_stage_id: $('.pic-grid').id,
+            $.getJSON("{{ url_for('main.original_pet_list')}}", {
+            original_pet_id: $('.pic-grid').attr('id'),
             }, function(data) {
                 p = data.pet;
         });

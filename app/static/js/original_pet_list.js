@@ -92,7 +92,6 @@ function showDetail()
     for(n = 0 ; n < pet['natures'] ; n++)
         detail_nature += (pet['nature'] + ' ');
     detail_nature += "</h2>"
-    var detail_cost = ("<p><h2>日消耗："+ pet['basic_cost'] +"</h2>");
-    var detail_text = detail_name + detail_nature + detail_cost;
+    var detail_text = detail_name + detail_nature;
     $(".detail-container").text(detail_text);
 }
