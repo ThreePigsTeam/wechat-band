@@ -93,11 +93,13 @@
     <script type="text/javascript">
     var u = "{{ url_for('static', filename='img/pets/') }}";
     var image_url = "{{ url_for('static', filename='img/pets/') }}";
+    var selected_pet = $("#original_pet_id")[0].value;
     var pet;
     $(document).on('click','.pic-grid :image',function(){
-          $.get("{{ url_for('original_pet_list') }}",function(){
-                pet ={{pet}};
-          })
+          $.getJSON("{{ url_for('original_pet_list') }}" + selected_pet,function(p)
+          {
+                pet = p;
+          }
     });
 
     
