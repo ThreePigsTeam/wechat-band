@@ -19,11 +19,20 @@ class User(db.Model):
     sports = db.relationship('Sport', backref='user', lazy='dynamic')
     sleeps = db.relationship('Sleep', backref='user', lazy='dynamic')
     pets   = db.relationship('Pet', backref='user', lazy='dynamic')
+    free_flag = db.Column(db.Boolean, default = False)
     def __repr__(self):
         return '<User %r>' % self.openid
 
 
 # User
+
+
+def get_free_flag(openid):
+    user = User.query.filter_by(openid = openid).first()
+    if user == None:
+        return False
+    return user.free_flag
+
 
 def exsit_user(openid):
     return User.query.filter_by(openid = openid).first() != None

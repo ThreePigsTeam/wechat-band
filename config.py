@@ -44,7 +44,7 @@ config = {
     'testing': TestingConfig,
     'production': ProductionConfig,
 
-    'default': ProductionConfig
+    'default': DevelopmentConfig
 }
 
 wechat_config = {

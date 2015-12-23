@@ -204,7 +204,7 @@ def get_pet(openid):
         print originalid, ' ', petid
         print '====================================================='
         return redirect(url_for('main.got_pet', openid = openid, originalid = originalid, petid = petid))
-    return render_template('get_pet.html', openid = openid, free_flag = True, today = 0, total = 1000)
+    return render_template('get_pet.html', openid = openid, free_flag = get_free_flag(openid = openid), today = 0, total = 1000)
 
 
 @main.route('/got_pet/<openid>/<originalid>/<petid>', methods = ['GET', 'POST'])
@@ -234,7 +234,9 @@ def got_pet(openid, originalid, petid):
                                                 })
 
 
-
-
+@main.route('/_get_pet_info', methods = ['GET', 'POST'])
+def _get_pet_info():
+    pet_stage_id = request.args.get('pet_stage_id', 0, type=int)
+    return jsonify(pet = 1)
 
 

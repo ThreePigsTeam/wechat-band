@@ -42,6 +42,22 @@ def insert_pet_info():
 
 
 @manager.command
+def set_free_flag_true():
+    for user in User.query.all():
+        user.free_flag = True
+        db.session.add(user)
+    db.session.commit()
+
+
+@manager.command
+def set_free_flag_false():
+    for user in User.query.all():
+        user.free_flag = False
+        db.session.add(user)
+    db.session.commit()
+
+
+@manager.command
 def create_menu():
     from wechat_sdk import WechatBasic
     from config import wechat_config
