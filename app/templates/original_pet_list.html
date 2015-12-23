@@ -96,7 +96,7 @@
     var selected_pet = $("#original_pet_id")[0].value;
     var pet;
     $(document).on('click','.pic-grid :image',function(){
-          $.getJSON("{{ url_for('original_pet_list') }}",function(p){
+          $.getJSON("{{ url_for('main.original_pet_list', openid = openid) }}",function(p){
                 pet = p;
           }
     });
