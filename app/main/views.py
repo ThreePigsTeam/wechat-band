@@ -92,7 +92,7 @@ def index():
 
         # 现在直接将 response 变量内容直接作为 HTTP Response 响应微信服务器即可
         print 'response: ========'
-        print response
+        #print response
         print '========'
     return response
 
