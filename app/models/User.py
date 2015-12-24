@@ -76,6 +76,6 @@ def get_goal_by_openid(openid):
     user = User.query.filter_by(openid = openid).first()
     if user == None:
         return 0
-    print 'Goal == ', user.goal
+    #print 'Goal == ', user.goal
     return user.goal
 
