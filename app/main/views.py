@@ -122,8 +122,13 @@ def rate_now(openid):
 
 @main.route('/register/<openid>', methods=['GET', 'POST'])
 def register(openid):
+    print request.method
     if request.method == 'GET':
-        return render_template('register.html')
+        if exist_user(openid = openid):
+            user_info = get_user_info_by_openid(openid = openid)
+            return render_template('register.html', sex = user_info['sex'], age = user_info['age'], height = user_info['height'], weight = user_info['weight'])
+        else:
+            return render_template('register.html')
     else:
         sex = request.form.get('gender')
         age = request.form.get('age')
@@ -131,7 +136,6 @@ def register(openid):
         weight = request.form.get('weight')
         if validate_register(sex = sex, age = age, height = height, weight = weight):
             set_user(openid = openid, sex = sex, age = age, height = height, weight = weight)
-            print '==================success'
             return render_template('register.html')
         else:
             return render_template('register.html')
@@ -153,18 +157,16 @@ def pet_welcome(openid):
 
 @main.route('/my_pet_list/<openid>')
 def my_pet_list(openid):
-    print '=========my_pet_list==========='
     pet_list = get_pets_by_openid(openid = openid)
     return render_template('my_pet_list.html', openid = openid, have_pet = (pet_list != []), pet_list = pet_list)
-    print '==============================='
 
 
-@main.route('/my_pet_info/<openid>/<petid>', methods = ['GET', 'POST'])
+@main.route('/my_pet_info/<openid>/<petid>')
 def my_pet_info(openid, petid):
     pet = get_pet_by_openid_and_petid(openid = openid, petid = petid)
-    if request.method == 'POST':
-        print '=============change cur_take'
-        print pet.id
+#    if request.method == 'POST':
+#        print '=============change cur_take'
+#        print pet.id
     pet_stages = [{'name' : stage.name, 'picture' : stage.picture} for stage in pet.original_pet.pet_stages.all()]
     return render_template('my_pet_info.html', openid = openid, pet_stages = pet_stages,
                                                 pet = {
@@ -181,15 +183,8 @@ def my_pet_info(openid, petid):
                                                 })
 
 
-@main.route('/original_pet_list/<openid>', methods = ['GET', 'POST'])
+@main.route('/original_pet_list/<openid>')
 def original_pet_list(openid):
-    print '=================ORIGINAL==============='
-    print request.method
-    print '===================================='
-    if request.method == 'POST':
-        print '============ORIGINAL:'
-        print request.form.get('original_pet_id')
-        print '======================='
     return render_template('original_pet_list.html', openid = openid, pet = 'ci', pet_stages = 'ddd')
 
 
@@ -204,9 +199,6 @@ def get_pet(openid):
         return render_template('404.html'), 404
     if request.method == 'POST':
         originalid, petid = try_get_pet(openid = openid)
-        print '===============try======================================'
-        print originalid, ' ', petid
-        print '====================================================='
         return redirect(url_for('main.got_pet', openid = openid, originalid = originalid, petid = petid))
     return render_template('get_pet.html', openid = openid, free_flag = get_free_flag(openid = openid), today = 0, total = 1000)
 
@@ -214,9 +206,6 @@ def get_pet(openid):
 @main.route('/got_pet/<openid>/<originalid>/<petid>', methods = ['GET', 'POST'])
 def got_pet(openid, originalid, petid):
     if int(petid) > 0:
-        print '===========got==============='
-        print petid > 0
-        print '==========================='
         pet = get_pet_by_openid_and_petid(openid = openid, petid = petid)
         pet_stages = [{'name' : stage.name, 'picture' : stage.picture} for stage in pet.original_pet.pet_stages.all()]
         return render_template('got_pet.html', already_have = False, openid = openid,

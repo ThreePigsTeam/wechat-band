@@ -35,7 +35,14 @@ def get_free_flag(openid):
 
 
 def exist_user(openid):
-    return User.query.filter_by(openid = openid).first() != None
+    return (User.query.filter_by(openid = openid).first() != None)
+
+
+def get_user_info_by_openid(openid):
+    user = User.query.filter_by(openid = openid).first()
+    if user == None:
+        return None
+    return {'sex': user.sex, 'age': user.age, 'height': user.height, 'weight': user.weight}
 
 
 def add_user(openid, goal = 10000, sex = 'male', age = 20, height = 170, weight = 65):
