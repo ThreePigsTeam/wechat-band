@@ -34,7 +34,7 @@ def get_free_flag(openid):
     return user.free_flag
 
 
-def exsit_user(openid):
+def exist_user(openid):
     return User.query.filter_by(openid = openid).first() != None
 
 

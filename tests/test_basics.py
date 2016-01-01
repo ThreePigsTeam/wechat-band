@@ -34,13 +34,13 @@ class UserTestCase(unittest.TestCase):
         db.drop_all()
         self.app_context.pop()
     def test_add_user(self):
-        self.assertFalse(exsit_user(openid = 'gxd'))
+        self.assertFalse(exist_user(openid = 'gxd'))
         add_user(openid = 'gxd')
-        self.assertTrue(exsit_user(openid = 'gxd'))
+        self.assertTrue(exist_user(openid = 'gxd'))
     def test_del_user(self):
         add_user(openid = 'gxd')
         del_user(openid = 'gxd')
-        self.assertFalse(exsit_user(openid = 'gxd'))
+        self.assertFalse(exist_user(openid = 'gxd'))
     def test_set_user(self):
         set_user(openid = 'gxd', goal = 1234)
         self.assertTrue(get_goal_by_openid(openid = 'gxd') == 1234)
