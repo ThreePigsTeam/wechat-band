@@ -35,6 +35,7 @@ def index():
     print body_text
     print '========'
     wechat = WechatBasic(token = wechat_config['token'], appid = wechat_config['appid'], appsecret = wechat_config['appsecret'])
+    wechat.grant_token()
     # 对签名进行校验
     if wechat.check_signature(signature=signature, timestamp=timestamp, nonce=nonce):
         # 对 XML 数据进行解析 (必要, 否则不可执行 response_text, response_image 等操作)
